@@ -95,9 +95,9 @@ class DalManagerConfig {
                 'actUsersActionStatisticsPDO' => 'DAL\Factory\PDO\ActUsersActionStatisticsFactory',
                 'sysNotificationRestservicesPDO' => 'DAL\Factory\PDO\SysNotificationRestservicesFactory',
                 'sysSectorsPDO' => 'DAL\Factory\PDO\SysSectorsFactory',
-                'mblLoginPDO' => 'DAL\Factory\PDO\MblLoginFactory',
-                'mobilSettingsPDO' => 'DAL\Factory\PDO\MobilSettingsFactory',
-                'mobilSetDbConfigxPDO' => 'DAL\Factory\PDO\MobilSetDbConfigxFactory',
+     
+                
+                
                 
                 
             ],
