@@ -128,18 +128,7 @@ $app->get("/pkInsert_infoUsers/", function () use ($app ) {
         throw new Exception('rest api "pkInsert_infoUsers" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
 
-    $vLanguageCode = 'tr';
-    if (isset($_GET['language_code'])) {
-        $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
-    }
-    $vPreferredLanguage = 647;
-    if (isset($_GET['preferred_language'])) {
-        $stripper->offsetSet('preferred_language', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['preferred_language']));
-    }
-    $vProfilePublic = 0;
-    if (isset($_GET['profile_public'])) {
-        $stripper->offsetSet('profile_public', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['profile_public']));
-    }
+                        
     $vName = NULL;
     if (isset($_GET['name'])) {
         $stripper->offsetSet('name', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, $app, $_GET['name']));
@@ -160,17 +149,13 @@ $app->get("/pkInsert_infoUsers/", function () use ($app ) {
     if (isset($_GET['auth_email'])) {
         $stripper->offsetSet('auth_email', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, $app, $_GET['auth_email']));
     }
+    $vroleId = NULL;
+    if (isset($_GET['role_id'])) {
+        $stripper->offsetSet('role_id', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, $app, $_GET['auth_email']));
+    }
 
     $stripper->strip();
-    if ($stripper->offsetExists('language_code')) {
-        $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
-    }
-    if ($stripper->offsetExists('profile_public')) {
-        $vProfilePublic = $stripper->offsetGet('profile_public')->getFilterValue();
-    }
-    if ($stripper->offsetExists('preferred_language')) {
-        $vPreferredLanguage = $stripper->offsetGet('preferred_language')->getFilterValue();
-    }
+                        
     if ($stripper->offsetExists('name')) {
         $vName = $stripper->offsetGet('name')->getFilterValue();
     }
@@ -186,16 +171,17 @@ $app->get("/pkInsert_infoUsers/", function () use ($app ) {
     if ($stripper->offsetExists('auth_email')) {
         $vAuthEmail = $stripper->offsetGet('auth_email')->getFilterValue();
     } 
+    if ($stripper->offsetExists('role_id')) {
+        $vroleId = $stripper->offsetGet('role_id')->getFilterValue();
+    } 
     $resDataInsert = $BLL->insert(array(
-        'url' => $_GET['url'],  
-        'profile_public' => $vProfilePublic,
+        'url' => $_GET['url'],   
         'name' => $vName,
         'surname' => $vSurname,
         'username' => $vUsername,
         'password' => $vPassword,
-        'auth_email' => $vAuthEmail,
-        'language_code' => $vLanguageCode,
-        'preferred_language' => $vPreferredLanguage,
+        'auth_email' => $vAuthEmail, 
+        'role_id' => $vroleId, 
         'pk' => $pk));
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($resDataInsert));

@@ -32,7 +32,7 @@ class PrivateNotFoundForwarder extends \Utill\Forwarder\AbstractForwarder {
         
         ob_end_clean();
         //$ch = curl_init('http://slimRedirect.uretimosb.com/index.php/hashNotMatch');
-        $ch = curl_init('http://localhost/Slim_Redirect_okulsis/index.php/privateNotFoundSlim');
+        $ch = curl_init('http://localhost/Slim_Redirect_devamsizlik/index.php/privateNotFoundSlim');
         //curl_setopt($ch,CURLOPT_HTTPHEADER,$headers);
         //curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
         //curl_setopt($ch,CURLOPT_POSTFIELDS,$content);

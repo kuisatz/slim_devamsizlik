@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/slim_okulsis/mbllogin.php</file>
-            <file>file:/C:/xampp/htdocs/slim_okulsis/index.html</file>
-            <file>file:/C:/xampp/htdocs/slim_okulsis/mobilsettings.php</file>
-            <file>file:/C:/xampp/htdocs/slim_okulsis/vendor/dal/pdo/MobilSettings.php</file>
-            <file>file:/C:/xampp/htdocs/slim_okulsis/vendor/dal/pdo/MobilSetDbConfigx.php</file>
-            <file>file:/C:/xampp/htdocs/slim_okulsis/vendor/bll/bll/MblLogin.php</file>
-            <file>file:/C:/xampp/htdocs/slim_okulsis/vendor/dal/pdo/MblLogin.php</file>
+            <file>file:/C:/xampp/htdocs/slim_devamsizlik/infousers.php</file>
+            <file>file:/C:/xampp/htdocs/slim_devamsizlik/vendor/dal/pdo/InfoUsers.php</file>
         </group>
     </open-files>
 </project-private>

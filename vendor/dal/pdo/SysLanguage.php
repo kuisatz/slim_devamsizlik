@@ -519,7 +519,7 @@ class SysLanguage extends \DAL\DalSlim {
         }
     }
     
-      /**     
+    /**     
      * @author Okan CIRAN
      * @ combobox ı doldurmak için sys_language tablosundan çekilen kayıtları döndürür   !!
      * @version v 1.0  17.12.2015
@@ -529,7 +529,7 @@ class SysLanguage extends \DAL\DalSlim {
      */
     public function fillComboBoxTsql() {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactoryMobil'); 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
             $statement = $pdo->prepare("
                 SELECT                    
                     a.id, 	
