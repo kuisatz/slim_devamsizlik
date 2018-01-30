@@ -458,8 +458,7 @@ class BlLoginLogout extends \DAL\DalSlim {
                    Pgp_sym_decrypt (dearmor('" . $xpassword . "'), '" . $oid . "', 'compress-algo=1, cipher-algo=bf')   as xpasword    
                 )   
                 SELECT 1 AS success ,
-                REPLACE(TRIM(SUBSTRING(crypt('" . $privateKeyValue . "',gen_salt('xdes')),6,20)),'/','*') as public_key ,  
-                
+                REPLACE(TRIM(SUBSTRING(crypt('" . $privateKeyValue . "',gen_salt('xdes')),6,20)),'/','*') as public_key                 
                 FROM pascontrol
                 WHERE xpasword = '" . $password . "'  ;  
 
