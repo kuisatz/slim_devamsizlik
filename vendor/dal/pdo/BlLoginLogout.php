@@ -487,7 +487,7 @@ class BlLoginLogout extends \DAL\DalSlim {
                         usid,
                         acl  )
                         Values (
-                        '".$sessionID."','Devamsizlik','','".$publickey."','.$userid.','') 
+                        '".$sessionID."','Devamsizlik','','".$publickey."', ".$userid." ,'') 
                        
                 ";
                 $statementact = $pdoDevamsizlik->prepare($sql);
