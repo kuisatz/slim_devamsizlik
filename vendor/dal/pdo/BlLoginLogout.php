@@ -447,7 +447,7 @@ class BlLoginLogout extends \DAL\DalSlim {
                    Pgp_sym_decrypt (dearmor('".$xpassword."'), '".$oid."', 'compress-algo=1, cipher-algo=bf')   as xpasword    
                 )   
                 SELECT 1 AS control FROM pascontrol
-                WEERE xpasword = '".$password."'  ;  
+                WHERE xpasword = '".$password."'  ;  
 
             "; 
 
