@@ -90,7 +90,7 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
             "public_key" => $flow["public_key"],  
         //    "okunmamis_mesaj" => $flow["okunmamis_mesaj"],  
        //     "pdr_mesaj" => $flow["pdr_mesaj"],  
-            "duyuru" => $flow["duyuru"],  
+        //    "duyuru" => $flow["duyuru"],  
             "adsoyad" => html_entity_decode($flow["adsoyad"]),   
             
             
