@@ -391,33 +391,80 @@ class BlLoginLogout extends \DAL\DalSlim {
      * @throws \PDOException
      */
     public function getPK($params = array()) {
-        try {
+        try { 
+            $pdoDevamsizlik = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
+            $username = '-2';
+            if (isset($params['username']) && $params['username'] != "") {
+                    $username = $params['username'];
+            } 
+            $password = '-1';
+            if (isset($params['password']) && $params['password'] != "") {
+                    $password = $params['password'];
+            }  
+            
+            $sql = "  
+                SELECT 
+                    a.id, 
+                    a.username,
+                    a.password,
+                    a.oid,
+                    a.sf_private_key,
+                    a.sf_private_key_value,
+                    a.sf_private_key_value_temp,
+                    a.role_id,
+                    a.language_id,
+                    concat(b.name,' ',b.surname) as adsoyad
+                FROM BILSANET_DEVAMSIZLIK.dbo.info_users a
+                INNER JOIN BILSANET_DEVAMSIZLIK.dbo.info_users_detail b on a.id = b.root_id
+                where a.username = '".$username."' and  
+                    a.active =0 and
+                    a.deleted =0 and 
+                    a.role_id !=5
+                ";
+
+            $statementDevamsizlik = $pdoDevamsizlik->prepare($sql); 
+          // echo debugPDO($sql, $params);
+            $statementDevamsizlik->execute();
+            $resultDevamsizlik = $statementDevamsizlik->fetchAll(\PDO::FETCH_ASSOC);
+            $errorInfo = $statementDevamsizlik->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            
+            $oid = NULL; 
+            if (isset($resultDevamsizlik[0]['oid']) && $resultDevamsizlik[0]['oid'] != "") {
+                $oid= $resultDevamsizlik[0]['oid'];
+            }
+            $xpassword = NULL; 
+            if (isset($resultDevamsizlik[0]['password']) && $resultDevamsizlik[0]['password'] != "") {
+                $xpassword= $resultDevamsizlik[0]['password'];
+            }
+            
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-       
-            $sql = "   
+            $sql = "  
+                
+                WITH pascontrol AS (
+                SELECT   /* ARMOR(pgp_sym_encrypt ('".$password."' , '".$oid."', 'compress-algo=1, cipher-algo=bf')) passwordx  */ 
+                   Pgp_sym_decrypt (dearmor('".$xpassword."'), '".$oid."', 'compress-algo=1, cipher-algo=bf')   as xpasword    
+                )   
+                SELECT 1 AS control FROM pascontrol
+                WEERE xpasword = '".$password."'  ;  
 
-            SELECT true as success,       
-                 REPLACE(TRIM(SUBSTRING(crypt(sf_private_key_value,gen_salt('xdes')),6,20)),'/','*') AS public_key ,
-                 (SELECT count(x.id) FROM info_questions_source x WHERE x.source_id    =  27 % a.id ) as okunmamis_mesaj ,
-                 (SELECT ( (source_id % 50 ) + id ) % 6  FROM info_question_base x1 WHERE   x1.id  =  a.id  ) as pdr_mesaj , 
-                 2  as duyuru,
-                 concat(iud.name ,' ' ,iud.surname) as adsoyad
-            FROM info_users a              
-            INNER JOIN sys_acl_roles sar ON sar.id = a.role_id AND sar.active=0 AND sar.deleted=0 
-            INNER JOIN info_users_detail iud on iud.root_id = a.id  AND iud.active=0 AND iud.deleted=0 
-            WHERE a.username = :username 
-                AND a.password = :password   
-                AND a.deleted = 0 
-                AND a.active = 0 
-                limit 1  
-            ";
+            "; 
 
-            $statement = $pdo->prepare($sql);
-            $statement->bindValue(':username', $params['username'], \PDO::PARAM_STR);
-             $statement->bindValue(':password', md5($params['password']), \PDO::PARAM_STR);
+            $statement = $pdo->prepare($sql); 
           // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $control = NULL; 
+            if (isset($result[0]['control']) && $result[0]['control'] != "") {
+                $control= $result[0]['control'];
+            }
+            if ($control ===1 ) {
+            $result =  array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result ,"adsoyad" => $resultDevamsizlik[0]['adsoyad'],);
+            } 
+            else $errorInfo[1] ='-99999' ; 
+            
+             
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
@@ -499,13 +546,15 @@ class BlLoginLogout extends \DAL\DalSlim {
      */
     public function pkIsThere($params = array()) {
         try { 
-           
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');          
+             
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
+       
             $sql = "              
                     /*  SELECT a.public_key =  '".$params['pk']."' */ 
                     SELECT cast(1 as bit) as kontrol
                     FROM act_session a                  
                     WHERE a.public_key =   '".$params['pk']."'
+                        
                     ";   
          //   print_r($sql);
             $statement = $pdo->prepare($sql);            
