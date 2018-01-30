@@ -457,8 +457,10 @@ class BlLoginLogout extends \DAL\DalSlim {
                 SELECT   /* ARMOR(pgp_sym_encrypt ('" . $password . "' , '" . $oid . "', 'compress-algo=1, cipher-algo=bf')) passwordx  */ 
                    Pgp_sym_decrypt (dearmor('" . $xpassword . "'), '" . $oid . "', 'compress-algo=1, cipher-algo=bf')   as xpasword    
                 )   
-                SELECT 1 AS success ,
-                REPLACE(TRIM(SUBSTRING(crypt('" . $privateKeyValue . "',gen_salt('xdes')),6,20)),'/','*') as public_key                 
+                SELECT 
+                    1 AS success ,
+                    REPLACE(TRIM(SUBSTRING(crypt('" . $privateKeyValue . "',gen_salt('xdes')),6,20)),'/','*') as public_key,
+                    '".$resultDevamsizlik[0]['adsoyad']."' as adsoyad
                 FROM pascontrol
                 WHERE xpasword = '" . $password . "'  ;  
 
@@ -501,11 +503,13 @@ class BlLoginLogout extends \DAL\DalSlim {
                 }
                 $pdoDevamsizlik->commit();
 
-                $result = array( 
+               /* $result = array( 
                     "success"=> $control,
                     "adsoyad" => $resultDevamsizlik[0]['adsoyad'],
                     "public_key"=> $publickey,  
                 );
+                * *
+                */
             } else {
                 $errorInfoColumn = 'Sesion';
                 $errorInfo[1] = '-99999';
