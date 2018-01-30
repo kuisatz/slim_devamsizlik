@@ -501,9 +501,10 @@ class BlLoginLogout extends \DAL\DalSlim {
                 }
                 $pdoDevamsizlik->commit();
 
-                $result = array("found" => true, "errorInfo" => $errorInfo,
-                    "resultSet" => $result,
+                $result = array( 
+                    "success"=> $control,
                     "adsoyad" => $resultDevamsizlik[0]['adsoyad'],
+                    "public_key"=> $publickey,  
                 );
             } else {
                 $errorInfoColumn = 'Sesion';
