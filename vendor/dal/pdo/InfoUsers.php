@@ -301,7 +301,7 @@ class InfoUsers extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction(); 
             $kontrol = $this->haveRecords($params); // username kontrolu  
-            if (\Utill\Dal\Helper::haveRecord($kontrol)) { 
+            if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
                 $opUserIdParams = array('pk' =>  $params['pk'],);
                 $opUserIdArray = $this->slimApp-> getBLLManager()->get('opUserIdBLL');  
                 $opUserId = $opUserIdArray->getUserId($opUserIdParams);   
