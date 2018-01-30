@@ -304,15 +304,12 @@ class InfoUsers extends \DAL\DalSlim {
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
                 $opUserIdParams = array('pk' =>  $params['pk'],);
                 $opUserIdArray = $this->slimApp-> getBLLManager()->get('opUserIdBLL');  
-                $opUserId = $opUserIdArray->getUserId($opUserIdParams);   
-                            
-                if (\Utill\Dal\Helper::haveRecord($opUserId)) {
-                 
-                  //  print_r($opUserId ['resultSet'][0]['user_id']);    
+                $opUserId = $opUserIdArray->getUserId($opUserIdParams);  
+                if (\Utill\Dal\Helper::haveRecord($opUserId)) { 
                     $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                     $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];  
                     $roleId = 5 ; 
-                    /// languageid sini alalım                                 
+                    $password ='!!!!++.Qwerty.++!!!!'; 
                     $languageIdValue = 647;   
                     $preferredlanguageIdValue = 647;
                              
@@ -327,25 +324,39 @@ class InfoUsers extends \DAL\DalSlim {
                     $a = null;
                     if (isset($params['a']) && $params['a'] != "") {
                         $a = $params['a'];
-                    }  
+                    } 
+                    $username ='bos geldi...';
+                    if (isset($params['username']) && $params['username'] != "") {
+                        $username = $params['username'];
+                    } 
+                    $authemail ='authemail.c.m.';
+                    if (isset($params['auth_email']) && $params['auth_email'] != "") {
+                        $authemail =$params['auth_email'];
+                    } 
+                    $surname ='surname.c.m.';
+                    if (isset($params['surname']) && $params['surname'] != "") {
+                        $surname =$params['surname'];
+                    } 
+                    $name ='name.c.m.';
+                    if (isset($params['name']) && $params['name'] != "") {
+                        $name =$params['name'];
+                    } 
                             
                     $sql = " 
                     INSERT INTO info_users( 
-                               username, 
-                               language_id,
-                               op_user_id,
-                               role_id 
-                                )
+                            username, 
+                            language_id,
+                            op_user_id,
+                            role_id 
+                            )
                     VALUES (   
-                              :username, 
-                              ".intval($languageIdValue).",
-                              ".intval($opUserIdValue).",
-                              :role_id  
+                            '".$username."', 
+                            ".intval($languageIdValue).",
+                            ".intval($opUserIdValue).",
+                            ".intval($roleId)." 
                         )";
 
-                    $statement = $pdo->prepare($sql); 
-                    $statement->bindValue(':username', $params['username'], \PDO::PARAM_STR);  
-                    $statement->bindValue(':role_id', $roleId, \PDO::PARAM_INT);
+                    $statement = $pdo->prepare($sql);  
                     // echo debugPDO($sql, $params);
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId();
@@ -358,7 +369,7 @@ class InfoUsers extends \DAL\DalSlim {
                      * kullanıcı için gerekli olan private key ve value değerleri yaratılılacak.  
                      * kullanıcı için gerekli olan private key temp ve value temp değerleri yaratılılacak.  
                      */
-                    $this->setPrivateKey(array('id' => $insertID,'username' => $params['username'],'password' => $params['password'],  ));
+                    $this->setPrivateKey(array('id' => $insertID,'username' => $username,'password' => $password,  ));
                    
                     /*
                      * kullanıcı bilgileri info_users_detail tablosuna kayıt edilecek.   
@@ -369,13 +380,13 @@ class InfoUsers extends \DAL\DalSlim {
                                 'op_user_id' => $opUserIdValue,
                                 'role_id' => $roleId,  
                                 'language_id' => $preferredlanguageIdValue,  
-                                'name' => $params['name'],
-                                'surname' => $params['surname'],
-                                'username' => $params['username'],
-                                'auth_email' => $params['auth_email'],
+                                'name' => $name,
+                                'surname' => $surname,
+                                'username' => $username,
+                                'auth_email' => $authemail,
                                 'act_parent_id' => NULL, //$params['act_parent_id'], 
                                 'root_id' => $insertID, 
-                               // 'password' => $params['password'],
+                                'password' => $password,
                             
                     ));      
 
