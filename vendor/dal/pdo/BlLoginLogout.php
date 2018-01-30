@@ -9,6 +9,7 @@
  */
 
 namespace DAL\PDO;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class using Zend\ServiceManager\FactoryInterface
@@ -474,7 +475,11 @@ class BlLoginLogout extends \DAL\DalSlim {
             if (isset($result[0]['public_key']) && $result[0]['public_key'] != "") {
                 $publickey = $result[0]['public_key'];
             }
-            $sessionID =session_create_id($publickey);
+            $sessionManager = $serviceLocator
+                               ->get('SessionManagerDefault');
+            $sessionID = $sessionManager->getId();
+            //print_r('----'.$sessionID);  
+          //  $sessionID =session_create_id($publickey);
             if (isset($params['sessionID']) && $params['sessionID'] != "") {
                 $sessionID = $params['sessionID'];
             }
