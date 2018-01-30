@@ -1427,13 +1427,14 @@ XAbSoF1qhMj0SEI=
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             
+            $keyresult = array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $keyresult);
             $sf_private_keyz = NULL;
             $sf_private_key_valuez =NULL;
             $passwordz=NULL;
-            if (\Utill\Dal\Helper::haveRecord($keyresult)) {
-                $sf_private_keyz= $keyresult [0]['sf_private_keyz'];
-                $sf_private_key_valuez= $keyresult [0]['sf_private_key_valuez'];
-                $passwordz= $keyresult [0]['passwordz'];
+            if (\Utill\Dal\Helper::haveRecord($keyresult)) { 
+                $sf_private_keyz= $keyresult ['resultSet'][0]['sf_private_keyz'];
+                $sf_private_key_valuez= $keyresult ['resultSet'][0]['sf_private_key_valuez'];
+                $passwordz= $keyresult ['resultSet'][0]['passwordz'];
             }
             if ($sf_private_keyz == NULL && $sf_private_keyz == "") {
                     $errorInfo[0] != "99999" ; /// private key uretilemedi.
@@ -1441,7 +1442,7 @@ XAbSoF1qhMj0SEI=
             } 
                             
             
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');                    
+            $pdoDevamsizlik = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');                    
             $sql= "
                 UPDATE info_users
                 SET
@@ -1451,7 +1452,7 @@ XAbSoF1qhMj0SEI=
                     oid  = '".$oid."'
                 WHERE
                     id = :id" ;
-             $statement = $pdo->prepare($sql);
+             $statement = $pdoDevamsizlik->prepare($sql);
             // echo debugPDO($sql, $params);
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
             $update = $statement->execute();
