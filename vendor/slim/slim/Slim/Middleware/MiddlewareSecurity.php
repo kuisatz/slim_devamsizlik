@@ -403,7 +403,7 @@ use PhpAmqpLib\Message\AMQPMessage;
            if(isset($requestHeaderParams['X-Public'])) {
                $resultSet = $this->app->getBLLManager()->get('blLoginLogoutBLL')->pkIsThere(array('pk' => $requestHeaderParams['X-Public']));
                //print_r($resultSet);
-               if(!isset($resultSet[0]['?column?'])) $this->userNotRegisteredRedirect();
+               if(!isset($resultSet[0]['kontrol'])) $this->userNotRegisteredRedirect();
            }
 
            /**
