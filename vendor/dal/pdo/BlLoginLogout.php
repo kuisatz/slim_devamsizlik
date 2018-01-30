@@ -496,10 +496,10 @@ class BlLoginLogout extends \DAL\DalSlim {
 
                 $errorInfo = $statementact->errorInfo();
                 if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL) {
-                    $pdo->rollback();
+                    $pdoDevamsizlik->rollback();
                     throw new \PDOException($errorInfo[0]);
                 }
-                $pdo->commit();
+                $pdoDevamsizlik->commit();
 
                 $result = array("found" => true, "errorInfo" => $errorInfo,
                     "resultSet" => $result,
