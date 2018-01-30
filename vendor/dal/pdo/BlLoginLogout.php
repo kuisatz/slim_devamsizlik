@@ -391,17 +391,21 @@ class BlLoginLogout extends \DAL\DalSlim {
      * @throws \PDOException
      */
     public function getPK($params = array()) {
-        try { 
+        try {
             $pdoDevamsizlik = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $username = '-2';
             if (isset($params['username']) && $params['username'] != "") {
-                    $username = $params['username'];
-            } 
+                $username = $params['username'];
+            }
             $password = '-1';
             if (isset($params['password']) && $params['password'] != "") {
-                    $password = $params['password'];
-            }  
-            
+                $password = $params['password'];
+            }
+            $sessionID = '-99';
+            if (isset($params['sessionID']) && $params['sessionID'] != "") {
+                $sessionID = $params['sessionID'];
+            }
+
             $sql = "  
                 SELECT 
                     a.id, 
@@ -416,64 +420,108 @@ class BlLoginLogout extends \DAL\DalSlim {
                     concat(b.name,' ',b.surname) as adsoyad
                 FROM BILSANET_DEVAMSIZLIK.dbo.info_users a
                 INNER JOIN BILSANET_DEVAMSIZLIK.dbo.info_users_detail b on a.id = b.root_id
-                where a.username = '".$username."' and  
+                where a.username = '" . $username . "' and  
                     a.active =0 and
                     a.deleted =0 and 
                     a.role_id !=5
                 ";
 
-            $statementDevamsizlik = $pdoDevamsizlik->prepare($sql); 
-          // echo debugPDO($sql, $params);
+            $statementDevamsizlik = $pdoDevamsizlik->prepare($sql);
+            // echo debugPDO($sql, $params);
             $statementDevamsizlik->execute();
             $resultDevamsizlik = $statementDevamsizlik->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statementDevamsizlik->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
-            
-            $oid = NULL; 
+
+            $userid = NULL;
+            if (isset($resultDevamsizlik[0]['id']) && $resultDevamsizlik[0]['id'] != "") {
+                $userid = $resultDevamsizlik[0]['id'];
+            }
+            $oid = NULL;
             if (isset($resultDevamsizlik[0]['oid']) && $resultDevamsizlik[0]['oid'] != "") {
-                $oid= $resultDevamsizlik[0]['oid'];
+                $oid = $resultDevamsizlik[0]['oid'];
             }
-            $xpassword = NULL; 
+            $xpassword = NULL;
             if (isset($resultDevamsizlik[0]['password']) && $resultDevamsizlik[0]['password'] != "") {
-                $xpassword= $resultDevamsizlik[0]['password'];
+                $xpassword = $resultDevamsizlik[0]['password'];
             }
-            
+            $privateKeyValue = NULL;
+            if (isset($resultDevamsizlik[0]['sf_private_key_value']) && $resultDevamsizlik[0]['sf_private_key_value'] != "") {
+                $privateKeyValue = $resultDevamsizlik[0]['sf_private_key_value'];
+            }
+
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $sql = "  
-                
                 WITH pascontrol AS (
-                SELECT   /* ARMOR(pgp_sym_encrypt ('".$password."' , '".$oid."', 'compress-algo=1, cipher-algo=bf')) passwordx  */ 
-                   Pgp_sym_decrypt (dearmor('".$xpassword."'), '".$oid."', 'compress-algo=1, cipher-algo=bf')   as xpasword    
+                SELECT   /* ARMOR(pgp_sym_encrypt ('" . $password . "' , '" . $oid . "', 'compress-algo=1, cipher-algo=bf')) passwordx  */ 
+                   Pgp_sym_decrypt (dearmor('" . $xpassword . "'), '" . $oid . "', 'compress-algo=1, cipher-algo=bf')   as xpasword    
                 )   
-                SELECT 1 AS control FROM pascontrol
-                WHERE xpasword = '".$password."'  ;  
+                SELECT 1 AS success ,
+                REPLACE(TRIM(SUBSTRING(crypt('" . $privateKeyValue . "',gen_salt('xdes')),6,20)),'/','*') as public_key ,  
+                
+                FROM pascontrol
+                WHERE xpasword = '" . $password . "'  ;  
 
-            "; 
+            ";
 
-            $statement = $pdo->prepare($sql); 
-          // echo debugPDO($sql, $params);
+            $statement = $pdo->prepare($sql);
+            // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            $control = NULL; 
-            if (isset($result[0]['control']) && $result[0]['control'] != "") {
-                $control= $result[0]['control'];
+            $control = NULL;
+            if (isset($result[0]['success']) && $result[0]['success'] != "") {
+                $control = $result[0]['success'];
             }
-            if ($control ===1 ) {
-            $result =  array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result ,"adsoyad" => $resultDevamsizlik[0]['adsoyad'],);
-            } 
-            else $errorInfo[1] ='-99999' ; 
-            
-             
+            $publickey = null;
+            if (isset($result[0]['public_key']) && $result[0]['public_key'] != "") {
+                $publickey = $result[0]['public_key'];
+            }
+            if ($control === 1) {
+                $pdoDevamsizlik->beginTransaction();
+                $sql = "    
+                    INSERT INTO [dbo].[act_session]
+                        (id,
+                        name,
+                        data,
+                        public_key,
+                        usid,
+                        acl  )
+                        Values (
+                        '" . $sessionID . "' ,'Devamsizlik','','" . $publickey . "','.$userid.' ,'') 
+                        ) 
+                ";
+                $statementact = $pdoDevamsizlik->prepare($sql);
+                //echo debugPDO($sql, $params);
+                $resultx = $statementact->execute();
+
+                $errorInfo = $statementact->errorInfo();
+                if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL) {
+                    $pdo->rollback();
+                    throw new \PDOException($errorInfo[0]);
+                }
+                $pdo->commit();
+
+                $result = array("found" => true, "errorInfo" => $errorInfo,
+                    "resultSet" => $result,
+                    "adsoyad" => $resultDevamsizlik[0]['adsoyad'],
+                );
+            } else {
+                $errorInfoColumn = 'Sesion';
+                $errorInfo[1] = '-99999';
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+            }
+
+
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {      
+        } catch (\PDOException $e /* Exception $e */) {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
- 
+
     /**
      * @author Okan CIRAN
      * @ public key e ait bir private key li kullanıcı varsa True değeri döndürür.  !!

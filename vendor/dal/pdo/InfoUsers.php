@@ -1800,7 +1800,7 @@ XAbSoF1qhMj0SEI=
 						AND active =1 AND deleted =0)  
                     ";
                     $statementActInsert = $pdo->prepare($sql);
-                      echo debugPDO($sql, $params);                                
+                    //  echo debugPDO($sql, $params);                                
                     $insertAct = $statementActInsert->execute();
                     $affectedRows = $statementActInsert->rowCount();
                     $insertID = $pdo->lastInsertId('info_users_detail_id_seq');
