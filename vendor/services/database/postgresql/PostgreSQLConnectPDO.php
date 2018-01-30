@@ -29,10 +29,15 @@ class PostgreSQLConnectPDO implements \Zend\ServiceManager\FactoryInterface {
                             PostgreSQLConnectPDOConfig::getConfig());
             * 
             */ 
-            $pdo = new \PDO("sqlsrv:Server=ZZX;Database=BILSANET_DEVAMSIZLIK", 
+         /*   $pdo = new \PDO("sqlsrv:Server=ZZX;Database=BILSANET_DEVAMSIZLIK", 
                             "sa", 
                             "12345678oki"
+                            );*/
+               $pdo = new \PDO("sqlsrv:Server=localhost;Database=BILSANET_DEVAMSIZLIK", 
+                            "sa", 
+                            "12345678Oki."
                             );
+            
      
  /*       $serverName = "tcp:ZZX,1433";  
             $connectionOptions = array("Database"=>"BILSANET",  
