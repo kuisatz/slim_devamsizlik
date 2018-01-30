@@ -447,6 +447,9 @@ class BlLoginLogout extends \DAL\DalSlim {
             if (isset($resultDevamsizlik[0]['sf_private_key_value']) && $resultDevamsizlik[0]['sf_private_key_value'] != "") {
                 $privateKeyValue = $resultDevamsizlik[0]['sf_private_key_value'];
             }
+            session_start();
+            $sessionID=session_id();
+            session_destroy();
 
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             $sql = "  
@@ -457,7 +460,8 @@ class BlLoginLogout extends \DAL\DalSlim {
                 SELECT 
                     1 AS success ,
                     REPLACE(TRIM(SUBSTRING(crypt('" . $privateKeyValue . "',gen_salt('xdes')),6,20)),'/','*') as public_key,
-                    '".$resultDevamsizlik[0]['adsoyad']."' as adsoyad
+                    '".$resultDevamsizlik[0]['adsoyad']."' as adsoyad,
+                    '".$sessionID."' as sessionID 
                 FROM pascontrol
                 WHERE xpasword = '" . $password . "'  ;  
 
@@ -475,12 +479,7 @@ class BlLoginLogout extends \DAL\DalSlim {
             if (isset($result[0]['public_key']) && $result[0]['public_key'] != "") {
                 $publickey = $result[0]['public_key'];
             }
-         //   ServiceLocatorInterface $serviceLocator
-            session_start();
-            $sessionID=session_id();
-            session_destroy();
-            //print_r('----'.$sessionID);  
-          //  $sessionID =session_create_id($publickey);
+         
             if (isset($params['sessionID']) && $params['sessionID'] != "") {
                 $sessionID = $params['sessionID'];
             }
