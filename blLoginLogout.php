@@ -59,10 +59,10 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
         $stripper->offsetSet('username', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                 $app, $_GET['username']));
     }
-    $vPassword = NULL;
-    if (isset($_GET['password'])) {
-        $stripper->offsetSet('password', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, 
-                $app, $_GET['password']));
+    $vSessionID= NULL;
+    if (isset($_GET['sessionID'])) {
+        $stripper->offsetSet('sessionID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, 
+                $app, $_GET['sessionID']));
     }
     $vPassword = NULL;
     if (isset($_GET['password'])) {
@@ -77,11 +77,15 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
     if ($stripper->offsetExists('password')) {
         $vPassword = $stripper->offsetGet('password')->getFilterValue();
     }
+    if ($stripper->offsetExists('sessionID')) {
+        $vSessionID = $stripper->offsetGet('sessionID')->getFilterValue();
+    }
    
     $resDataInsert = $BLL->getPK(array( 
         'url' => $_GET['url'], 
         'username' => $vUsername,
-        'password' => $vPassword,       
+        'password' => $vPassword,   
+        'sessionID' => $vSessionID,  
         ));
    // $app->response()->header("Content-Type", "application/json");
   // $app->response()->body(json_encode($resDataInsert));
