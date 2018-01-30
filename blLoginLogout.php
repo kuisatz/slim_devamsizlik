@@ -53,7 +53,7 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('blLoginLogoutBLL'); 
     $headerParams = $app->request()->headers();
-    print_r($headerParams) ; 
+  //  print_r($headerParams) ; 
    $vUsername = NULL;
     if (isset($_GET['username'])) {
         $stripper->offsetSet('username', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
