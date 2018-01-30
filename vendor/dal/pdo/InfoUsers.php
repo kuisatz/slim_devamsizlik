@@ -306,7 +306,7 @@ class InfoUsers extends \DAL\DalSlim {
                 $opUserIdArray = $this->slimApp-> getBLLManager()->get('opUserIdBLL');  
                 $opUserId = $opUserIdArray->getUserId($opUserIdParams);   
                             
-                if (!\Utill\Dal\Helper::haveRecord($opUserId)) {
+                if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                  
                   //  print_r($opUserId ['resultSet'][0]['user_id']);    
                     $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
