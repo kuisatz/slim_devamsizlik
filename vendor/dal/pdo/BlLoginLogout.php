@@ -9,8 +9,7 @@
  */
 
 namespace DAL\PDO;
-use Zend\ServiceManager\ServiceLocatorInterface;
-
+ 
 /**
  * Class using Zend\ServiceManager\FactoryInterface
  * created to be used by DAL MAnager

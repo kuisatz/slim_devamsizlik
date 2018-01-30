@@ -89,7 +89,7 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
         ));
    // $app->response()->header("Content-Type", "application/json");
   // $app->response()->body(json_encode($resDataInsert));
-  print_r($resDataInsert);
+ // print_r($resDataInsert);
     
      $flows = array();
     foreach ($resDataInsert as $flow) {
