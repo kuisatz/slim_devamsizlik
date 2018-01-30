@@ -400,11 +400,7 @@ class BlLoginLogout extends \DAL\DalSlim {
             $password = '-1';
             if (isset($params['password']) && $params['password'] != "") {
                 $password = $params['password'];
-            }
-            $sessionID = '-99';
-            if (isset($params['sessionID']) && $params['sessionID'] != "") {
-                $sessionID = $params['sessionID'];
-            }
+            } 
 
             $sql = "  
                 SELECT 
@@ -478,6 +474,10 @@ class BlLoginLogout extends \DAL\DalSlim {
             if (isset($result[0]['public_key']) && $result[0]['public_key'] != "") {
                 $publickey = $result[0]['public_key'];
             }
+            $sessionID =session_create_id($publickey);
+            if (isset($params['sessionID']) && $params['sessionID'] != "") {
+                $sessionID = $params['sessionID'];
+            }
             if ($control === 1) {
                 $pdoDevamsizlik->beginTransaction();
                 $sql = "    
@@ -513,7 +513,7 @@ class BlLoginLogout extends \DAL\DalSlim {
             } else {
                 $errorInfoColumn = 'Sesion';
                 $errorInfo[1] = '-99999';
-                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn,"sessionID" => $sessionID);
             }
 
 

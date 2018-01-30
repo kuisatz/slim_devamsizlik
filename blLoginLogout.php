@@ -64,6 +64,11 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
         $stripper->offsetSet('password', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, 
                 $app, $_GET['password']));
     }
+    $vPassword = NULL;
+    if (isset($_GET['password'])) {
+        $stripper->offsetSet('password', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, 
+                $app, $_GET['password']));
+    }
     
     $stripper->strip();
      if ($stripper->offsetExists('username')) {
@@ -90,7 +95,7 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
             "public_key" => $flow["public_key"],  
         //    "okunmamis_mesaj" => $flow["okunmamis_mesaj"],  
        //     "pdr_mesaj" => $flow["pdr_mesaj"],  
-        //    "duyuru" => $flow["duyuru"],  
+            "sessionID" => $flow["sessionID"],  
             "adsoyad" => html_entity_decode($flow["adsoyad"]),   
             
             
