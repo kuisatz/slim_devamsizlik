@@ -479,7 +479,7 @@ class BlLoginLogout extends \DAL\DalSlim {
             if ($control === 1) {
                 $pdoDevamsizlik->beginTransaction();
                 $sql = "    
-                    INSERT INTO [dbo].[act_session]
+                    INSERT INTO [BILSANET_DEVAMSIZLIK].[dbo].[act_session]
                         (id,
                         name,
                         data,
@@ -487,8 +487,8 @@ class BlLoginLogout extends \DAL\DalSlim {
                         usid,
                         acl  )
                         Values (
-                        '" . $sessionID . "' ,'Devamsizlik','','" . $publickey . "','.$userid.' ,'') 
-                        ) 
+                        '".$sessionID."','Devamsizlik','','".$publickey."','.$userid.','') 
+                       
                 ";
                 $statementact = $pdoDevamsizlik->prepare($sql);
                 //echo debugPDO($sql, $params);
