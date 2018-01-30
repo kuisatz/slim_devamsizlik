@@ -518,7 +518,7 @@ class BlLoginLogout extends \DAL\DalSlim {
             } else {
                 $errorInfoColumn = 'Sesion';
                 $errorInfo[1] = '-99999';
-                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn,"sessionID" => $sessionID);
+                return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
             }
 
 
