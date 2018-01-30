@@ -33,10 +33,9 @@ class PostgreSQLConnectPDO implements \Zend\ServiceManager\FactoryInterface {
                             "sa", 
                             "12345678oki"
                             );*/
-               $pdo = new \PDO("sqlsrv:Server=localhost;Database=BILSANET_DEVAMSIZLIK", 
-                            "sa", 
-                            "12345678Oki."
-                            );
+                  $pdo = new \PDO('pgsql:dbname=sorubankasi;host=localhost;',
+                            'postgres', 
+                            '1!qaaal123.');
             
      
  /*       $serverName = "tcp:ZZX,1433";  
