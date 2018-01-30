@@ -369,7 +369,7 @@ class InfoUsers extends \DAL\DalSlim {
                      * kullanıcı için gerekli olan private key ve value değerleri yaratılılacak.  
                      * kullanıcı için gerekli olan private key temp ve value temp değerleri yaratılılacak.  
                      */
-                    $this->setPrivateKey(array('id' => $insertID,'username' => $username,'password' => $password,  ));
+                    $this->setPrivateKey(array('id' => $insertID,'username' => $username,'password' => $password,));
                    
                     /*
                      * kullanıcı bilgileri info_users_detail tablosuna kayıt edilecek.   

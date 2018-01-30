@@ -186,6 +186,7 @@ $app->get("/pkInsert_infoUsers/", function () use ($app ) {
         'password' => $vPassword,
         'auth_email' => $vAuthEmail,
         'language_code' => $vLanguageCode,  
+        'ip' => $ip,
         'pk' => $pk));
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($resDataInsert));
