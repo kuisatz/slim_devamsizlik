@@ -28,7 +28,7 @@ class PostgreSQLConnectDevamsizlikPDO implements \Zend\ServiceManager\FactoryInt
                             '1Qaaal123',
                             PostgreSQLConnectPDOConfig::getConfig());
             */ 
-              $pdo = new \PDO("sqlsrv:Server=ZZX;Database=BILSANET_DEVAMSIZLIK", 
+              $pdo = new \PDO("sqlsrv:Server=.;Database=BILSANET_DEVAMSIZLIK", 
                             "sa", 
                             "12345678oki"
                             );
