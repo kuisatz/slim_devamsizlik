@@ -476,8 +476,8 @@ class BlLoginLogout extends \DAL\DalSlim {
                 $publickey = $result[0]['public_key'];
             }
          //   ServiceLocatorInterface $serviceLocator
-            $sessionManager = ServiceLocatorInterface::get('SessionManagerDefault');
-            $sessionID = $sessionManager->getId();
+         
+            $sessionID = null;
             //print_r('----'.$sessionID);  
           //  $sessionID =session_create_id($publickey);
             if (isset($params['sessionID']) && $params['sessionID'] != "") {
