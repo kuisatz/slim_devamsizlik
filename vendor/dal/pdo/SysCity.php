@@ -1,12 +1,13 @@
 <?php
 
 /**
- *  Framework 
+ *Framework 
  *
- * @link       
+ * @link 
  * @copyright Copyright (c) 2017
  * @license   
  */
+
 namespace DAL\PDO;
 
 /**
@@ -407,33 +408,24 @@ class SysCity extends \DAL\DalSlim {
     public function fillComboBox($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-            $languageId = NULL;
-            $languageIdValue = 647;
-            if ((isset($params['language_code']) && $params['language_code'] != "")) {                
-                $languageId = SysLanguage::getLanguageId(array('language_code' => $params['language_code']));
-                if (\Utill\Dal\Helper::haveRecord($languageId)) {
-                    $languageIdValue = $languageId ['resultSet'][0]['id'];                    
-                    }
-            } 
+            
             $sql = "
               SELECT 
 		a.city_id AS id,
-                COALESCE(NULLIF( COALESCE(NULLIF(sd.name, ''), a.name_eng),''), a.name) AS name,
+                COALESCE(NULLIF( COALESCE(NULLIF(a.name, ''), a.name_eng),''), a.name) AS name,
                 a.name_eng,
                 CASE (SELECT COUNT(z.id) FROM sys_borough z WHERE z.country_id = a.country_id) 
 			WHEN 0 THEN false
 			ELSE true END AS boroughlist,
                 a.active
                 FROM sys_city a
-                INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0
-		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue)."  AND lx.deleted =0 AND lx.active =0
-		LEFT JOIN sys_city sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id                               
-                WHERE a.active = 0 AND a.deleted = 0 
-                AND a.country_id = ".intval($params['country_id'])."                   
+                WHERE a.active = 0 AND a.deleted = 0 and 
+                a.language_id = 647 AND
+                  a.country_id = 91                   
                 ORDER BY a.priority ASC, name               
                                  ";
             $statement = $pdo->prepare($sql);
-          // echo debugPDO($sql, $params);  
+         //   echo debugPDO($sql, $params);  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();

@@ -51,7 +51,7 @@ class MailWrapper extends AbstractMailWrapper {
            // print_r($params1[0]['recipients']);
             
             if ((isset($params['recipients']) && $params['recipients'] != "")) { 
-                $body = ' OSB İmalat  <b>OSB İmalat !</b>';
+                $body = ' Okulsis  <b>Devamsızlık !</b>';
                 if ((isset($params['body']) && $params['body'] != "")) {
                     $body = $params['body'];
                 }

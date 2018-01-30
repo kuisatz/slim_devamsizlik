@@ -127,8 +127,17 @@ $app->get("/pkInsert_infoUsers/", function () use ($app ) {
     if (!isset($headerParams['X-Public']))
         throw new Exception('rest api "pkInsert_infoUsers" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
-
+    $ip  = 'aaaa';
+    if (isset($headerParams['X-IP'])) { 
+       $ip = $headerParams['X-IP'] ;   
+    }
                         
+                        
+    
+    $vLanguageCode = 'tr';
+    if (isset($_GET['language_code'])) {
+        $stripper->offsetSet('language_code', $stripChainerFactory->get(stripChainers::FILTER_ONLY_LANGUAGE_CODE, $app, $_GET['language_code']));
+    }                    
     $vName = NULL;
     if (isset($_GET['name'])) {
         $stripper->offsetSet('name', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, $app, $_GET['name']));
@@ -149,13 +158,11 @@ $app->get("/pkInsert_infoUsers/", function () use ($app ) {
     if (isset($_GET['auth_email'])) {
         $stripper->offsetSet('auth_email', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, $app, $_GET['auth_email']));
     }
-    $vroleId = NULL;
-    if (isset($_GET['role_id'])) {
-        $stripper->offsetSet('role_id', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, $app, $_GET['auth_email']));
-    }
 
     $stripper->strip();
-                        
+    if ($stripper->offsetExists('language_code')) {
+        $vLanguageCode = $stripper->offsetGet('language_code')->getFilterValue();
+    }                   
     if ($stripper->offsetExists('name')) {
         $vName = $stripper->offsetGet('name')->getFilterValue();
     }
@@ -171,17 +178,14 @@ $app->get("/pkInsert_infoUsers/", function () use ($app ) {
     if ($stripper->offsetExists('auth_email')) {
         $vAuthEmail = $stripper->offsetGet('auth_email')->getFilterValue();
     } 
-    if ($stripper->offsetExists('role_id')) {
-        $vroleId = $stripper->offsetGet('role_id')->getFilterValue();
-    } 
     $resDataInsert = $BLL->insert(array(
         'url' => $_GET['url'],   
         'name' => $vName,
         'surname' => $vSurname,
         'username' => $vUsername,
         'password' => $vPassword,
-        'auth_email' => $vAuthEmail, 
-        'role_id' => $vroleId, 
+        'auth_email' => $vAuthEmail,
+        'language_code' => $vLanguageCode,  
         'pk' => $pk));
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($resDataInsert));
@@ -307,6 +311,371 @@ $app->get("/tempInsert_infoUsers/", function () use ($app ) {
     $app->response()->body(json_encode($resDataInsert));
 }
 );
+
+/**
+ *  * Okan CIRAN
+ * @since 27-01-2016
+ */
+$app->get("/tempInsertSB_infoUsers/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('infoUsersBLL');
+   // $headerParams = $app->request()->headers();
+    $vsesionId = NULL;
+    if (isset($_GET['sessionId'])) {
+        $stripper->offsetSet('sessionId', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['sessionId']));
+    } 
+ /*   $vM = NULL;
+    if (isset($_GET['m'])) {
+        $stripper->offsetSet('m', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['m']));
+    }
+    $vA = NULL;
+    if (isset($_GET['a'])) {
+        $stripper->offsetSet('a', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['a']));
+    }
+    */                    
+    $vName = NULL;
+    if (isset($_GET['name'])) {
+        $stripper->offsetSet('name', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['name']));
+    }
+    $vSurname = NULL;
+    if (isset($_GET['surname'])) {
+        $stripper->offsetSet('surname', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['surname']));
+    }
+    $vUsername = NULL;
+    if (isset($_GET['username'])) {
+        $stripper->offsetSet('username', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['username']));
+    }                   
+  /*  $vAuthEmail = NULL;
+    if (isset($_GET['auth_email'])) {
+        $stripper->offsetSet('auth_email', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, 
+                $app, $_GET['auth_email']));
+    }
+*/
+    $stripper->strip();
+    if ($stripper->offsetExists('sessionId')) {
+        $vsesionId = $stripper->offsetGet('sessionId')->getFilterValue();
+    }                 
+   /* if ($stripper->offsetExists('m')) {
+        $vM = $stripper->offsetGet('m')->getFilterValue();
+    }
+    if ($stripper->offsetExists('a')) {
+        $vA = $stripper->offsetGet('a')->getFilterValue();
+    }      
+    * 
+    */              
+    if ($stripper->offsetExists('name')) {
+        $vName = $stripper->offsetGet('name')->getFilterValue();
+    }
+    if ($stripper->offsetExists('surname')) {
+        $vSurname = $stripper->offsetGet('surname')->getFilterValue();
+    }
+    if ($stripper->offsetExists('username')) {
+        $vUsername = $stripper->offsetGet('username')->getFilterValue();
+    }                   
+  /*  if ($stripper->offsetExists('auth_email')) {
+        $vAuthEmail = $stripper->offsetGet('auth_email')->getFilterValue();
+    }                  
+  */  
+    $resDataInsert = $BLL->insertTempSB(array(
+        'url' => $_GET['url'], 
+        'sessionId' =>$vsesionId,  
+     //   'm' => $vM,
+     //   'a' => $vA,   
+        'name' => $vName,
+        'surname' => $vSurname,
+        'username' => $vUsername, 
+    //    'auth_email' => $vAuthEmail, 
+    ));
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($resDataInsert));
+}
+);
+
+                        
+/**
+ *  * Okan CIRAN
+ * @since 16-09-2017
+ */
+$app->get("/pkTempInsertSB_infoUsers/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('infoUsersBLL');
+    $headerParams = $app->request()->headers();
+    if (!isset($headerParams['X-Public'])) {
+        throw new Exception('rest api "pkFillNotInQuestionOfExamLists_infoExamQuestion" end point, X-Public variable not found');
+    }
+    $Pk = $headerParams['X-Public']; 
+    
+    $vsesionId = NULL;
+    if (isset($_GET['sessionId'])) {
+        $stripper->offsetSet('sessionId', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['sessionId']));
+    }                 
+    $vName = NULL;
+    if (isset($_GET['name'])) {
+        $stripper->offsetSet('name', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['name']));
+    }
+    $vSurname = NULL;
+    if (isset($_GET['surname'])) {
+        $stripper->offsetSet('surname', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['surname']));
+    }
+    $vUsername = NULL;
+    if (isset($_GET['username'])) {
+        $stripper->offsetSet('username', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['username']));
+    }                    
+    
+    $vnick = NULL;
+    if (isset($_GET['nick'])) {
+        $stripper->offsetSet('nick', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['nick']));
+    } 
+    $vtcno = NULL;
+    if (isset($_GET['tcno'])) {
+        $stripper->offsetSet('tcno', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['tcno']));
+    } 
+    $viban = NULL;
+    if (isset($_GET['iban'])) {
+        $stripper->offsetSet('iban', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['iban']));
+    } 
+    $vmeslek = NULL;
+    if (isset($_GET['meslek'])) {
+        $stripper->offsetSet('meslek', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['meslek']));
+    }  
+    $vbirthday = NULL;
+    if (isset($_GET['birthday'])) {
+        $stripper->offsetSet('birthday', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['birthday']));
+    } 
+    $veducationtypeid = NULL;
+    if (isset($_GET['education_type_id'])) {
+        $stripper->offsetSet('education_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['education_type_id']));
+    } 
+    
+    $stripper->strip();
+    if ($stripper->offsetExists('sessionId')) {
+        $vsesionId = $stripper->offsetGet('sessionId')->getFilterValue();
+    }                     
+    if ($stripper->offsetExists('name')) {
+        $vName = $stripper->offsetGet('name')->getFilterValue();
+    }
+    if ($stripper->offsetExists('surname')) {
+        $vSurname = $stripper->offsetGet('surname')->getFilterValue();
+    }
+    if ($stripper->offsetExists('username')) {
+        $vUsername = $stripper->offsetGet('username')->getFilterValue();
+    }   
+    if ($stripper->offsetExists('nick')) {
+        $vnick = $stripper->offsetGet('nick')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('tcno')) {
+        $vtcno = $stripper->offsetGet('tcno')->getFilterValue();
+    }
+    if ($stripper->offsetExists('iban')) {
+        $viban = $stripper->offsetGet('iban')->getFilterValue();
+    }
+    if ($stripper->offsetExists('meslek')) {
+        $vmeslek = $stripper->offsetGet('meslek')->getFilterValue();
+    }
+    if ($stripper->offsetExists('birthday')) {
+        $vbirthday = $stripper->offsetGet('birthday')->getFilterValue();
+    }
+    if ($stripper->offsetExists('education_type_id')) {
+        $veducationtypeid = $stripper->offsetGet('education_type_id')->getFilterValue();
+    }
+                        
+    $resDataInsert = $BLL->insertTempSB(array(
+        'url' => $_GET['url'], 
+        'pk' =>$Pk,   
+        'sessionId' =>$vsesionId,   
+        'name' => $vName,
+        'surname' => $vSurname,
+        'username' => $vUsername, 
+        
+        'nick' => $vnick, 
+        'tcno' => $vtcno, 
+        'iban' => $viban, 
+        'meslek' => $vmeslek, 
+        'birthday' => $vbirthday, 
+        'education_type_id' => $veducationtypeid, 
+                        
+    ));
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($resDataInsert));
+}
+);
+
+
+                        
+/**
+ *  * Okan CIRAN
+ * @since 16-09-2017
+ */
+$app->get("/pkUpdateTempSB_infoUsers/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('infoUsersBLL');
+    $headerParams = $app->request()->headers();
+    if (!isset($headerParams['X-Public'])) {
+        throw new Exception('rest api "pkFillNotInQuestionOfExamLists_infoExamQuestion" end point, X-Public variable not found');
+    }
+    $Pk = $headerParams['X-Public']; 
+    $vId =-2222;
+    if (isset($_GET['id'])) {
+        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                    $app, $_GET['id']));
+    }
+    $vsesionId = NULL;
+    if (isset($_GET['sessionId'])) {
+        $stripper->offsetSet('sessionId', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['sessionId']));
+    }                 
+    $vName = NULL;
+    if (isset($_GET['name'])) {
+        $stripper->offsetSet('name', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['name']));
+    }
+    $vSurname = NULL;
+    if (isset($_GET['surname'])) {
+        $stripper->offsetSet('surname', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['surname']));
+    }
+    $vUsername = NULL;
+    if (isset($_GET['username'])) {
+        $stripper->offsetSet('username', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['username']));
+    }                    
+    
+    $vnick = NULL;
+    if (isset($_GET['nick'])) {
+        $stripper->offsetSet('nick', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['nick']));
+    } 
+    $vtcno = NULL;
+    if (isset($_GET['tcno'])) {
+        $stripper->offsetSet('tcno', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['tcno']));
+    } 
+    $viban = NULL;
+    if (isset($_GET['iban'])) {
+        $stripper->offsetSet('iban', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['iban']));
+    } 
+    $vmeslek = NULL;
+    if (isset($_GET['meslek'])) {
+        $stripper->offsetSet('meslek', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['meslek']));
+    }  
+    $vbirthday = NULL;
+    if (isset($_GET['birthday'])) {
+        $stripper->offsetSet('birthday', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['birthday']));
+    } 
+    $veducationtypeid = NULL;
+    if (isset($_GET['education_type_id'])) {
+        $stripper->offsetSet('education_type_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['education_type_id']));
+    } 
+    
+    $stripper->strip();
+    if ($stripper->offsetExists('id')) {
+        $vId = $stripper->offsetGet('id')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('sessionId')) {
+        $vsesionId = $stripper->offsetGet('sessionId')->getFilterValue();
+    }                     
+    if ($stripper->offsetExists('name')) {
+        $vName = $stripper->offsetGet('name')->getFilterValue();
+    }
+    if ($stripper->offsetExists('surname')) {
+        $vSurname = $stripper->offsetGet('surname')->getFilterValue();
+    }
+    if ($stripper->offsetExists('username')) {
+        $vUsername = $stripper->offsetGet('username')->getFilterValue();
+    }   
+    if ($stripper->offsetExists('nick')) {
+        $vnick = $stripper->offsetGet('nick')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('tcno')) {
+        $vtcno = $stripper->offsetGet('tcno')->getFilterValue();
+    }
+    if ($stripper->offsetExists('iban')) {
+        $viban = $stripper->offsetGet('iban')->getFilterValue();
+    }
+    if ($stripper->offsetExists('meslek')) {
+        $vmeslek = $stripper->offsetGet('meslek')->getFilterValue();
+    }
+    if ($stripper->offsetExists('birthday')) {
+        $vbirthday = $stripper->offsetGet('birthday')->getFilterValue();
+    }
+    if ($stripper->offsetExists('education_type_id')) {
+        $veducationtypeid = $stripper->offsetGet('education_type_id')->getFilterValue();
+    }
+                        
+    $resDataInsert = $BLL->updateTempSB(array(
+        'url' => $_GET['url'], 
+        'pk' =>$Pk,   
+        'id' =>$vId,   
+        'sessionId' =>$vsesionId, 
+        'name' => $vName,
+        'surname' => $vSurname,
+        'username' => $vUsername, 
+        
+        'nick' => $vnick, 
+        'tcno' => $vtcno, 
+        'iban' => $viban, 
+        'meslek' => $vmeslek, 
+        'birthday' => $vbirthday, 
+        'education_type_id' => $veducationtypeid, 
+                        
+    ));
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($resDataInsert));
+}
+);
+/**
+ *  * Okan CIRAN
+ * @since 25-01-2016
+ */
+$app->get("/pkDeletedActTempSB_infoUsers/", function () use ($app ) {
+$stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('infoUsersBLL');
+
+    $headerParams = $app->request()->headers();
+    if (!isset($headerParams['X-Public']))
+        throw new Exception('rest api "pkDeletedActTempSB_infoUsers" end point, X-Public variable not found');
+    $pk = $headerParams['X-Public'];   
+    $vId = -1;
+    if (isset($_GET['id'])) {
+        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                    $app, $_GET['id']));
+    }
+    $stripper->strip(); 
+    if ($stripper->offsetExists('id')) {
+        $vId = $stripper->offsetGet('id')->getFilterValue();
+    }
+    $resDataUpdate = $BLL->deletedActTempSB(array(
+        'url' => $_GET['url'],  
+        'id' => $vId,       
+        'pk' => $pk));
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($resDataUpdate));
+});
+ 
 
 /**
  *  * Okan CIRAN
@@ -549,7 +918,7 @@ $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($resDataUpdate));
 });
- 
+                        
 /**
  *  * Okan CIRAN
  * @since 26-04-2016
@@ -1286,6 +1655,212 @@ $app->get("/pkGetUserShortInformation_infoUsers/", function () use ($app ) {
 });
 
 
+/**
+ *  * Okan CIRAN
+ * @since 17-09-2017
+ */
+$app->get("/pkFillTempUserLists_infoUsers/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('infoUsersBLL');
+    $headerParams = $app->request()->headers();
+    if (!isset($headerParams['X-Public'])) {
+        throw new Exception('rest api "pkFillTempUserLists_infoUsers" end point, X-Public variable not found');
+    }
+    $Pk = $headerParams['X-Public'];   
 
+    $vPage = NULL;
+    if (isset($_GET['page'])) {
+        $stripper->offsetSet('page', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['page']));
+    }
+    $vRows = NULL;
+    if (isset($_GET['rows'])) {
+        $stripper->offsetSet('rows', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['rows']));
+    }
+    $vSort = NULL;
+    if (isset($_GET['sort'])) {
+        $stripper->offsetSet('sort', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, $app, $_GET['sort']));
+    }
+    $vOrder = NULL;
+    if (isset($_GET['order'])) {
+        $stripper->offsetSet('order', $stripChainerFactory->get(stripChainers::FILTER_ONLY_ORDER, $app, $_GET['order']));
+    }
+    $filterRules = null;
+    if (isset($_GET['filterRules'])) {
+        $stripper->offsetSet('filterRules', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_JASON_LVL1, $app, $_GET['filterRules']));
+    }
+                     
+    $stripper->strip();
+
+    if ($stripper->offsetExists('page')) {
+        $vPage = $stripper->offsetGet('page')->getFilterValue();
+    }
+    if ($stripper->offsetExists('rows')) {
+        $vRows = $stripper->offsetGet('rows')->getFilterValue();
+    }
+    if ($stripper->offsetExists('sort')) {
+        $vSort = $stripper->offsetGet('sort')->getFilterValue();
+    }
+    if ($stripper->offsetExists('order')) {
+        $vOrder = $stripper->offsetGet('order')->getFilterValue();
+    }
+    if ($stripper->offsetExists('filterRules')) {
+        $filterRules = $stripper->offsetGet('filterRules')->getFilterValue();
+    }               
+
+    $resDataGrid = $BLL->fillTempUserLists(array(
+        'page' => $vPage,
+        'rows' => $vRows,
+        'sort' => $vSort,
+        'order' => $vOrder,
+        'filterRules' => $filterRules,
+                     
+    ));
+
+    $resTotalRowCount = $BLL->fillTempUserListsRTC(array(
+        'filterRules' => $filterRules, 
+    ));
+    $counts = 0;
+
+    $menu = array();
+    if (isset($resDataGrid[0]['id'])) {
+        foreach ($resDataGrid as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "name" => html_entity_decode($menu["name"]),
+                "surname" => html_entity_decode($menu["surname"]),
+                "username" => html_entity_decode($menu["username"]),
+                "s_date" => ($menu["s_date"]), 
+                 "birthday" => ($menu["birthday"]), 
+                "auth_email" => html_entity_decode($menu["auth_email"]), 
+                "op_user_id" => ($menu["op_user_id"]),
+                "op_user_name" => html_entity_decode($menu["op_user_name"]),
+                "auth_alow" => html_entity_decode($menu["auth_alow"]),
+                "role" => html_entity_decode($menu["role"]),
+                 "nick" => html_entity_decode($menu["nick"]),
+                 "tcno" => html_entity_decode($menu["tcno"]),
+                 "iban" => html_entity_decode($menu["iban"]),
+                 "meslek" => html_entity_decode($menu["meslek"]),
+                 "education_type" => html_entity_decode($menu["education_type"]),
+                "education_type_id" => $menu["education_type_id"],
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                     
+                
+            );
+        }
+        $counts = $resTotalRowCount[0]['count'];
+    } ELSE
+        $menus = array();
+
+    $app->response()->header("Content-Type", "application/json");
+    $resultArray = array();
+    $resultArray['total'] = $counts;
+    $resultArray['rows'] = $menus;
+    $app->response()->body(json_encode($resultArray));
+});
+
+ 
+/**
+ *  * Okan CIRAN
+ * @since 17-09-2017
+ */
+$app->get("/fillTempUserListsx_infoUsers/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('infoUsersBLL');
+    $headerParams = $app->request()->headers();
+                     
+
+    $vPage = NULL;
+    if (isset($_GET['page'])) {
+        $stripper->offsetSet('page', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['page']));
+    }
+    $vRows = NULL;
+    if (isset($_GET['rows'])) {
+        $stripper->offsetSet('rows', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, $app, $_GET['rows']));
+    }
+    $vSort = NULL;
+    if (isset($_GET['sort'])) {
+        $stripper->offsetSet('sort', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, $app, $_GET['sort']));
+    }
+    $vOrder = NULL;
+    if (isset($_GET['order'])) {
+        $stripper->offsetSet('order', $stripChainerFactory->get(stripChainers::FILTER_ONLY_ORDER, $app, $_GET['order']));
+    }
+    $filterRules = null;
+    if (isset($_GET['filterRules'])) {
+        $stripper->offsetSet('filterRules', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_JASON_LVL1, $app, $_GET['filterRules']));
+    }
+                     
+    $stripper->strip();
+
+    if ($stripper->offsetExists('page')) {
+        $vPage = $stripper->offsetGet('page')->getFilterValue();
+    }
+    if ($stripper->offsetExists('rows')) {
+        $vRows = $stripper->offsetGet('rows')->getFilterValue();
+    }
+    if ($stripper->offsetExists('sort')) {
+        $vSort = $stripper->offsetGet('sort')->getFilterValue();
+    }
+    if ($stripper->offsetExists('order')) {
+        $vOrder = $stripper->offsetGet('order')->getFilterValue();
+    }
+    if ($stripper->offsetExists('filterRules')) {
+        $filterRules = $stripper->offsetGet('filterRules')->getFilterValue();
+    }               
+
+    $resDataGrid = $BLL->fillTempUserLists(array(
+        'page' => $vPage,
+        'rows' => $vRows,
+        'sort' => $vSort,
+        'order' => $vOrder,
+        'filterRules' => $filterRules,
+                     
+    ));
+
+    $resTotalRowCount = $BLL->fillTempUserListsRTC(array(
+        'filterRules' => $filterRules, 
+    ));
+    $counts = 0;
+
+    $menu = array();
+    if (isset($resDataGrid[0]['id'])) {
+        foreach ($resDataGrid as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "name" => html_entity_decode($menu["name"]),
+                "surname" => html_entity_decode($menu["surname"]),
+                "username" => html_entity_decode($menu["username"]),
+                "s_date" => ($menu["s_date"]), 
+                 "birthday" => ($menu["birthday"]), 
+                "auth_email" => html_entity_decode($menu["auth_email"]), 
+                "op_user_id" => ($menu["op_user_id"]),
+                "op_user_name" => html_entity_decode($menu["op_user_name"]),
+                "auth_alow" => html_entity_decode($menu["auth_alow"]),
+                "role" => html_entity_decode($menu["role"]),
+                 "nick" => html_entity_decode($menu["nick"]),
+                 "tcno" => html_entity_decode($menu["tcno"]),
+                 "iban" => html_entity_decode($menu["iban"]),
+                 "meslek" => html_entity_decode($menu["meslek"]),
+                 "education_type" => html_entity_decode($menu["education_type"]),
+                "education_type_id" => $menu["education_type_id"],
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                     
+                
+            );
+        }
+        $counts = $resTotalRowCount[0]['count'];
+    } ELSE
+        $menus = array();
+
+    $app->response()->header("Content-Type", "application/json");
+    $resultArray = array();
+    $resultArray['total'] = $counts;
+    $resultArray['rows'] = $menus;
+    $app->response()->body(json_encode($resultArray));
+});
+
+ 
 
 $app->run();

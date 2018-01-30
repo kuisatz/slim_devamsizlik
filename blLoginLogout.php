@@ -3,7 +3,7 @@
 require 'vendor/autoload.php';
 
 
-
+use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
 /*$app = new \Slim\Slim(array(
     'mode' => 'development',
@@ -44,7 +44,64 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
     
 
 
-
+/**
+ *  * Okan CIRAN
+ * @since 02-09-2016
+ */
+$app->get("/getPK_blLoginLogout/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('blLoginLogoutBLL'); 
+    
+       
+   $vUsername = NULL;
+    if (isset($_GET['username'])) {
+        $stripper->offsetSet('username', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                $app, $_GET['username']));
+    }
+    $vPassword = NULL;
+    if (isset($_GET['password'])) {
+        $stripper->offsetSet('password', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL1, 
+                $app, $_GET['password']));
+    }
+    
+    $stripper->strip();
+     if ($stripper->offsetExists('username')) {
+        $vUsername = $stripper->offsetGet('username')->getFilterValue();
+    }
+    if ($stripper->offsetExists('password')) {
+        $vPassword = $stripper->offsetGet('password')->getFilterValue();
+    }
+   
+    $resDataInsert = $BLL->getPK(array( 
+        'url' => $_GET['url'], 
+        'username' => $vUsername,
+        'password' => $vPassword,       
+        ));
+   // $app->response()->header("Content-Type", "application/json");
+  // $app->response()->body(json_encode($resDataInsert));
+    
+    
+     $flows = array();
+    foreach ($resDataInsert as $flow) {
+        $flows[] = array(
+           
+            "success" =>  $flow["success"] ,
+            "public_key" => $flow["public_key"],  
+            "okunmamis_mesaj" => $flow["okunmamis_mesaj"],  
+            "pdr_mesaj" => $flow["pdr_mesaj"],  
+            "duyuru" => $flow["duyuru"],  
+            "adsoyad" => html_entity_decode($flow["adsoyad"]),   
+            
+            
+        );
+    }
+    $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($flows));
+    
+    
+}
+);
 
 
 

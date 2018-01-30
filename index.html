@@ -2,499 +2,234 @@
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
-and open the template in the editor. Ğİ
+and open the template in the editor. ѝ
 
 -->
 <html>
     <head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-     
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Loading Flat UI -->
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link href="themes/bootstrap/easyui.css" rel="stylesheet">
-    
-
-    <script src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
-    
-</head>
-<body>
-<script>
-    jQuery(document).ready(function() {
-        
-        $.ajax({
-            url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-            data : {
-
-                    url : 'getDynamicForm_test',
-                    pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-            },
-            type: 'GET',
-            dataType : 'html',
-            success: function(data, textStatus, jqXHR) {
-
-                 $('.result').html(data);
-                 //$('.result').append(data);
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-
-        
-        
-        
-        
-    $('#tt_grid').datagrid({
-             onSelect : function () {
  
-             },
-             url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-            //url :'index.php/getReports_rpt',
-            queryParams : { 
-                            url : 'getReports_test',
-                            pk : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-                          },
-            method : 'GET',
-            sortName : 'r_date',
-            collapsible:true,
-            idField:'id',
-            //toolbar:'#tb',
-            rownumbers: "true",
-            pagination: "true",
-            remoteSort : true,
-            multiSort : true,
-            singleSelect : true,
-            columns:[[
-                {field:'report_name',title:'Report Name',width:100,sortable:true},
-                {field:'r_date',title:'Report Date',width:100,sortable:true},
-                {field:'company_name',title:'Company',width:100,sortable:true},
-                {field:'company_id',title:'Company ID',width:100,sortable:true,hidden:true},
-                {field:'user_name',title:'User Name',width:100},
-                {field:'name',title:'Name',width:100},
-                {field:'surname',title:'Surname',width:100},
-            ]],
-    });
-    
-    
-     $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-     url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-            data : {                              
-                    pk : 'VjLzfZK*B99MP7E',
-                    url : 'pkSessionControl_blLoginLogout',
-                    
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
 
-                
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-
-    
-    
-    
-    
-    $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-         
-              url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-            data : {  
-                   country_id :91 ,
-                   city_id : 66 ,
-                   boroughs_id : 738 ,
-                   language_code : 'tr',
-                   url : 'fillComboBox_sysvillage',
-                   pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
-
-                
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-    
-    
-    
-    
-    $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-         
-              url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-            data : {                
-                   url : 'fillComboBox_syslanguage',
-                   pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
-
-                
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-    
-    
-    $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-     url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-            data : {
-                    parent : 0 ,
-                    language_code : 'tr',
-                    pk : 'Cl68lRxFidrIT4o',
-                    url : 'getLeftMenu_leftnavigation',
-                    
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
-
-                
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-
-   /* $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-    url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php', 
-            data : {                
-                   url : 'getLeftMenuFull_leftnavigation',
-                   pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
-
-                
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-        */
-        /*
-    $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-         url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-            data : {
-                    parent : 0 ,
-                    url : 'fillComboBox_syscountryssilinecek',
-                   pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
-
-             
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-       
-        
-    $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-       url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php', 
-            data : {
-                   country_id : 91,  
-                   language_code : 'tr',
-                   url : 'fillComboBox_syscity',
-                   pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-                                  
-            },
-            method : 'GET',
-            
-        
-            success: function(data, textStatus, jqXHR) {
-
-             
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-   
-    $.ajax({
-    //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-     url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-      data : {            
-             language_code : 'tr',
-             url : 'fillComboBox_sysborough',
-             pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348',
-             country_id : 91 ,    
-             city_id : 35   
-      },
-      method : 'GET',
+        <!-- Loading Flat UI -->
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="themes/bootstrap/easyui.css" rel="stylesheet">
 
 
-      success: function(data, textStatus, jqXHR) {
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
 
+    </head>
+    <body>
+        <script>
+            jQuery(document).ready(function () {
 
-      },
-      error: function(jqXHR , textStatus, errorThrown) {
-        console.warn('error text status-->'+textStatus);
-      }
-  });  
-
-      $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-      url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php', 
-            data : {                   
-                language_code : 'tr',
-                url : 'fillComboBox_syscountrys',
-                pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
-
-             
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
- 
-      $.ajax({
-          //  url : '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',   
-           url :'../Slim_Proxy_devamsizlik/SlimProxyBoot.php', 
-            data : {
-                   
-                    language_code : 'tr',
-                    url : 'fillGrid_infoUsers',
-                    pk  : '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
-            },
-            method : 'GET',
-        
-            success: function(data, textStatus, jqXHR) {
-
-                
-            },
-            error: function(jqXHR , textStatus, errorThrown) {
-              console.warn('error text status-->'+textStatus);
-            }
-        });  
-    
-    */ 
-    
-           $.ajax({
-                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
-                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                $.ajax({
+                    url: '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',
                     data: {
-                        language_code: 'tr',
-                        url: 'fillComboBox_sysborough',
-                       
-                        country_id: 91,
-                        city_id: 35
+                        url: 'getDynamicForm_test',
+                        pk: ' 3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
                     },
-                    method: 'GET',
+                    type: 'GET',
+                    dataType: 'html',
                     success: function (data, textStatus, jqXHR) {
 
-
+                        $('.result').html(data);
+                        //$('.result').append(data);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.warn('error text status-->' + textStatus);
                     }
                 });
-          /*   
+
+                $('#tt_grid').datagrid({
+                    onSelect: function () {
+
+                    },
+                    url: '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',
+                    //url :'index.php/getReports_rpt',
+                    queryParams: {
+                        url: 'getReports_test',
+                        pk: ' 3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348'
+                    },
+                    method: 'GET',
+                    sortName: 'r_date',
+                    collapsible: true,
+                    idField: 'id',
+                    //toolbar:'#tb',
+                    rownumbers: "true",
+                    pagination: "true",
+                    remoteSort: true,
+                    multiSort: true,
+                    singleSelect: true,
+                    columns: [[
+                            {field: 'report_name', title: 'Report Name', width: 100, sortable: true},
+                            {field: 'r_date', title: 'Report Date', width: 100, sortable: true},
+                            {field: 'company_name', title: 'Company', width: 100, sortable: true},
+                            {field: 'company_id', title: 'Company ID', width: 100, sortable: true, hidden: true},
+                            {field: 'user_name', title: 'User Name', width: 100},
+                            {field: 'name', title: 'Name', width: 100},
+                            {field: 'surname', title: 'Surname', width: 100},
+                        ]],
+                });
+               
+        /*       
+   
+                
+        
+        //pkInsert_sysMachineTools
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_sysMachineTools',
+                        pk: ' kA1N 3My3uP9P0vU',     
+                        language_code: 'tr',  
+                        machine_tool_grup_id: 5,
+                        machine_tool_name: 'deneme',
+                        machine_tool_name_eng: 'deneme eng',
+                        manufactuer_id: 26,
+                        model: 'V8',
+                        model_year: 2012,
+                        machine_code: '11.25.89',
+                        picture: 'ddd.png',   
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });  
+         
+     */
+//pkFillRolesPropertiesList_sysAclRoles 
                 $.ajax({
                     //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
                     url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
                     data: {
-                       tc: '7777',
-                        url: 'gnlKullaniciMebKoduFindByTcKimlikNo_mbllogin',
-                        
-                        cid  : 1, 
-                    },
+                        url: 'pkFillRolesPropertiesList_sysAclRoles',
+                        pk: 'O9JPg0*U kKV*hZY',
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '', 
+                        name: '', 
+                        name_tr: '', 
+                        parent_name: '', 
+                        inherited_name: '', 
+                        resource_name: '', 
+                        filterRules: '', 
+                                            },
                     method: 'GET',
                     success: function (data, textStatus, jqXHR) {
-
-
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.warn('error text status-->' + textStatus);
                     }
                 });
-   
-                    $.ajax({
+     
+       
+   //pkInsert_infoQuestionAnswers
+                $.ajax({
                     //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
                     url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
                     data: {
-                        tc: 7777,
-                        sifre:   '12345',
-                        url: 'gnlKullaniciFindForLoginByTcKimlikNo_mbllogin',
-                        
-                        deviceID: '11111',
-                        cid  : 1,
+                        url: 'pkInsert_infoQuestionAnswers',
+                        pk: 'MCFsNUj fLMTUVcU',   
+                        description: ' rrr sdf sdf ',
+                        question_id : 2, 
+                        correct : false, 
+                          
                     },
                     method: 'GET',
                     success: function (data, textStatus, jqXHR) {
-
-
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.warn('error text status-->' + textStatus);
                     }
-                });
-   
-   
-            $.ajax({
-                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
-                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-                    data: {
-                        tc: 7777, 
-                     //   kisiId: 'AF7560B2-29FD-47DC-A0BE-B295B3841871',
-                        url: 'mobilfirstdata_mbllogin',
-                        languageID : 647,    
-                    },
-                    method: 'GET',
-                    success: function (data, textStatus, jqXHR) {
-
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.warn('error text status-->' + textStatus);
-                    }
-                });
-                
-           
-        
-                 $.ajax({
-                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
-                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-                    data: { 
-                    url: 'OgrencininSinavlistesi_mbllogin',  
-                    okulID  : 'F441FF75-5C6B-4A4C-BF5A-1D5DE4D655A3',
-                    kisiID : 'EA133E95-181B-4B2F-90C8-8E75A87F4F21', 
-                    cid  : 1,
-                    did : 91,
-                    },
-                    method: 'GET',
-                    success: function (data, textStatus, jqXHR) {
-  
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.warn('error text status-->' + textStatus);
-                    }
-                }); 
-                  $.ajax({
-                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
-                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-                    data: { 
-                        url: 'OgretmenProgramindakiDersler_mbllogin',
-                        kisiId: '17A68CAA-1A13-460A-BEAA-FB483AC82F7B',
-                        OkulID: '7E755C68-ABC1-492B-9D82-3B39B831A962',
-                        dersYiliID:'9D7A115C-5E96-4F6E-B31D-E5710BDA1C97',
-                        languageID : 647,  
-                        cid  : 1,
-                        did  : 91
-                    },
-                    method: 'GET',
-                    success: function (data, textStatus, jqXHR) {
-
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.warn('error text status-->' + textStatus);
-                    }
-                });
-                */
-                
-                ////////////////////////
-                
-                   $.ajax({
-                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
-                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-                    data: { 
-                        url: 'fillComboBoxTsql_syslanguage',   
-                    },
-                    method: 'GET',
-                    success: function (data, textStatus, jqXHR) {
-  
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.warn('error text status-->' + textStatus);
-                    }
-                }); 
-                
-                 $.ajax({
-                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
-                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
-                    data: { 
-                        name : 'pkInsert_infoUsers',
-                        surname : 'dddd',
-                        username : 'eeee',
-                        password :'12345',
-                        auth_email : 'xx@gmail.com',  
-                        role_id  : 3,
-                        pk  : '',
-                        
-                    },
-                    method: 'GET',
-                    success: function (data, textStatus, jqXHR) {
-
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.warn('error text status-->' + textStatus);
-                    }
-                });
-                   
+                });     
               
+          
+         //pkInsert_infoUsers
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_infoUsers',
+                        pk: 'd9ZM8FQMFCc.Dzo',   
+                        name : ' deneme1 name',
+                        surname : ' deneme1 surame ', 
+                        username : 'deennee', 
+                        password : '12345', 
+                        auth_email : 'abc@gmail.com',  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });     
                 
                 
                 
                 
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-             ////////////////////////   son
-});
-    
-</script>
+///////////   sonn 
+            });
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+////////////////////////////////////////////////////////////////////////////////////////////
+        </script>
 
         <div id="p2" class="easyui-panel"  
-            title="Reports already prepared" 
-            style="margin: auto 0;height:350px;"
-           data-options="iconCls:'icon-save',collapsible:true,closable:true">
-           <table id="tt_grid" data-options="" 
-                  title="Company Report Sets" 
-                      contenteditable="" style="height:440px;" 
-             accesskey="">
-           </table>
-            
-       </div>
+             title="Reports already prepared" 
+             style="margin: auto 0;height:350px;"
+             data-options="iconCls:'icon-save',collapsible:true,closable:true">
+            <table id="tt_grid" data-options="" 
+                   title="Company Report Sets" 
+                   contenteditable="" style="height:440px;" 
+                   accesskey="">
+            </table>
+
+        </div>
         <div class="result">
 
         </div>
 
-</body>
+    </body>
 </html>

@@ -46,7 +46,7 @@ $app->add(new \Slim\Middleware\MiddlewareServiceManager());
 
 /**
  *  *  
-  *  Okan CIRAN
+  *  * Okan CIRAN
  * @since 11-09-2014
  */
 $app->get("/fillComboBox_syslanguage/", function () use ($app ) {
@@ -150,63 +150,5 @@ $app->get("/pkFillLanguageDdList_syslanguage/", function () use ($app ) {
     $app->response()->body(json_encode($flows));
 });
  
-/**
- *  *  
-  *  Okan CIRAN
- * @since 11-09-2014
- */
-$app->get("/fillComboBoxTsql_syslanguage/", function () use ($app ) {
-    
-    $BLL = $app->getBLLManager()->get('sysLanguageBLL'); 
-    
-    $componentType = 'bootstrap'; 
-    if (isset($_GET['component_type'])) {
-        $componentType = strtolower(trim($_GET['component_type'] ));
-    }
-   
-    $resCombobox = $BLL->fillComboBoxTsql ();  
- 
-   
-    if ($componentType == 'bootstrap') {
-        $menus = array();
-        foreach ($resCombobox as $menu) {
-            $menus[] = array(
-                "id" => $menu["id"],
-                "language" => html_entity_decode($menu["language"]),
-                "language_eng" => html_entity_decode($menu["language_eng"]),
-                "language_main_code" => $menu["language_main_code"],
-                "url" => $menu["url"],
-                
-            );
-        }
-    } else if ($componentType == 'ddslick') {
-        $menus = array();
-        $menus[] = array("text" => "Lütfen Bir Dil Seçiniz", "value" => -1, "selected" => true,);
-        foreach ($resCombobox as $menu) {
-            $menus[] = array(
-                "text" => $menu["language"],
-                "value" => $menu["id"],
-                "selected" => false,
-                "description" => $menu["language_eng"],
-                "imageSrc" => ""
-            );
-        }
-    }
-
-
-    $app->response()->header("Content-Type", "application/json");
-    
-   if($componentType == 'ddslick'){
-        $app->response()->body(json_encode($menus));
-    }else if($componentType == 'bootstrap'){
-        $app->response()->body(json_encode($resCombobox));
-    }
-  
-  
-    
-  //$app->response()->body(json_encode($menus));
-  
-});
-
 
 $app->run();

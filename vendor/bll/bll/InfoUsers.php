@@ -6,7 +6,6 @@
  * @copyright Copyright (c) 2017
  * @license   
  */
-
 namespace BLL\BLL;
 
 /**
@@ -31,7 +30,7 @@ class InfoUsers extends \BLL\BLLSlim{
         return $DAL->insert($params);
     }
     
-       /**
+    /**
      * Data insert function
      * @param array | null $params
      * @return array
@@ -40,7 +39,18 @@ class InfoUsers extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
         return $DAL->insertTemp($params);
     }
-        /**
+    
+    
+    /**
+     * Data insert function
+     * @param array | null $params
+     * @return array
+     */
+    public function insertTempSB($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        return $DAL->insertTempSB($params);
+    }
+    /**
      * Data update function
      * @param array | null $params
      * @return array
@@ -50,6 +60,15 @@ class InfoUsers extends \BLL\BLLSlim{
         return $DAL->updateTemp($params);
     }
     
+    /**
+     * Data update function
+     * @param array | null $params
+     * @return array
+     */
+    public function updateTempSB($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        return $DAL->updateTempSB($params);
+    }
       /**
      * Check Data function
      * @param array | null $params
@@ -122,6 +141,16 @@ class InfoUsers extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
         return $DAL->deletedAct($params);
     }
+        
+     /**
+     * Data delete action function
+     * @param array | null $params
+     * @return array
+     */
+    public function deletedActTempSB($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        return $DAL->deletedActTempSB($params);
+    } 
     
     /**
      * public key / private key and value update function
@@ -288,6 +317,32 @@ class InfoUsers extends \BLL\BLLSlim{
         $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
         return $DAL->updateConsUserConfirmAct($params);
     }
+    
+        
+    /**
+     * Function to fill datagrid on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillTempUserLists ($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $resultSet = $DAL->fillTempUserLists($params);  
+        return $resultSet['resultSet'];
+    }
+        
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params
+     * @return array
+     */
+    public function fillTempUserListsRTC($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('infoUsersPDO');
+        $resultSet = $DAL->fillTempUserListsRTC($params);  
+        return $resultSet['resultSet'];
+    }
+    
+    
+    
     
 }
 

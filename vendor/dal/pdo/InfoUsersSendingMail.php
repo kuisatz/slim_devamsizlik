@@ -1,9 +1,9 @@
 <?php
 
 /**
- *  Framework 
+ *Framework 
  *
- * @link       
+ * @link 
  * @copyright Copyright (c) 2017
  * @license   
  */
@@ -862,19 +862,19 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                         '{[herkimse]}' => $params['herkimse'],
                         '{[kume]}' =>  $params['kume'],
                         '{[rol]}' => $params['rol'],
-                        '{[link]}' => 'https://okan.uretimosb.com/imalat/OSB/signupconfirmation?key='. $params['key']));
+                        '{[link]}' => 'https://slim.okulsis.com/imalat/OSB/signupconfirmation?key='. $params['key']));
 
             $mail = new \Utill\Mail\PhpMailer\PhpMailInfoWrapper();
             $mail->setCharset('UTF-8');
-            $mail->setSMTPServerHost('mail.xxx.com');
-            $mail->setSMTPServerUser('xxx@xxx.com');
+            $mail->setSMTPServerHost('mail.okulsis.com');
+            $mail->setSMTPServerUser('devamsizlik@okulsis.com');
             $mail->setSMTPServerUserPassword('1q2w3e4r');
-            $mail->setFromUserName('xxx@yyy.com');
+            $mail->setFromUserName('devamsizlik@okulsis.com');
             $mail->setMessage($message);
-            $params = ['subject' => 'xxx Projesi Küme Çalışanı Onay İşlemi',
-                'info' => 'xxx Projesi Yöneticileri tarafından '
-                . '              sisteme Çalışanı olarak onaylanmanız amacıyla gönderilmiştir',
-                'to' =>  'xxx@gmail.com']; //$params['auth_email'] ];  //  
+            $params = ['subject' => 'Şifre Onay İşlemi',
+                'info' => 'Okulsis Yöneticileri tarafından '
+                . '              şifrenizi ve üyeliğinizi onaylanmanız amacıyla gönderilmiştir',
+                'to' =>  '311corner82@gmail.com']; //$params['auth_email'] ];  // 311corner82@gmail.com
             $mail->sendInfoMailSMTP($params);
             $sql = "";
             $statement = $pdo->prepare($sql);
@@ -911,20 +911,21 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                         '{[herkimse]}' => $params['herkimse'],
                         '{[kume]}' =>  $params['kume'],
                         '{[rol]}' => $params['rol'],
-                        '{[link]}' => 'https://okan.uretimosb.com/imalat/OSB/signupconfirmation?key='. $params['key']));
+                        '{[link]}' => 'https://sorubankasi.com/imalat/OSB/signupconfirmation?key='. $params['key']));
 
             $mail = new \Utill\Mail\PhpMailer\PhpMailInfoWrapper();
             $mail->setCharset('UTF-8');
-            $mail->setSMTPServerHost('mail.yyy.com');
-            $mail->setSMTPServerUser('xxx@yyy.com');
-            $mail->setSMTPServerUserPassword('1q2w3e4r');
-            $mail->setFromUserName('xxx@yyy.com');
+            $mail->setSMTPServerHost('smtp.gmail.com');
+            $mail->setSMTPServerUser('ociran@gmail.com');
+            $mail->setSMTPServerUserPassword('134sn7d117006oki');
+            $mail->setFromUserName('ociran@gmail.com');
             $mail->setMessage($message);
-            $params = ['subject' => 'xxx projesi Kullanıcı Şifre Onay İşlemi',
-                'info' => 'xxx Projesi Yöneticileri tarafından '
+            $params = ['subject' => 'Kamuda Sınav Kullanıcı Şifre Onay İşlemi',
+                'info' => 'Kamuda Sınav Yöneticileri tarafından '
                 . '              şifrenizi belirlemeniz amacıyla gönderilmiştir',
                 'to' => $params['auth_email'] ];  // 311corner82@gmail.com
-            $mail->sendInfoMailSMTP($params);
+            $mail->sendInfoMailSMTP($params); 
+            
             $sql = "";
             $statement = $pdo->prepare($sql);
             //  echo debugPDO($sql, $params);                

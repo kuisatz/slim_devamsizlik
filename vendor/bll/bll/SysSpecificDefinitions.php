@@ -176,7 +176,78 @@ class SysSpecificDefinitions extends \BLL\BLLSlim {
         $resultSet = $DAL->fillSexTypes($params);
         return $resultSet['resultSet'];
     }
+      /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillSubjectsTypes($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $resultSet = $DAL->fillSubjectsTypes($params);
+        return $resultSet['resultSet'];
+    }
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillDifficulty($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $resultSet = $DAL->fillDifficulty($params);
+        return $resultSet['resultSet'];
+    }
+     /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillQuestionTime($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $resultSet = $DAL->fillQuestionTime($params);
+        return $resultSet['resultSet'];
+    }
+      /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillSubjectTypes($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $resultSet = $DAL->fillSubjectTypes($params);
+        return $resultSet['resultSet'];
+    }
     
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillAnswerTypes($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $resultSet = $DAL->fillAnswerTypes($params);
+        return $resultSet['resultSet'];
+    }  
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillQuestionSourceType($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $resultSet = $DAL->fillQuestionSourceType($params);
+        return $resultSet['resultSet'];
+    }  
+    
+    /**
+     * Function to fill text on user interface layer
+     * @param array $params
+     * @return array
+     */
+    public function fillEducationType($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('sysSpecificDefinitionsPDO');
+        $resultSet = $DAL->fillEducationType($params);
+        return $resultSet['resultSet'];
+    }  
     
     
     

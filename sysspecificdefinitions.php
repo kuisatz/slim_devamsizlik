@@ -70,7 +70,7 @@ $app->get("/fillMainDefinitions_sysSpecificDefinitions/", function () use ($app 
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" =>html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -79,10 +79,10 @@ $app->get("/fillMainDefinitions_sysSpecificDefinitions/", function () use ($app 
     } else if ($componentType == 'ddslick') {        
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" => intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" =>html_entity_decode( $menu["name_eng"]),
                // "imageSrc" => ""
             );
         }
@@ -116,7 +116,7 @@ $app->get("/fillFullDefinitions_sysSpecificDefinitions/", function () use ($app 
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -125,10 +125,10 @@ $app->get("/fillFullDefinitions_sysSpecificDefinitions/", function () use ($app 
     } else if ($componentType == 'ddslick') {        
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" => intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
               //  "imageSrc" => ""
             );
         }
@@ -166,7 +166,7 @@ $app->get("/fillCommunicationsTypes_sysSpecificDefinitions/", function () use ($
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -175,10 +175,10 @@ $app->get("/fillCommunicationsTypes_sysSpecificDefinitions/", function () use ($
     } else if ($componentType == 'ddslick') {
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" => intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
             //    "imageSrc" => ""
             );
         }
@@ -219,7 +219,7 @@ $app->get("/fillBuildingType_sysSpecificDefinitions/", function () use ($app ) {
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -228,10 +228,10 @@ $app->get("/fillBuildingType_sysSpecificDefinitions/", function () use ($app ) {
     } else if ($componentType == 'ddslick') {     
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" => intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
                 //"imageSrc" => ""
             );
         }
@@ -269,7 +269,7 @@ $app->get("/fillOwnershipType_sysSpecificDefinitions/", function () use ($app ) 
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -278,10 +278,10 @@ $app->get("/fillOwnershipType_sysSpecificDefinitions/", function () use ($app ) 
     } else if ($componentType == 'ddslick') {       
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" => intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
                // "imageSrc" => ""
             );
         }
@@ -318,7 +318,7 @@ $app->get("/fillPersonnelTypes_sysSpecificDefinitions/", function () use ($app )
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -327,10 +327,10 @@ $app->get("/fillPersonnelTypes_sysSpecificDefinitions/", function () use ($app )
     } else if ($componentType == 'ddslick') {      
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" =>  intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
                 //"imageSrc" => ""
             );
         }
@@ -368,7 +368,7 @@ $app->get("/fillAddressTypes_sysSpecificDefinitions/", function () use ($app ) {
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -377,10 +377,10 @@ $app->get("/fillAddressTypes_sysSpecificDefinitions/", function () use ($app ) {
     } else if ($componentType == 'ddslick') {       
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" =>  intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
                // "imageSrc" => ""
             );
         }
@@ -415,7 +415,7 @@ $app->get("/fillSexTypes_sysSpecificDefinitions/", function () use ($app ) {
         foreach ($resCombobox as $menu) {
             $menus[] = array(
                 "id" => $menu["id"],
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
                 "attributes" => array("notroot" => true, "active" => $menu["active"]),
@@ -424,10 +424,10 @@ $app->get("/fillSexTypes_sysSpecificDefinitions/", function () use ($app ) {
     } else if ($componentType == 'ddslick') {       
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" =>  intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
                // "imageSrc" => ""
             );
         }
@@ -438,6 +438,296 @@ $app->get("/fillSexTypes_sysSpecificDefinitions/", function () use ($app ) {
     $app->response()->body(json_encode($menus));
 });
 
+/**
+ *  * Okan CIRAN
+ * @since 13-06-2017
+ */
+$app->get("/fillSubjectsTypes_sysSpecificDefinitions/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+
+    $resCombobox = $BLL->fillSubjectsTypes();
+
+        $menus = array();
+        $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" => html_entity_decode($menu["name"]),
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" =>  html_entity_decode($menu["name"]),
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" => html_entity_decode( $menu["name_eng"]),
+               // "imageSrc" => ""
+            );
+        }
+    } 
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+});
+
+
+/**
+ *  * Okan CIRAN
+ * @since 14-06-2017
+ */
+$app->get("/fillDifficulty_sysSpecificDefinitions/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+
+    $resCombobox = $BLL->fillDifficulty();
+
+        $menus = array();
+        $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" =>  html_entity_decode($menu["name"]),
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" =>  html_entity_decode($menu["name"]),
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" =>  html_entity_decode($menu["name_eng"]),
+               // "imageSrc" => ""
+            );
+        }
+    } 
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+});
+
+/**
+ *  * Okan CIRAN
+ * @since 14-06-2017
+ */
+$app->get("/fillQuestionTime_sysSpecificDefinitions/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+
+    $resCombobox = $BLL->fillQuestionTime();
+
+        $menus = array();
+        $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" =>  html_entity_decode($menu["name"]),
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" =>  html_entity_decode($menu["name"]),
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" =>  html_entity_decode($menu["name_eng"]),
+               // "imageSrc" => ""
+            );
+        }
+    } 
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+});
+
+/**
+ *  * Okan CIRAN
+ * @since 04-07-2017
+ */
+$app->get("/fillSubjectTypes_sysSpecificDefinitions/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+
+    $resCombobox = $BLL->fillSubjectTypes();
+
+        $menus = array();
+        $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" =>  html_entity_decode($menu["name"]),
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" =>  html_entity_decode($menu["name"]),
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" =>  html_entity_decode($menu["name_eng"]),
+               // "imageSrc" => ""
+            );
+        }
+    } 
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+});
+ 
+
+/**
+ *  * Okan CIRAN
+ * @since 04-07-2017
+ */
+$app->get("/fillAnswerTypes_sysSpecificDefinitions/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+
+    $resCombobox = $BLL->fillAnswerTypes();
+
+        $menus = array();
+        $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" =>  html_entity_decode($menu["name"]),
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" =>  html_entity_decode($menu["name"]),
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" =>  html_entity_decode($menu["name_eng"]),
+               // "imageSrc" => ""
+            );
+        }
+    } 
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+});
+
+
+/**
+ *  * Okan CIRAN
+ * @since 04-07-2017
+ */
+$app->get("/fillQuestionSourceType_sysSpecificDefinitions/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+
+    $resCombobox = $BLL->fillQuestionSourceType();
+
+        $menus = array();
+        $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" =>  html_entity_decode($menu["name"]),
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" =>  html_entity_decode($menu["name"]),
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" =>  html_entity_decode($menu["name_eng"]),
+               // "imageSrc" => ""
+            );
+        }
+    } 
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+});
+
+
+/**
+ *  * Okan CIRAN
+ * @since 17-09-2017
+ */
+$app->get("/fillEducationType_sysSpecificDefinitions/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
+   
+    $componentType = 'ddslick';
+    if (isset($_GET['component_type'])) {
+        $componentType = strtolower(trim($_GET['component_type']));
+    }
+
+    $resCombobox = $BLL->fillEducationType();
+
+        $menus = array();
+        $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
+    if ($componentType == 'bootstrap') {
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "id" => $menu["id"],
+                "text" =>  html_entity_decode($menu["name"]),
+                "state" => $menu["state_type"], //   'closed',
+                "checked" => false,
+                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+            );
+        }
+    } else if ($componentType == 'ddslick') {       
+        foreach ($resCombobox as $menu) {
+            $menus[] = array(
+                "text" =>  html_entity_decode($menu["name"]),
+                "value" =>  intval($menu["id"]),
+                "selected" => false,
+                "description" => '', //  html_entity_decode($menu["name_eng"]),
+               // "imageSrc" => ""
+            );
+        }
+    } 
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+});
 
 
 $app->run();

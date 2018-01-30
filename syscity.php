@@ -2,7 +2,7 @@
 // test commit for branch slim2
 require 'vendor/autoload.php';
 
-// Ğİ
+use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
 
 /*$app = new \Slim\Slim(array(
@@ -45,25 +45,35 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
 
 /**
  *  *  
- *  Okan CIRAN
+  *  * 
  * @since 11-09-2014
  */
 $app->get("/fillComboBox_syscity/", function () use ($app ) {
-
-    
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();   
     $BLL = $app->getBLLManager()->get('sysCityBLL'); 
     
-    $languageCode = 'tr';
-    if (isset($_GET['language_code'])) {
-        $languageCode = strtolower(trim($_GET['language_code']));
-    }
+    
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
 
-    $resCombobox = $BLL->fillComboBox (array('country_id'=>$_GET['country_id'],
-                                             'language_code'=>$languageCode));  
+    
+    $vCountryId = NULL;
+    if (isset($_GET['country_id'])) {
+        $stripper->offsetSet('country_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['country_id']));
+    } 
+    $stripper->strip(); 
+    if ($stripper->offsetExists('country_id')) {$vCountryId = $stripper->offsetGet('country_id')->getFilterValue(); }
+    
+    
+    
+    
+    $resCombobox = $BLL->fillComboBox (array('country_id'=>$vCountryId,
+                                              ));  
  
  
        $menus = array();
@@ -79,10 +89,10 @@ $app->get("/fillComboBox_syscity/", function () use ($app ) {
         $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" =>  html_entity_decode($menu["name"]),
                 "value" =>intval($menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode( $menu["name_eng"]),
                 "attributes" => array("boroughlist" => $menu["boroughlist"], "active" => $menu["active"],)
               //  "imageSrc" => ""
             );

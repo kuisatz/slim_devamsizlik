@@ -1,9 +1,9 @@
 <?php
 
 /**
- *  Framework 
+ *Framework 
  *
- * @link       
+ * @link 
  * @copyright Copyright (c) 2017
  * @license   
  */
@@ -33,8 +33,9 @@ class config {
             'invokables' => array(
                 'test' => 'Utill\BLL\Test\Test'
             ),
-            'factories' => [
-                'pgConnectFactory' => 'Services\Database\Postgresql\PostgreSQLConnectPDO',
+            'factories' => [ 
+                'pgConnectDevamsizlikFactory' => 'Services\Database\Postgresql\PostgreSQLConnectDevamsizlikPDO',                
+                'pgConnectFactory' => 'Services\Database\Postgresql\PostgreSQLConnectPDO', 
                 'pgConnectLogFactory' => 'Services\Database\Postgresql\PostgreSQLConnectLogPDO',
                 'filterDefault' => 'Services\Filter\FilterDefault',
                 'filterHtmlTagsCustomAdvanced' => 'Services\Filter\filterHtmlTagsCustomAdvanced',
@@ -62,12 +63,7 @@ class config {
                 'filterTrim' => 'Services\Filter\FilterTrim',
                 'filterOnlyOrder' => 'Services\Filter\FilterOnlyOrder',
                 
-                'pgConnectFactoryMobil' => 'Services\Database\Postgresql\PostgreSQLConnectPDOMobil',
-                'pgConnectFactoryBilsanet' => 'Services\Database\Postgresql\PostgreSQLConnectPDOBilsanet',
-                'pgConnectFactoryTedAnkara' => 'Services\Database\Postgresql\PostgreSQLConnectPDOTedAnkara',
                 
-                
-              
             ],
         ),
     );

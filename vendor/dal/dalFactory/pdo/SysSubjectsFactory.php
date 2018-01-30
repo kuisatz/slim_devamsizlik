@@ -1,0 +1,29 @@
+<?php
+/**
+ *   Framework 
+ *
+ * @link      https://github.com/corner82/slim_test for the canonical source repository
+ * @copyright Copyright (c) 2015 
+ * @license   
+ */
+namespace DAL\Factory\PDO;
+
+
+/**
+ * Class using Zend\ServiceManager\FactoryInterface
+ * created to be used by DAL MAnager
+ * @author Okan CIRAN
+ * created date : 12.06.2017
+ */
+class SysSubjectsFactory  implements \Zend\ServiceManager\FactoryInterface{
+    
+    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
+        $sysSubjects  = new \DAL\PDO\SysSubjects();      
+        $slimapp = $serviceLocator->get('slimapp') ;            
+        $sysSubjects -> setSlimApp($slimapp);      
+        return $sysSubjects;
+      
+    }
+    
+    
+}

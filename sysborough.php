@@ -2,7 +2,7 @@
 // test commit for branch slim2
 require 'vendor/autoload.php';
 
-
+use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
 
 /*$app = new \Slim\Slim(array(
@@ -45,26 +45,32 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
 
 /**
  *  *  
- * Okan CIRAN
+  *  * Okan CIRAN
  * @since 11-09-2014
  */
 $app->get("/fillComboBox_sysborough/", function () use ($app ) {
-
-    
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
     $BLL = $app->getBLLManager()->get('sysBoroughBLL'); 
  
-    $vLanguageCode = 'tr';
-    if (isset($_GET['language_code'])) {
-        $vLanguageCode = strtolower(trim($_GET['language_code']));
-    }
+    
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
+    
+     $vCityId = NULL;
+    if (isset($_GET['city_id'])) {
+        $stripper->offsetSet('city_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['city_id']));
+    } 
+    $stripper->strip(); 
+    if ($stripper->offsetExists('city_id')) {$vCityId = $stripper->offsetGet('city_id')->getFilterValue(); }
+    
  
-    $resCombobox = $BLL->fillComboBox (array('country_id'=>$_GET['country_id'],
-                                             'language_code'=>$vLanguageCode,
-                                             'city_id'=>$_GET['city_id']   
+    $resCombobox = $BLL->fillComboBox (array(   
+                                             'city_id'=>$vCityId   
                                                 ));  
  
   
@@ -82,10 +88,10 @@ $app->get("/fillComboBox_sysborough/", function () use ($app ) {
         $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
         foreach ($resCombobox as $menu) {
             $menus[] = array(
-                "text" => $menu["name"],
+                "text" => html_entity_decode($menu["name"]),
                 "value" => intval( $menu["id"]),
                 "selected" => false,
-                "description" => $menu["name_eng"],
+                "description" => html_entity_decode($menu["name_eng"]),
              //   "imageSrc" => ""
             );
         }

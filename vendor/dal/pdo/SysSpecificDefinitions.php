@@ -1,9 +1,9 @@
 <?php
 
 /**
- *  Framework 
+ *Framework 
  *
- * @link       
+ * @link 
  * @copyright Copyright (c) 2017
  * @license   
  */
@@ -767,9 +767,7 @@ class SysSpecificDefinitions extends \DAL\DalSlim {
         }
     }
     
-       /**
-     * Fill function used for testing
-     * user interface combobox fill operation   
+       /** 
      * @author Okan CIRAN
      * @ İletişim adresleri dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
      * @version v 1.0  03.02.2016
@@ -822,6 +820,291 @@ class SysSpecificDefinitions extends \DAL\DalSlim {
         }
     }
     
+        
+       /** 
+     * @author Okan CIRAN
+     * @konu tipleri dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  13.06.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillSubjectsTypes($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("             
+                 SELECT                    
+                    a.first_group AS id, 	
+                    a.description  AS name,  
+                    a.description_eng AS name_eng, 
+                    a.active,
+                    CASE 
+                    (SELECT DISTINCT 1 state_type FROM sys_specific_definitions WHERE parent_id = a.id AND deleted = 0)    
+                     WHEN 1 THEN 'closed'
+                     ELSE 'open'   
+                     END AS state_type  
+                FROM sys_specific_definitions a     
+                WHERE                     
+                    a.main_group = 22 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.id, a.parent_id   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    
+       /** 
+     * @author Okan CIRAN
+     * @ zorluk dereceleri dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  13.06.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillDifficulty($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("             
+                SELECT                    
+                    a.first_group AS id, 	
+                    a.description  AS name,  
+                    a.description_eng AS name_eng, 
+                    a.active,
+                    CASE 
+                    (SELECT DISTINCT 1 state_type FROM sys_specific_definitions WHERE parent_id = a.id AND deleted = 0)    
+                     WHEN 1 THEN 'closed'
+                     ELSE 'open'   
+                     END AS state_type  
+                FROM sys_specific_definitions a     
+                WHERE                     
+                    a.main_group = 23 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.id, a.parent_id   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    } 
+    
+    /** 
+     * @author Okan CIRAN
+     * @ soru zaman dilimleri dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  13.06.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillQuestionTime($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("             
+                SELECT                    
+                    a.first_group AS id, 	
+                    a.description  AS name,  
+                    a.description_eng AS name_eng, 
+                    a.active,
+                    CASE 
+                    (SELECT DISTINCT 1 state_type FROM sys_specific_definitions WHERE parent_id = a.id AND deleted = 0)    
+                     WHEN 1 THEN 'closed'
+                     ELSE 'open'   
+                     END AS state_type  
+                FROM sys_specific_definitions a     
+                WHERE                     
+                    a.main_group = 24 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.id, a.parent_id   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    } 
+    
+    /** 
+     * @author Okan CIRAN
+     * @ konu tipleri dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  04.07.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillSubjectTypes($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("             
+                SELECT                    
+                    a.first_group AS id, 	
+                    a.description  AS name,  
+                    a.description_eng AS name_eng, 
+                    a.active,
+                    CASE 
+                    (SELECT DISTINCT 1 state_type FROM sys_specific_definitions WHERE parent_id = a.id AND deleted = 0)    
+                     WHEN 1 THEN 'closed'
+                     ELSE 'open'   
+                     END AS state_type  
+                FROM sys_specific_definitions a     
+                WHERE                     
+                    a.main_group = 8 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.id, a.parent_id   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    } 
+    
+    /** 
+     * @author Okan CIRAN
+     * @ konu tipleri dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  04.07.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillAnswerTypes($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("             
+                SELECT                    
+                    a.first_group AS id, 	
+                    a.description  AS name,  
+                    a.description_eng AS name_eng, 
+                    a.active,
+                    CASE 
+                    (SELECT DISTINCT 1 state_type FROM sys_specific_definitions WHERE parent_id = a.id AND deleted = 0)    
+                     WHEN 1 THEN 'closed'
+                     ELSE 'open'   
+                     END AS state_type  
+                FROM sys_specific_definitions a     
+                WHERE                     
+                    a.main_group = 25 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.id, a.parent_id   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    } 
+    
+       
+    /** 
+     * @author Okan CIRAN
+     * @ soru kaynak dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  18.07.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillQuestionSourceType($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("             
+                SELECT                    
+                    a.first_group AS id, 	
+                    a.description  AS name,  
+                    a.description_eng AS name_eng, 
+                    a.active,
+                    CASE 
+                    (SELECT DISTINCT 1 state_type FROM sys_specific_definitions WHERE parent_id = a.id AND deleted = 0)    
+                     WHEN 1 THEN 'closed'
+                     ELSE 'open'   
+                     END AS state_type  
+                FROM sys_specific_definitions a     
+                WHERE                     
+                    a.main_group = 26 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.first_group   
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    } 
+    
+     
+        /** 
+     * @author Okan CIRAN
+     * @ soru kaynak dropdown ya da tree ye doldurmak için sys_specific_definitions tablosundan kayıtları döndürür !!
+     * @version v 1.0  18.07.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException 
+     */
+    public function fillEducationType($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $statement = $pdo->prepare("             
+                SELECT                    
+                    a.first_group AS id, 	
+                    a.description  AS name,  
+                    a.description_eng AS name_eng, 
+                    a.active,
+                    CASE 
+                    (SELECT DISTINCT 1 state_type FROM sys_specific_definitions WHERE parent_id = a.id AND deleted = 0)    
+                     WHEN 1 THEN 'closed'
+                     ELSE 'open'   
+                     END AS state_type  
+                FROM sys_specific_definitions a     
+                WHERE                     
+                    a.main_group = 30 AND                    
+                    a.deleted = 0 AND
+                    a.language_parent_id =0 
+                ORDER BY a.first_group  desc 
+                                 ");
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {           
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    } 
+    
+     
     
     
 }

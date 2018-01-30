@@ -1,8 +1,8 @@
 <?php
 /**
- *  Framework 
+ *Framework 
  *
- * @link       
+ * @link 
  * @copyright Copyright (c) 2017
  * @license   
  */
@@ -153,7 +153,8 @@ class SysLanguage extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-  
+
+    
     
     /**
      * @author Okan CIRAN
@@ -485,7 +486,6 @@ class SysLanguage extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
-   
     /**     
      * @author Okan CIRAN
      * @ combobox ı doldurmak için sys_language tablosundan çekilen kayıtları döndürür   !!
@@ -518,41 +518,6 @@ class SysLanguage extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    /**     
-     * @author Okan CIRAN
-     * @ combobox ı doldurmak için sys_language tablosundan çekilen kayıtları döndürür   !!
-     * @version v 1.0  17.12.2015
-     * @param array | null $args
-     * @return array
-     * @throws \PDOException
-     */
-    public function fillComboBoxTsql() {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
-            $statement = $pdo->prepare("
-                SELECT                    
-                    a.id, 	
-                    a.language, 
-                    a.language_eng,		
-                    a.language_main_code,
-                    a.url
-                FROM [BILSANET_MOBILE].[dbo].sys_language  a       
-                WHERE  
-                    a.deleted = 0 and a.active =0    
-                ORDER BY a.priority                
-                                 ");
-              $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);                        
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {      
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-    
     /**     
      * @author Okan CIRAN
      * @ sys_language tablosundan id degerini getirir.  !!

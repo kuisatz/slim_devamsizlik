@@ -1,8 +1,8 @@
 <?php
 /**
- *  Framework 
+ *Framework 
  *
- * @link       
+ * @link 
  * @copyright Copyright (c) 2017
  * @license   
  */
@@ -460,8 +460,8 @@ class SysBorough extends \DAL\DalSlim {
                     COALESCE(NULLIF(a.name, ''), a.name_eng) AS name ,
                     a.name_eng
                 FROM sys_borough a                
-                WHERE a.language_code = :language_code 
-                AND a.country_id = :country_id 
+                WHERE a.language_id= 647
+                AND a.country_id = 91
                 AND a.city_id = :city_id
                 AND a.active = 0 
                 AND a.deleted = 0 
@@ -469,8 +469,8 @@ class SysBorough extends \DAL\DalSlim {
                                  ";
             $statement = $pdo->prepare($sql);
            //echo debugPDO($sql, $params);
-            $statement->bindValue(':language_code', $params['language_code'], \PDO::PARAM_STR);
-            $statement->bindValue(':country_id', $params['country_id'], \PDO::PARAM_INT);
+          
+          
             $statement->bindValue(':city_id', $params['city_id'], \PDO::PARAM_INT);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);

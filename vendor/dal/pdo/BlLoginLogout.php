@@ -3,8 +3,8 @@
 /**
  *  Framework 
  *
- * @link       
- * @copyright Copyright (c) 2017
+ * @link   
+ * @copyright Copyright (c) 2016
  * @license   
  */
 
@@ -33,8 +33,6 @@ class BlLoginLogout extends \DAL\DalSlim {
     }
 
     /**
-     * basic select from database  example for PDO prepared
-     * statements, table names are irrevelant and should be changed on specific 
      * @author Okan CIRAN
      * @ info_users tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  30.12.2015  
@@ -104,8 +102,6 @@ class BlLoginLogout extends \DAL\DalSlim {
     }
 
     /**
-     * basic insert database example for PDO prepared
-     * statements, table names are irrevelant and should be changed on specific 
      * @author Okan CIRAN
      * @ info_users tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  30.12.2015
@@ -158,8 +154,6 @@ class BlLoginLogout extends \DAL\DalSlim {
     }
 
     /**
-     * basic update database example for PDO prepared
-     * statements, table names are irrevelant and should be changed on specific
      * @author Okan CIRAN
      * info_users tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  30.12.2015
@@ -248,8 +242,71 @@ class BlLoginLogout extends \DAL\DalSlim {
      */
     public function pkControl($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo_devamsizlik = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
+               
+             $publicKey = 'CCCCCCCCCC';
+            if (isset($params['pk']) && $params['pk'] != "") {
+                $publicKey = $params['pk'];
+            }   
+            
             $sql = "              
+                    SELECT 
+                        act.public_key,
+                        act.usid,
+                        iu.sf_private_key_value,
+                        iu.oid,
+                        1 AS control
+                    FROM  act_session act
+                    INNER join info_users iu ON iu.active=0 AND iu.deleted =0 AND iu.id = act.usid
+                    WHERE public_key ='".$publicKey."' 
+                    ";  
+          // print_r($sql); 
+            $statement_devamsizlik = $pdo_devamsizlik->prepare($sql);  
+            $statement_devamsizlik->execute();
+            $result = $statement_devamsizlik->fetchAll(\PDO::FETCH_ASSOC);
+          
+            $sfprivatekeyvalue =  'DDDDDDDDD';
+            $oid = 'EEEEEEEEE'; 
+            $usid = -1; 
+             if ($result[0]['control']==1) {
+                    $sfprivatekeyvalue = $result[0]['sf_private_key_value'];
+                    $oid = $result[0]['oid']; 
+                    $usid = $result[0]['usid']; 
+                }
+             
+            $errorInfo = $statement_devamsizlik->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+         //   return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+            
+             
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            
+              $sql = "              
+                    SELECT ".$usid.",pkey, sf_private_key_value FROM (
+                            SELECT   	
+                                CRYPT('".$sfprivatekeyvalue."',CONCAT('_J9..',REPLACE('".$publicKey."','*','/'))) = CONCAT('_J9..',REPLACE('".$publicKey."','*','/')) as pkey,	                                
+                                '".$sfprivatekeyvalue."' as sf_private_key_value
+                           ) AS logintable
+                        WHERE pkey = TRUE
+
+                    "; 
+            
+           // print_r($sql);
+            
+            $statement = $pdo->prepare($sql);  
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+          // print_r($result);
+
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+            
+             
+            
+           /* $sql = "              
                     SELECT id,pkey,sf_private_key_value FROM (
                             SELECT COALESCE(NULLIF(root_id, 0),id) AS id, 	
                                 CRYPT(sf_private_key_value,CONCAT('_J9..',REPLACE('".$params['pk']."','*','/'))) = CONCAT('_J9..',REPLACE('".$params['pk']."','*','/')) AS pkey,	                                
@@ -257,20 +314,15 @@ class BlLoginLogout extends \DAL\DalSlim {
                             FROM info_users WHERE active=0 AND deleted=0) AS logintable
                         WHERE pkey = TRUE
                     "; 
-            $statement = $pdo->prepare($sql);            
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+            * *
+            */
+            
         } catch (\PDOException $e /* Exception $e */) {       
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
 
     /**
-     * 
      * @author Okan CIRAN
      * @ login için info_users tablosundan çekilen kayıtları döndürür   !!
      * bu fonksiyon aktif olarak kullanılmıyor. ihtiyaç a göre aktifleştirilecek. public key algoritması farklı. 
@@ -281,7 +333,7 @@ class BlLoginLogout extends \DAL\DalSlim {
      */
     public function pkLoginControl($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $sql = "          
                 SELECT 
                     a.id,
@@ -329,10 +381,8 @@ class BlLoginLogout extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-    
+ 
     /**
-     * 
      * @author Okan CIRAN
      * @ info_users tablosundan public key i döndürür   !!
      * @version v 1.0  31.12.2015
@@ -343,39 +393,29 @@ class BlLoginLogout extends \DAL\DalSlim {
     public function getPK($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
-      
-            /**
-             * @version kapatılmıs olan kısımdaki public key algoritması kullanılmıyor.
-             */
-            /*      $sql = "          
-            SELECT                
-                REPLACE(REPLACE(ARMOR(pgp_sym_encrypt(a.sf_private_key_value, 'Bahram Lotfi Sadigh', 'compress-algo=1, cipher-algo=bf'))
-	,'-----BEGIN PGP MESSAGE-----
+       
+            $sql = "   
 
-',''),'
------END PGP MESSAGE-----
-','') as public_key1     ,
-
-                substring(ARMOR(pgp_sym_encrypt(a.sf_private_key_value, 'Bahram Lotfi Sadigh', 'compress-algo=1, cipher-algo=bf')),30,length( trim( sf_private_key))-62) as public_key2, 
-        */      
-            ///crypt(:password, gen_salt('bf', 8)); örnek bf komut
-                  $sql = "   
-                        
-                SELECT       
-                     REPLACE(TRIM(SUBSTRING(crypt(sf_private_key_value,gen_salt('xdes')),6,20)),'/','*') AS public_key 
-                FROM info_users a              
-                INNER JOIN sys_acl_roles sar ON sar.id = a.role_id AND sar.active=0 AND sar.deleted=0 
-                WHERE a.username = :username 
-                    AND a.password = :password   
-                    AND a.deleted = 0 
-                    AND a.active = 0 
-                
-                                 ";
+            SELECT true as success,       
+                 REPLACE(TRIM(SUBSTRING(crypt(sf_private_key_value,gen_salt('xdes')),6,20)),'/','*') AS public_key ,
+                 (SELECT count(x.id) FROM info_questions_source x WHERE x.source_id    =  27 % a.id ) as okunmamis_mesaj ,
+                 (SELECT ( (source_id % 50 ) + id ) % 6  FROM info_question_base x1 WHERE   x1.id  =  a.id  ) as pdr_mesaj , 
+                 2  as duyuru,
+                 concat(iud.name ,' ' ,iud.surname) as adsoyad
+            FROM info_users a              
+            INNER JOIN sys_acl_roles sar ON sar.id = a.role_id AND sar.active=0 AND sar.deleted=0 
+            INNER JOIN info_users_detail iud on iud.root_id = a.id  AND iud.active=0 AND iud.deleted=0 
+            WHERE a.username = :username 
+                AND a.password = :password   
+                AND a.deleted = 0 
+                AND a.active = 0 
+                limit 1  
+            ";
 
             $statement = $pdo->prepare($sql);
             $statement->bindValue(':username', $params['username'], \PDO::PARAM_STR);
-            $statement->bindValue(':password', $params['password'], \PDO::PARAM_STR);
-          //  echo debugPDO($sql, $parameters);
+             $statement->bindValue(':password', md5($params['password']), \PDO::PARAM_STR);
+          // echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -386,10 +426,8 @@ class BlLoginLogout extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-    
+ 
     /**
-     * 
      * @author Okan CIRAN
      * @ public key e ait bir private key li kullanıcı varsa True değeri döndürür.  !!
      * @version v 1.0  31.12.2015
@@ -399,7 +437,7 @@ class BlLoginLogout extends \DAL\DalSlim {
      */
     public function pkSessionControl($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             /*
             $sql = "          
                 SELECT * FROM (
@@ -428,9 +466,10 @@ class BlLoginLogout extends \DAL\DalSlim {
                         b.surname AS u_surname, 
                         b.username,
                         b.sf_private_key_value,
-                        b.root_id                        
+                        b.root_id  ,
+                        b.id as user_id
                     FROM act_session a 
-                    INNER JOIN info_users b ON CRYPT(b.sf_private_key_value,CONCAT('_J9..',REPLACE(a.public_key,'*','/'))) = CONCAT('_J9..',REPLACE(a.public_key,'*','/'))
+                    INNER JOIN info_users b ON b.id = a.usid
                         AND b.active = 0 AND b.deleted = 0
                     WHERE a.public_key = :public_key 
                     ";  
@@ -448,9 +487,8 @@ class BlLoginLogout extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-
-   
-      /**
+ 
+    /**
      * 
      * @author Okan CIRAN
      * @ public key varsa True değeri döndürür.  !!
@@ -460,13 +498,16 @@ class BlLoginLogout extends \DAL\DalSlim {
      * @throws \PDOException
      */
     public function pkIsThere($params = array()) {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');          
+        try { 
+           
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');          
             $sql = "              
-                    SELECT a.public_key =  '".$params['pk']."'
+                    /*  SELECT a.public_key =  '".$params['pk']."' */ 
+                    SELECT cast(1 as bit) as kontrol
                     FROM act_session a                  
                     WHERE a.public_key =   '".$params['pk']."'
-                    ";                       
+                    ";   
+         //   print_r($sql);
             $statement = $pdo->prepare($sql);            
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -490,7 +531,6 @@ class BlLoginLogout extends \DAL\DalSlim {
     public function isUserBelongToCompany($requestHeaderParams, $params) {
         try {
             $resultSet = $this->pkControl(array('pk' =>$requestHeaderParams['X-Public']));
-            //print_r($resultSet); 
             
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');  
             
@@ -521,7 +561,7 @@ class BlLoginLogout extends \DAL\DalSlim {
         }
     }
 
-      /**
+    /**
      * 
      * @author Okan CIRAN
      * @ parametre olarak gelen public key in private key inden üretilmiş aktif tüm public key leri döndürür.  !!     
