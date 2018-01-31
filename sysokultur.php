@@ -151,20 +151,22 @@ $app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
     ));
     $counts=0;
     $flows = array(); 
-    foreach ($resDataGrid['resultSet'] as $flow) {
-        $flows[] = array(
-            "id" => intval($flow["id"]),
-            "okulTurSno" => intval($flow["okulTurSno"]),
-            "user_id" => intval($flow["user_id"]),
-            "aciklama" => $flow["aciklama"],
-            "okulTurKullan" => $flow["okulTurKullan"], 
-            "active" => intval($flow["active"]),
-            "deleted" => intval($flow["deleted"]),
-            "attributes" => array("notroot" => true, ),
-        );
+    if (isset($resDataGrid[0]['id'])) {
+        foreach ($resDataGrid as $flow) {
+            $flows[] = array(
+                "id" => intval($flow["id"]),
+                "okulTurSno" => intval($flow["okulTurSno"]),
+                "user_id" => intval($flow["user_id"]),
+                "aciklama" => html_entity_decode($flow["aciklama"]),
+                "okulTurKullan" => $flow["okulTurKullan"],
+                "active" => intval($flow["active"]),
+                "deleted" => intval($flow["deleted"]),
+                "attributes" => array("notroot" => true,),
+            );
+        }
+        $counts = $resTotalRowCount[0]['count'];
     }
-    $counts = $resTotalRowCount['resultSet'][0]['count'];
-   
+
 
     $app->response()->header("Content-Type", "application/json"); 
     $resultArray = array();
