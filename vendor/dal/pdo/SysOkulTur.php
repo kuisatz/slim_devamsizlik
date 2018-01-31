@@ -260,14 +260,14 @@ class SysOkulTur extends \DAL\DalSlim {
      * @author Okan CIRAN
      * @ Gridi doldurmak için sys_OkulTur tablosundan kayıtları döndürür !!
      * @version v 1.0  25.01.2016
-     * @param array | null $args
+     * @param array | null $params
      * @return array
      * @throws \PDOException
      */
-    public function fillGrid($args = array()) {
-        if (isset($args['page']) && $args['page'] != "" && isset($args['rows']) && $args['rows'] != "") {
-            $offset = ((intval($args['page']) - 1) * intval($args['rows']));
-            $limit = intval($args['rows']);
+    public function fillGrid($params = array()) {
+        if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
+            $offset = ((intval($params['page']) - 1) * intval($params['rows']));
+            $limit = intval($params['rows']);
         } else {
             $limit = 10;
             $offset = 0;
@@ -275,21 +275,21 @@ class SysOkulTur extends \DAL\DalSlim {
 
         $sortArr = array();
         $orderArr = array();
-        if (isset($args['sort']) && $args['sort'] != "") {
-            $sort = trim($args['sort']);
+        if (isset($params['sort']) && $params['sort'] != "") {
+            $sort = trim($params['sort']);
             $sortArr = explode(",", $sort);
             if (count($sortArr) === 1)
-                $sort = trim($args['sort']);
+                $sort = trim($params['sort']);
         } else {
             $sort = "id, parent_id";            
         }
 
-        if (isset($args['order']) && $args['order'] != "") {
-            $order = trim($args['order']);
+        if (isset($params['order']) && $params['order'] != "") {
+            $order = trim($params['order']);
             $orderArr = explode(",", $order);
             //print_r($orderArr);
             if (count($orderArr) === 1)
-                $order = trim($args['order']);
+                $order = trim($params['order']);
         } else {        
             $order = "ASC";
         }
@@ -364,7 +364,7 @@ class SysOkulTur extends \DAL\DalSlim {
      * @author Okan CIRAN
      * @ Gridi doldurmak için sys_OkulTur tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  25.01.2016
-     * @param array | null $args
+     * @param array | null $params
      * @return array
      * @throws \PDOException
      */
@@ -412,15 +412,73 @@ class SysOkulTur extends \DAL\DalSlim {
      * su  an kullanılmıyor
      * @ combobox doldurmak için sys_OkulTur tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
      * @version v 1.0  25.01.2016
-     * @param array | null $args
+     * @param array | null $params
      * @return array
      * @throws \PDOException
-     */
-    public function fillOkulTurleri() {
+     */ 
+    public function fillOkulTurleri($params = array()) {
+        if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
+            $offset = ((intval($params['page']) - 1) * intval($params['rows']));
+            $limit = intval($params['rows']);
+        } else {
+            $limit = 10;
+            $offset = 0;
+        }
+
+        $sortArr = array();
+        $orderArr = array();
+        if (isset($params['sort']) && $params['sort'] != "") {
+            $sort = trim($params['sort']);
+            $sortArr = explode(",", $sort);
+            if (count($sortArr) === 1)
+                $sort = trim($params['sort']);
+        } else {
+            $sort = "a.okulTurSno ";            
+        }
+
+        if (isset($params['order']) && $params['order'] != "") {
+            $order = trim($params['order']);
+            $orderArr = explode(",", $order);
+            //print_r($orderArr);
+            if (count($orderArr) === 1)
+                $order = trim($params['order']);
+        } else {        
+            $order = "ASC";
+        }
+        $sorguStr = null;
+            if ((isset($params['filterRules']) && $params['filterRules'] != "")) {
+                $filterRules = trim($params['filterRules']);
+                $jsonFilter = json_decode($filterRules, true);
+
+                $sorguExpression = null;
+                foreach ($jsonFilter as $std) {
+                    if ($std['value'] != null) {
+                        switch (trim($std['field'])) {
+                            case 'aciklama':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
+                                break;
+                            case 'okulTurSno':
+                                $sorguExpression = ' = ' . $std['value'] . '  ';
+                                $sorguStr.=" AND a.okulTurSno" . $sorguExpression . ' '; 
+                                break;
+                            case 'okulTurKullan':
+                                $sorguExpression = ' = ' . $std['value'] . '  ';
+                                $sorguStr.=" AND  a.okulTurKullan" . $sorguExpression . ' '; 
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }  
+            $sorguStr = rtrim($sorguStr, "AND ");
+            
+ 
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $sql = "
-            SELECT
+           SELECT
                 a.id,
                 a.okulTurSno, 
                 a.aciklama,
@@ -429,40 +487,80 @@ class SysOkulTur extends \DAL\DalSlim {
                 a.deleted
             FROM sys_OkulTur a
             WHERE
-              a.deleted =0 /* AND a.active=0 */
-            ORDER BY a.okulTurSno
-                 ";
-            $statement = $pdo->prepare($sql);
-          //  echo debugPDO($sql, $params);
+                a.deleted =0 /* AND a.active=0 */ 
+                " . $sorguStr . "
+            ORDER BY    " . $sort . " "
+            . "" . $order . " "
+            . "LIMIT " . $pdo->quote($limit) . " "
+            . "OFFSET " . $pdo->quote($offset) . " ";
+       
+            $statement = $pdo->prepare($sql);     
+            $parameters = array(
+                'sort' => $sort,
+                'order' => $order,
+                'limit' => $pdo->quote($limit),
+                'offset' => $pdo->quote($offset),
+            );
+            //   echo debugPDO($sql, $parameters);     
             $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {        
-            return array("found" => false, "errorInfo" => $e->getMessage());
+        } catch (\PDOException $e /* Exception $e */) {
+            //$debugSQLParams = $statement->debugDumpParams();
+            return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
     }
-    
-        /** 
+
+    /** 
      * @author Okan CIRAN
      * su  an kullanılmıyor
      * @ combobox doldurmak için sys_OkulTur tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
      * @version v 1.0  25.01.2016
-     * @param array | null $args
+     * @param array | null $params
      * @return array
      * @throws \PDOException
      */
     public function fillOkulTurleriRtc() {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
+            $sorguStr = null;
+            if ((isset($params['filterRules']) && $params['filterRules'] != "")) {
+                $filterRules = trim($params['filterRules']);
+                $jsonFilter = json_decode($filterRules, true);
+
+                $sorguExpression = null;
+                foreach ($jsonFilter as $std) {
+                    if ($std['value'] != null) {
+                        switch (trim($std['field'])) {
+                            case 'aciklama':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
+                                break;
+                            case 'okulTurSno':
+                                $sorguExpression = ' = ' . $std['value'] . '  ';
+                                $sorguStr.=" AND a.okulTurSno" . $sorguExpression . ' '; 
+                                break;
+                            case 'okulTurKullan':
+                                $sorguExpression = ' = ' . $std['value'] . '  ';
+                                $sorguStr.=" AND  a.okulTurKullan" . $sorguExpression . ' '; 
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }  
+            $sorguStr = rtrim($sorguStr, "AND ");
             $sql = "
             SELECT
                 count(id) as count
             FROM sys_OkulTur
             WHERE
-              deleted =0 /* AND active=0 */ 
+                deleted =0 /* AND active=0 */ 
+                " . $sorguStr . "
                 ";
             $statement = $pdo->prepare($sql);
           //  echo debugPDO($sql, $params);
@@ -532,7 +630,7 @@ class SysOkulTur extends \DAL\DalSlim {
      * @author Okan CIRAN
      * @ okul türleri dropdown ya da tree ye doldurmak için sys_OkulTur tablosundan kayıtları döndürür !!
      * @version v 1.0  18.07.2017
-     * @param array | null $args
+     * @param array | null $params
      * @return array
      * @throws \PDOException 
      */
