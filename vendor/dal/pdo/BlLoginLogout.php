@@ -715,8 +715,8 @@ class BlLoginLogout extends \DAL\DalSlim {
                 $publicKey = $params['PublicKey'];
             }  
             $sql = "    
-                DELETE FROM act_session a  
-                WHERE a.public_key = '".$publicKey."'
+                DELETE FROM act_session    
+                WHERE  public_key = '".$publicKey."'
             ";  
             $statement = $pdo->prepare($sql);     
             $update = $statement->execute();
