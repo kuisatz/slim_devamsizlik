@@ -28,7 +28,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function delete($params = array()) {
        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -68,7 +68,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function getAll($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
             $statement = $pdo->prepare("
             SELECT 
                 a.id, 
@@ -115,7 +115,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function insert($params = array()) {        
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
@@ -173,7 +173,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function haveRecords($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');         
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');         
             $addSql = "";
             if (isset($params['id'])) {
                 $addSql = " AND id != " . intval($params['id']) . " ";
@@ -212,7 +212,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function update($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');           
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');           
             $pdo->beginTransaction();     
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -295,7 +295,7 @@ class SysOkulTur extends \DAL\DalSlim {
         }
  
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $sql = "
             SELECT 
                 id, 
@@ -370,7 +370,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function fillGridRowTotalCount($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $whereSQL = '';
             $whereSQL1 = ' WHERE a1.deleted =0 ';
             $whereSQL2 = ' WHERE a2.deleted =1 ';            
@@ -418,7 +418,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function fillOkulTurleri() {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
             $statement = $pdo->prepare("
             SELECT
                 a.id,
@@ -454,7 +454,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function fillOkulTurleriRtc() {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
             $statement = $pdo->prepare("
             SELECT
                 count(a.id) as count
@@ -483,7 +483,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function makeActiveOrPassive($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
@@ -534,7 +534,7 @@ class SysOkulTur extends \DAL\DalSlim {
      */
     public function fillOkulTurleriCmb($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');   
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');   
             $statement = $pdo->prepare("             
                 SELECT                    
                     a.id, 	
