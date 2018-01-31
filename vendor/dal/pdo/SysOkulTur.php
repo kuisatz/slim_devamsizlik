@@ -491,7 +491,7 @@ class SysOkulTur extends \DAL\DalSlim {
                 " . $sorguStr . "
             ORDER BY    " . $sort . " "
             . "" . $order . "  
-            OFFSET " . $pdo->quote($offset) . " ROWS FETCH NEXT " . $pdo->quote($limit) . " ROWS ONLY;     
+            OFFSET " . $pdo->$offset . " ROWS FETCH NEXT " . $pdo->$limit . " ROWS ONLY;     
             " ;
             
             $statement = $pdo->prepare($sql);     
