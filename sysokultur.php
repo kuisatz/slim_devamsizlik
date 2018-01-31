@@ -155,8 +155,7 @@ $app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
                 "id" => intval($flow["id"]),
-                "okulTurSno" => intval($flow["okulTurSno"]),
-                "user_id" => intval($flow["user_id"]),
+                "okulTurSno" => intval($flow["okulTurSno"]), 
                 "aciklama" => html_entity_decode($flow["aciklama"]),
                 "okulTurKullan" => $flow["okulTurKullan"],
                 "active" => intval($flow["active"]),
