@@ -112,6 +112,30 @@ $app->get("/getPK_blLoginLogout/", function () use ($app ) {
 }
 );
 
+/**
+ *  * Okan CIRAN
+ * @since 02-09-2016
+ */
+$app->get("/pkLogOut_blLoginLogout/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('blLoginLogoutBLL'); 
+    $headerParams = $app->request()->headers();
+    if (!isset($headerParams['X-Public']))
+        throw new Exception('rest api "pkLogOut_blLoginLogout" end point, X-Public variable not found');
+    $pk = $headerParams['X-Public'];
+   
+   
+    $resDataInsert = $BLL->logOutPK(array( 
+        'url' => $_GET['url'], 
+        'PublicKey' => $pk,  
+        )); 
+   $app->response()->header("Content-Type", "application/json");
+    $app->response()->body(json_encode($resDataInsert));
+    
+    
+}
+);
 
 
 

@@ -626,7 +626,6 @@ class BlLoginLogout extends \DAL\DalSlim {
     }
     
     /**
-     * get company public key due to user public key
      * @param type $publicKey
      * @return type
      * @throws \PDOException
@@ -667,7 +666,6 @@ class BlLoginLogout extends \DAL\DalSlim {
     }
 
     /**
-     * 
      * @author Okan CIRAN
      * @ parametre olarak gelen public key in private key inden üretilmiş aktif tüm public key leri döndürür.  !!     
      * @version v 1.0  06.01.2016
@@ -700,4 +698,40 @@ class BlLoginLogout extends \DAL\DalSlim {
         }
     }
     
+    /**
+     * @author Okan CIRAN
+     * @ public key e ait kullancı logout oluyor !! tüm sesionları siliniyor
+     * @version v 1.0  31.12.2015
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function logOutPK($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
+            $pdo->beginTransaction();   
+            $publicKey = '-1' ; 
+            if (isset($params['PublicKey']) && $params['PublicKey'] != "") {
+                $publicKey = $params['PublicKey'];
+            }  
+            $sql = "    
+                DELETE FROM act_session a  
+                WHERE a.public_key = '".$publicKey."'
+            ";  
+            $statement = $pdo->prepare($sql);     
+            $update = $statement->execute();
+            $affectedRows = $statement->rowCount();
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            $pdo->commit();
+            return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $affectedRows);
+            
+        } catch (\PDOException $e /* Exception $e */) {
+            $pdo->rollback();
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+
+ 
 }

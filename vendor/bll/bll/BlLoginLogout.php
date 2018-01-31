@@ -141,7 +141,15 @@ class BlLoginLogout extends \BLL\BLLSlim{
         return $resultSet['resultSet'];
     }   
     
-    
+      /**
+     * Data delete function
+     * @param array | null $params
+     * @return array
+     */
+    public function logOutPK($params = array()) {
+        $DAL = $this->slimApp->getDALManager()->get('blLoginLogoutPDO');
+        return $DAL->logOutPK($params);
+    }
     
     
     
