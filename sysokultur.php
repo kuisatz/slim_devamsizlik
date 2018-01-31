@@ -102,22 +102,21 @@ $app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
         'pk' => $pk,
     ));
     $counts=0;
-    $flows = array();
-    if (isset($resDataGrid['resultSet'][0]['id'])) {
-        foreach ($resDataGrid['resultSet'] as $flow) {
-            $flows[] = array(
-                "id" => intval($flow["id"]),
-                "okulTurSno" => intval($flow["okulTurSno"]),
-                "user_id" => intval($flow["user_id"]),
-                "aciklama" => $flow["aciklama"],
-                "okulTurKullan" => $flow["okulTurKullan"], 
-                "active" => intval($flow["active"]),
-                "deleted" => intval($flow["deleted"]),
-                "attributes" => array("notroot" => true, ),
-            );
-        }
-        $counts = $resTotalRowCount['resultSet'][0]['count'];
-    } 
+    $flows = array(); 
+    foreach ($resDataGrid['resultSet'] as $flow) {
+        $flows[] = array(
+            "id" => intval($flow["id"]),
+            "okulTurSno" => intval($flow["okulTurSno"]),
+            "user_id" => intval($flow["user_id"]),
+            "aciklama" => $flow["aciklama"],
+            "okulTurKullan" => $flow["okulTurKullan"], 
+            "active" => intval($flow["active"]),
+            "deleted" => intval($flow["deleted"]),
+            "attributes" => array("notroot" => true, ),
+        );
+    }
+    $counts = $resTotalRowCount['resultSet'][0]['count'];
+   
 
     $app->response()->header("Content-Type", "application/json"); 
     $resultArray = array();

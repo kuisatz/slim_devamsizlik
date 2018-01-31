@@ -419,7 +419,7 @@ class SysOkulTur extends \DAL\DalSlim {
     public function fillOkulTurleri() {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
-            $statement = $pdo->prepare("
+            $sql = "
             SELECT
                 a.id,
                 a.okulTurSno, 
@@ -431,7 +431,9 @@ class SysOkulTur extends \DAL\DalSlim {
             WHERE
               a.deleted =0 /* AND a.active=0 */
             ORDER BY a.okulTurSno
-            ");
+                 ";
+            $statement = $pdo->prepare($sql);
+          //  echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
@@ -455,13 +457,15 @@ class SysOkulTur extends \DAL\DalSlim {
     public function fillOkulTurleriRtc() {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
-            $statement = $pdo->prepare("
+            $sql = "
             SELECT
-                count(a.id) as count
-            FROM sys_OkulTur a
+                count(id) as count
+            FROM sys_OkulTur
             WHERE
-              a.deleted =0 /* AND a.active=0 */ 
-            ");
+              deleted =0 /* AND active=0 */ 
+                ";
+            $statement = $pdo->prepare($sql);
+          //  echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
@@ -535,7 +539,7 @@ class SysOkulTur extends \DAL\DalSlim {
     public function fillOkulTurleriCmb($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');   
-            $statement = $pdo->prepare("             
+            $sql = "            
                 SELECT                    
                     a.id, 	
                     a.aciklama  AS name,  
@@ -546,7 +550,9 @@ class SysOkulTur extends \DAL\DalSlim {
                     a.active = 0 AND                    
                     a.deleted = 0 
                 ORDER BY a.aciklama  
-                                 ");
+             ";
+            $statement = $pdo->prepare($sql);
+          //  echo debugPDO($sql, $params);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
