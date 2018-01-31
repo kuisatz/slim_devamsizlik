@@ -490,10 +490,10 @@ class SysOkulTur extends \DAL\DalSlim {
                 a.deleted =0 /* AND a.active=0 */ 
                 " . $sorguStr . "
             ORDER BY    " . $sort . " "
-            . "" . $order . " "
-            . "LIMIT " . $pdo->quote($limit) . " "
-            . "OFFSET " . $pdo->quote($offset) . " ";
-       
+            . "" . $order . "  
+            OFFSET " . $pdo->quote($offset) . " ROWS FETCH NEXT " . $pdo->quote($limit) . " ROWS ONLY;     
+            " ;
+            
             $statement = $pdo->prepare($sql);     
             $parameters = array(
                 'sort' => $sort,
