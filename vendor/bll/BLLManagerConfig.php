@@ -100,6 +100,9 @@ class BLLManagerConfig{
         
                 
                 'infoDuyuruBLL' => 'BLL\BLL\InfoDuyuru',  
+                 
+                 
+                'sysOkulTurBLL' => 'BLL\BLL\SysOkulTur',  
                   
                  
              ),

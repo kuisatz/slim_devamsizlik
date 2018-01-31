@@ -99,6 +99,8 @@ class DalManagerConfig {
               
                 'infoDuyuruPDO' => 'DAL\Factory\PDO\InfoDuyuruFactory',  
                 
+                
+                'sysOkulTurPDO' => 'DAL\Factory\PDO\SysOkulTurFactory',  
             
                 
                 

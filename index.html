@@ -199,7 +199,7 @@ and open the template in the editor. ѝ
                     url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
                     data: {
                         url: 'pkLogOut_blLoginLogout', 
-                         pk: 'd9ZM8FQMFCc+Dzo', 
+                         pk: 'gLqlMCvZpbV9Log', 
                   
                     },
                     method: 'GET',
@@ -210,6 +210,53 @@ and open the template in the editor. ѝ
                     }
                 });     
                 
+                    //FillOkulTurleriCmb_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillOkulTurleriCmb_sysokultur',  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });  
+                //pkFillOkulTurleri_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillOkulTurleri_sysokultur', 
+                        pk: 'gLqlMCvZpbV9Log', 
+                  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });     
+                 //pkFillOkulTurleri_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_sysokultur', 
+                        pk: 'gLqlMCvZpbV9Log', 
+                        id : 1, 
+                  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });     
                 
                 
 ///////////   sonn 
