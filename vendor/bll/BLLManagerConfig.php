@@ -104,7 +104,10 @@ class BLLManagerConfig{
                  
                 'sysOkulTurBLL' => 'BLL\BLL\SysOkulTur',  
                 'sysOgretmenBransTipleriBLL' => 'BLL\BLL\SysOgretmenBransTipleri',   
-                'sysOgretmenTipleriBLL' => 'BLL\BLL\SysOgretmenTipleri',   
+                'sysOgretmenTipleriBLL' => 'BLL\BLL\SysOgretmenTipleri', 
+                'sysSbGorevBLL' => 'BLL\BLL\SysSbGorev',
+                
+                 
                  
                  
              ),

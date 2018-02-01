@@ -119,7 +119,7 @@ class SysOgretmenTipleri extends \DAL\DalSlim {
             $pdo->beginTransaction();
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
-            $aciklama = 0;
+            $aciklama = '';
             if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
                 $aciklama = $params['Aciklama'];
             }             
@@ -203,7 +203,7 @@ class SysOgretmenTipleri extends \DAL\DalSlim {
             $pdo->beginTransaction();     
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
-            $aciklama = 0;
+            $aciklama = '';
                 if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
                     $aciklama = $params['Aciklama'];
                 }              
