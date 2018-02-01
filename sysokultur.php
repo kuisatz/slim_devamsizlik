@@ -205,4 +205,52 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysokultur/", function () use ($app ) {
 }
 ); 
 
+/**
+ *  * Okan CIRAN
+ * @since 13-01-2016
+ */
+$app->get("/pkInsert_sysokultur/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
+    $BLL = $app->getBLLManager()->get('sysAclResourcesBLL');  
+    $headerParams = $app->request()->headers();
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsert_sysokultur" end point, X-Public variable not found');    
+    $pk = $headerParams['X-Public'];
+    
+    $vokulTurSno = NULL;
+    if (isset($_GET['okulTurSno'])) {
+         $stripper->offsetSet('okulTurSno',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['okulTurSno']));
+    }
+    $vaciklama = NULL;
+    if (isset($_GET['aciklama'])) {
+         $stripper->offsetSet('aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['aciklama']));
+    }
+    $vokulTurKullan = NULL;
+    if (isset($_GET['okulTurKullan'])) {
+         $stripper->offsetSet('okulTurKullan',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+                                                $app,
+                                                $_GET['okulTurKullan']));
+    }
+   
+    $stripper->strip();
+    if($stripper->offsetExists('okulTurSno')) $vokulTurSno = $stripper->offsetGet('okulTurSno')->getFilterValue();
+    if($stripper->offsetExists('aciklama')) $vaciklama = $stripper->offsetGet('aciklama')->getFilterValue();
+    if($stripper->offsetExists('okulTurKullan')) $vokulTurKullan = $stripper->offsetGet('okulTurKullan')->getFilterValue();
+      
+    $resDataInsert = $BLL->insert(array(
+            'Aciklama' => $vaciklama,       
+            'OkulTurSno' => $vokulTurSno,          
+            'OkulTurKullan' => $vokulTurKullan,
+            'pk' => $pk));
+        
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($resDataInsert));
+    
+}
+);
+
 $app->run();

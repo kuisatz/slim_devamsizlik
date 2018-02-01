@@ -35,7 +35,7 @@ class SysOkulTur extends \DAL\DalSlim {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                 $statement = $pdo->prepare(" 
                 UPDATE sys_OkulTur
-                SET  deleted= 1 , active = 1,
+                SET deleted= 1, active = 1,
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = ".intval($params['id']) 
                         );
@@ -120,16 +120,16 @@ class SysOkulTur extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $okulTurSno = 0;
-            if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
-                $okulTurSno = $params['okulTurSno'];
+            if (isset($params['OkulTurSno']) && $params['OkulTurSno'] != "") {
+                $okulTurSno = $params['OkulTurSno'];
             }
             $aciklama = 0;
-            if (isset($params['aciklama']) && $params['aciklama'] != "") {
-                $aciklama = $params['aciklama'];
+            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
+                $aciklama = $params['Aciklama'];
             }
             $okulTurKullan = 0;
-            if (isset($params['okulTurKullan']) && $params['okulTurKullan'] != "") {
-                $okulTurKullan = $params['okulTurKullan'];
+            if (isset($params['OkulTurKullan']) && $params['OkulTurKullan'] != "") {
+                $okulTurKullan = $params['OkulTurKullan'];
             }
                 $sql = "
                 INSERT INTO sys_OkulTur(
@@ -217,16 +217,16 @@ class SysOkulTur extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
             $okulTurSno = 0;
-            if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
-                $okulTurSno = $params['okulTurSno'];
+            if (isset($params['OkulTurSno']) && $params['OkulTurSno'] != "") {
+                $okulTurSno = $params['OkulTurSno'];
             }
             $aciklama = 0;
-            if (isset($params['aciklama']) && $params['aciklama'] != "") {
-                $aciklama = $params['aciklama'];
+            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
+                $aciklama = $params['Aciklama'];
             }
             $okulTurKullan = 0;
-            if (isset($params['okulTurKullan']) && $params['okulTurKullan'] != "") {
-                $okulTurKullan = $params['okulTurKullan'];
+            if (isset($params['OkulTurKullan']) && $params['OkulTurKullan'] != "") {
+                $okulTurKullan = $params['OkulTurKullan'];
             }
                 $sql = "
                 UPDATE sys_OkulTur
@@ -491,7 +491,7 @@ class SysOkulTur extends \DAL\DalSlim {
                 " . $sorguStr . "
             ORDER BY    " . $sort . " "
             . "" . $order . "  
-            OFFSET " . $offset . " ROWS FETCH NEXT " . $limit . " ROWS ONLY;     
+            OFFSET ".$offset." ROWS FETCH NEXT ".$limit." ROWS ONLY;     
             " ;
             
             $statement = $pdo->prepare($sql);     
