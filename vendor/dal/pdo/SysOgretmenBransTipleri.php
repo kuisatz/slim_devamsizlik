@@ -410,7 +410,7 @@ class SysOgretmenBransTipleri extends \DAL\DalSlim {
             if (count($sortArr) === 1)
                 $sort = trim($params['sort']);
         } else {
-            $sort = "a.okulTurSno ";            
+            $sort = "a.aciklama ";            
         }
 
         if (isset($params['order']) && $params['order'] != "") {
