@@ -594,7 +594,7 @@ class SysOgretmenTipleri extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException 
      */
-    public function fillOgretmenBransTipleriCmb($params = array()) {
+    public function fillOgretmenTipleriCmb($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');   
             $sql = "            
