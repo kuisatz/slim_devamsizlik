@@ -316,6 +316,65 @@ and open the template in the editor. ѝ
                         console.warn('error text status-->' + textStatus);
                     }
                 });     
+                // 
+                //       //FillOkulTurleriCmb_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillOgretmenTipleriCmb_sysogretmentipleri',  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });  
+                //pkFillOkulTurleri_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillOgretmenTipleri_sysogretmentipleri', 
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });     
+                 //pkFillOkulTurleri_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_sysogretmentipleri', 
+                        pk: 'd9ZM8FQMFCc.Dzo ', 
+                        id : 10, 
+                  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });     
+                
+                
+                
+                
+                
+                
 ///////////   sonn 
             });
             
