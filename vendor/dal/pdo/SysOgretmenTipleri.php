@@ -16,7 +16,7 @@ namespace DAL\PDO;
  * @
  * @author Okan CIRAN
  */
-class SysOgretmenBransTipleri extends \DAL\DalSlim {
+class SysOgretmenTipleri extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
