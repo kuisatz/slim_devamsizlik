@@ -16,11 +16,11 @@ namespace DAL\PDO;
  * @
  * @author Okan CIRAN
  */
-class SysOkulTur extends \DAL\DalSlim {
+class SysOgretmenBransTipleri extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ sys_OkulTur tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @ sys_OgretmenBransTipleri tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  07.01.2016
      * @param array $params
      * @return array
@@ -34,7 +34,7 @@ class SysOkulTur extends \DAL\DalSlim {
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                 $statement = $pdo->prepare(" 
-                UPDATE sys_OkulTur
+                UPDATE sys_OgretmenBransTipleri
                 SET deleted= 1, active = 1,
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = ".intval($params['id']) 
@@ -61,7 +61,7 @@ class SysOkulTur extends \DAL\DalSlim {
  
     /**     
      * @author Okan CIRAN
-     * @ sys_OkulTur tablosundaki tüm kayıtları getirir.  !!
+     * @ sys_OgretmenBransTipleri tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  25.01.2016    
      * @return array
      * @throws \PDOException
@@ -86,9 +86,9 @@ class SysOkulTur extends \DAL\DalSlim {
                 sd.description AS state_deleted,  
                 sd1.description AS state_active,  
                 u.username
-            FROM sys_OkulTur a  
-            INNER JOIN sys_OkulTur sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
-            INNER JOIN sys_OkulTur sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
+            FROM sys_OgretmenBransTipleri a  
+            INNER JOIN sys_OgretmenBransTipleri sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
+            INNER JOIN sys_OgretmenBransTipleri sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
             INNER JOIN sys_language l ON l.language_main_code = a.language_code AND l.deleted = 0 AND l.active = 0 
             INNER JOIN info_users u ON u.id = a.user_id 
             WHERE a.deleted =0 AND a.language_code = :language_code            
@@ -108,7 +108,7 @@ class SysOkulTur extends \DAL\DalSlim {
 
     /**    
      * @author Okan CIRAN
-     * @ sys_OkulTur tablosuna yeni bir kayıt oluşturur.  !!
+     * @ sys_OgretmenBransTipleri tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  25.01.2016
      * @return array
      * @throws \PDOException
@@ -119,29 +119,17 @@ class SysOkulTur extends \DAL\DalSlim {
             $pdo->beginTransaction();
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
-            $okulTurSno = 0;
-            if (isset($params['OkulTurSno']) && $params['OkulTurSno'] != "") {
-                $okulTurSno = $params['OkulTurSno'];
-            }
             $aciklama = 0;
             if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
                 $aciklama = $params['Aciklama'];
-            }
-            $okulTurKullan = 0;
-            if (isset($params['OkulTurKullan']) && $params['OkulTurKullan'] != "") {
-                $okulTurKullan = $params['OkulTurKullan'];
-            }
-                $sql = "
-                INSERT INTO sys_OkulTur(
-                        okulTurSno,
-                        aciklama,
-                        okulTurKullan
-                        )
-                VALUES (
-                        ".$okulTurSno.",
-                        '".$aciklama."',  
-                        ".$okulTurKullan."                        
-                         )   ";
+            }             
+            $sql = "
+            INSERT INTO sys_OgretmenBransTipleri( 
+                    aciklama  
+                    )
+            VALUES ( 
+                    '".$aciklama."' 
+                   )   ";
                 $statement = $pdo->prepare($sql);              
                // echo debugPDO($sql, $params);
                 $result = $statement->execute();
@@ -165,7 +153,7 @@ class SysOkulTur extends \DAL\DalSlim {
 
     /**    
      * @author Okan CIRAN
-     * @ sys_OkulTur tablosunda name sutununda daha önce oluşturulmuş mu? 
+     * @ sys_OgretmenBransTipleri tablosunda name sutununda daha önce oluşturulmuş mu? 
      * @version v 1.0 15.01.2016
      * @return array
      * @throws \PDOException
@@ -183,7 +171,7 @@ class SysOkulTur extends \DAL\DalSlim {
                 '" . $params['aciklama'] . "' AS value , 
                 aciklama ='" . $params['aciklama'] . "' AS control,
                 concat(aciklama , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM sys_OkulTur                
+            FROM sys_OgretmenBransTipleri                
             WHERE LOWER(aciklama) = LOWER('" . $params['aciklama'] . "')"
                     . $addSql . " 
                AND deleted =0   
@@ -203,7 +191,7 @@ class SysOkulTur extends \DAL\DalSlim {
 
     /**   
      * @author Okan CIRAN
-     * sys_OkulTur tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * sys_OgretmenBransTipleri tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  25.01.2016
      * @param type $params
      * @return array
@@ -214,25 +202,15 @@ class SysOkulTur extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');           
             $pdo->beginTransaction();     
             $kontrol = $this->haveRecords($params); 
-            if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
-            $okulTurSno = 0;
-            if (isset($params['OkulTurSno']) && $params['OkulTurSno'] != "") {
-                $okulTurSno = $params['OkulTurSno'];
-            }
+            if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $aciklama = 0;
-            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
-                $aciklama = $params['Aciklama'];
-            }
-            $okulTurKullan = 0;
-            if (isset($params['OkulTurKullan']) && $params['OkulTurKullan'] != "") {
-                $okulTurKullan = $params['OkulTurKullan'];
-            }
+                if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
+                    $aciklama = $params['Aciklama'];
+                }              
                 $sql = "
-                UPDATE sys_OkulTur
-                SET   
-                    okulTurSno = ".$okulTurSno.",
-                    aciklama = '".$aciklama."',
-                    okulTurKullan = '".$okulTurKullan."'                
+                UPDATE sys_OgretmenBransTipleri
+                SET    
+                    aciklama = '".$aciklama."' 
                 WHERE id = " . intval($params['id']);
                 $statement = $pdo->prepare($sql); 
                 $update = $statement->execute();
@@ -257,7 +235,7 @@ class SysOkulTur extends \DAL\DalSlim {
  
     /**  
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_OkulTur tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için sys_OgretmenBransTipleri tablosundan kayıtları döndürür !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
@@ -328,9 +306,9 @@ class SysOkulTur extends \DAL\DalSlim {
                             sd.description AS state_deleted,  
                             sd1.description AS state_active,  
                             u.username
-                        FROM sys_OkulTur a  
-                        INNER JOIN sys_OkulTur sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
-                        INNER JOIN sys_OkulTur sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
+                        FROM sys_OgretmenBransTipleri a  
+                        INNER JOIN sys_OgretmenBransTipleri sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
+                        INNER JOIN sys_OgretmenBransTipleri sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
                         INNER JOIN sys_language l ON l.language_main_code = a.language_code AND l.deleted = 0 AND l.active = 0 
                         INNER JOIN info_users u ON u.id = a.user_id 
                         WHERE a.deleted =0 AND language_code = '" . $params['language_code'] . "' ) AS asd               
@@ -361,7 +339,7 @@ class SysOkulTur extends \DAL\DalSlim {
 
     /** 
      * @author Okan CIRAN
-     * @ Gridi doldurmak için sys_OkulTur tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için sys_OgretmenBransTipleri tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
@@ -376,19 +354,19 @@ class SysOkulTur extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                     COUNT(a.id) AS COUNT ,
-                    (SELECT COUNT(a1.id) FROM sys_OkulTur a1  
-                    INNER JOIN sys_OkulTur sd1x ON sd1x.main_group = 15 AND sd1x.first_group= a1.deleted AND sd1x.language_code = 'tr' AND sd1x.deleted = 0 AND sd1x.active = 0
-                    INNER JOIN sys_OkulTur sd11 ON sd11.main_group = 16 AND sd11.first_group= a1.active AND sd11.language_code = 'tr' AND sd11.deleted = 0 AND sd11.active = 0                             
+                    (SELECT COUNT(a1.id) FROM sys_OgretmenBransTipleri a1  
+                    INNER JOIN sys_OgretmenBransTipleri sd1x ON sd1x.main_group = 15 AND sd1x.first_group= a1.deleted AND sd1x.language_code = 'tr' AND sd1x.deleted = 0 AND sd1x.active = 0
+                    INNER JOIN sys_OgretmenBransTipleri sd11 ON sd11.main_group = 16 AND sd11.first_group= a1.active AND sd11.language_code = 'tr' AND sd11.deleted = 0 AND sd11.active = 0                             
                     INNER JOIN info_users u1 ON u1.id = a1.user_id 
                      " . $whereSQL1 . " ) AS undeleted_count, 
-                    (SELECT COUNT(a2.id) FROM sys_OkulTur a2
-                    INNER JOIN sys_OkulTur sd2 ON sd2.main_group = 15 AND sd2.first_group= a2.deleted AND sd2.language_code = 'tr' AND sd2.deleted = 0 AND sd2.active = 0
-                    INNER JOIN sys_OkulTur sd12 ON sd12.main_group = 16 AND sd12.first_group= a2.active AND sd12.language_code = 'tr' AND sd12.deleted = 0 AND sd12.active = 0                             
+                    (SELECT COUNT(a2.id) FROM sys_OgretmenBransTipleri a2
+                    INNER JOIN sys_OgretmenBransTipleri sd2 ON sd2.main_group = 15 AND sd2.first_group= a2.deleted AND sd2.language_code = 'tr' AND sd2.deleted = 0 AND sd2.active = 0
+                    INNER JOIN sys_OgretmenBransTipleri sd12 ON sd12.main_group = 16 AND sd12.first_group= a2.active AND sd12.language_code = 'tr' AND sd12.deleted = 0 AND sd12.active = 0                             
                     INNER JOIN info_users u2 ON u2.id = a2.user_id 			
                       " . $whereSQL2 . " ) AS deleted_count                        
-                FROM sys_OkulTur a
-                INNER JOIN sys_OkulTur sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = 'tr' AND sd.deleted = 0 AND sd.active = 0
-                INNER JOIN sys_OkulTur sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = 'tr' AND sd1.deleted = 0 AND sd1.active = 0                             
+                FROM sys_OgretmenBransTipleri a
+                INNER JOIN sys_OgretmenBransTipleri sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = 'tr' AND sd.deleted = 0 AND sd.active = 0
+                INNER JOIN sys_OgretmenBransTipleri sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = 'tr' AND sd1.deleted = 0 AND sd1.active = 0                             
                 INNER JOIN info_users u ON u.id = a.user_id 
                 " . $whereSQL . "
                     ";
@@ -409,13 +387,13 @@ class SysOkulTur extends \DAL\DalSlim {
     /** 
      * @author Okan CIRAN
      * su  an kullanılmıyor
-     * @ combobox doldurmak için sys_OkulTur tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
+     * @ combobox doldurmak için sys_OgretmenBransTipleri tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
      * @throws \PDOException
      */ 
-    public function fillOkulTurleri($params = array()) {
+    public function fillOgretmenBransTipleri($params = array()) {
         if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
             $offset = ((intval($params['page']) - 1) * intval($params['rows']));
             $limit = intval($params['rows']);
@@ -456,15 +434,7 @@ class SysOkulTur extends \DAL\DalSlim {
                             case 'aciklama':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
-                                break;
-                            case 'okulTurSno':
-                                $sorguExpression = ' = ' . $std['value'] . '  ';
-                                $sorguStr.=" AND a.okulTurSno" . $sorguExpression . ' '; 
-                                break;
-                            case 'okulTurKullan':
-                                $sorguExpression = ' = ' . $std['value'] . '  ';
-                                $sorguStr.=" AND  a.okulTurKullan" . $sorguExpression . ' '; 
-                                break;
+                                break; 
                             default:
                                 break;
                         }
@@ -478,13 +448,11 @@ class SysOkulTur extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $sql = "
            SELECT
-                a.id,
-                a.okulTurSno, 
-                a.aciklama,
-                a.okulTurKullan,
+                a.id, 
+                a.aciklama, 
                 a.active,
                 a.deleted
-            FROM sys_OkulTur a
+            FROM sys_OgretmenBransTipleri a
             WHERE
                 a.deleted =0 /* AND a.active=0 */ 
                 " . $sorguStr . "
@@ -511,18 +479,18 @@ class SysOkulTur extends \DAL\DalSlim {
             //$debugSQLParams = $statement->debugDumpParams();
             return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
         }
-    }
-
+    } 
+    
     /** 
      * @author Okan CIRAN
      * su  an kullanılmıyor
-     * @ combobox doldurmak için sys_OkulTur tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
+     * @ combobox doldurmak için sys_OgretmenBransTipleri tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
      * @throws \PDOException
      */
-    public function fillOkulTurleriRtc() {
+    public function fillOgretmenBransTipleriRtc() {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
             $sorguStr = null;
@@ -537,15 +505,7 @@ class SysOkulTur extends \DAL\DalSlim {
                             case 'aciklama':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
-                                break;
-                            case 'okulTurSno':
-                                $sorguExpression = ' = ' . $std['value'] . '  ';
-                                $sorguStr.=" AND a.okulTurSno" . $sorguExpression . ' '; 
-                                break;
-                            case 'okulTurKullan':
-                                $sorguExpression = ' = ' . $std['value'] . '  ';
-                                $sorguStr.=" AND  a.okulTurKullan" . $sorguExpression . ' '; 
-                                break;
+                                break; 
                             default:
                                 break;
                         }
@@ -556,7 +516,7 @@ class SysOkulTur extends \DAL\DalSlim {
             $sql = "
             SELECT
                 count(id) as count
-            FROM sys_OkulTur
+            FROM sys_OgretmenBransTipleri
             WHERE
                 deleted =0 /* AND active=0 */ 
                 " . $sorguStr . "
@@ -573,9 +533,10 @@ class SysOkulTur extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
+    
     /**
      * @author Okan CIRAN
-     * @ sys_OkulTur tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ sys_OgretmenBransTipleri tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
      * @version v 1.0  13.06.2016
      * @param type $params
@@ -592,13 +553,13 @@ class SysOkulTur extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE sys_OkulTur
+                UPDATE sys_OgretmenBransTipleri
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM sys_OkulTur
+                                FROM sys_OgretmenBransTipleri
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -627,13 +588,13 @@ class SysOkulTur extends \DAL\DalSlim {
 
     /** 
      * @author Okan CIRAN
-     * @ okul türleri dropdown ya da tree ye doldurmak için sys_OkulTur tablosundan kayıtları döndürür !!
+     * @ okul türleri dropdown ya da tree ye doldurmak için sys_OgretmenBransTipleri tablosundan kayıtları döndürür !!
      * @version v 1.0  18.07.2017
      * @param array | null $params
      * @return array
      * @throws \PDOException 
      */
-    public function fillOkulTurleriCmb($params = array()) {
+    public function fillOgretmenBransTipleriCmb($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');   
             $sql = "            
@@ -642,7 +603,7 @@ class SysOkulTur extends \DAL\DalSlim {
                     a.aciklama  AS name,  
                     a.active, 
                     0 AS state_type  
-                FROM sys_OkulTur a     
+                FROM sys_OgretmenBransTipleri a     
                 WHERE                     
                     a.active = 0 AND                    
                     a.deleted = 0 

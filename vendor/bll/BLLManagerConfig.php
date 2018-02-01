@@ -103,7 +103,8 @@ class BLLManagerConfig{
                  
                  
                 'sysOkulTurBLL' => 'BLL\BLL\SysOkulTur',  
-                  
+                'sysOgretmenBransTipleriBLL' => 'BLL\BLL\SysOgretmenBransTipleri',   
+                 
                  
              ),
              'factories' => [
