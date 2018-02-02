@@ -230,6 +230,26 @@ and open the template in the editor. ѝ
                         console.warn('error text status-->' + textStatus);
                     }
                 });   
+                    //pkUpdate_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_sysokultur', 
+                        okulTurSno : '10', 
+                        aciklama : 'İlk Öğretim deneme kaydı xxxx', 
+                        okulTurKullan: 0,
+                        pk : 'd9ZM8FQMFCc.Dzo', 
+                        id : 12 , 
+                  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
                //FillOkulTurleriCmb_sysokultur
                 $.ajax({
                     //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
