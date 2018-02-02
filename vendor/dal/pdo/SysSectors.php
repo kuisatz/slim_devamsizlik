@@ -220,10 +220,10 @@ class SysSectors extends \DAL\DalSlim {
             }
             $sql = " 
             SELECT  
-                    name AS name,
-                    '" . $params['name'] . "' AS value ,
-                    name ='" . $params['name'] . "' AS control,
-                    CONCAT(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message
+                name AS name,
+                '" . $params['name'] . "' AS value ,
+                cast(1 as bit) AS control,
+                CONCAT(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message
             FROM sys_sectors
             WHERE name = '" . $params['name'] . "' 
             " . $addSql . " 
