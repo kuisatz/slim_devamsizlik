@@ -210,7 +210,26 @@ and open the template in the editor. ѝ
                     }
                 });     
                 
-                    //FillOkulTurleriCmb_sysokultur
+                
+                  //pkInsert_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_sysokultur', 
+                        okulTurSno : '10', 
+                        aciklama : 'İlk Öğretim deneme kaydı', 
+                        okulTurKullan: 0,
+                  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+               //FillOkulTurleriCmb_sysokultur
                 $.ajax({
                     //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
                     url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
