@@ -172,7 +172,7 @@ $app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
     $app->response()->header("Content-Type", "application/json"); 
     $resultArray = array();
    // $resultArray['total'] = $counts;
-    $resultArray['rows'] = $flows; 
+    $resultArray  = $flows; 
     $app->response()->body(json_encode($resultArray));
 });
 
