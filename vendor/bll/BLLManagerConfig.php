@@ -106,6 +106,7 @@ class BLLManagerConfig{
                 'sysOgretmenBransTipleriBLL' => 'BLL\BLL\SysOgretmenBransTipleri',   
                 'sysOgretmenTipleriBLL' => 'BLL\BLL\SysOgretmenTipleri', 
                 'sysSbGorevBLL' => 'BLL\BLL\SysSbGorev',
+                'sysUcretDonemleriBLL' => 'BLL\BLL\SysUcretDonemleri',
                 
                  
                  

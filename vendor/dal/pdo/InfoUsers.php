@@ -309,7 +309,7 @@ class InfoUsers extends \DAL\DalSlim {
                     $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                     $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];  
                     $roleId = 5 ; 
-                    $password ='!!!!++.Qwerty.++!!!!'; 
+                 //   $password ='!!!!++.Qwerty.++!!!!'; 
                     $languageIdValue = 647;   
                     $preferredlanguageIdValue = 647;
                              
@@ -341,6 +341,10 @@ class InfoUsers extends \DAL\DalSlim {
                     if (isset($params['name']) && $params['name'] != "") {
                         $name =$params['name'];
                     } 
+                    $password = null;
+                    if (isset($params['password']) && $params['password'] != "") {
+                        $password = $params['password'];
+                    }   
                             
                     $sql = " 
                     INSERT INTO info_users( 
