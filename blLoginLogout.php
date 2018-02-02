@@ -13,7 +13,7 @@ use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
 $app = new \Slim\SlimExtended(array(
     'mode' => 'development',
-    'debug' => true,
+    'debug' => false,
     'log.enabled' => true,
     'log.level' => \Slim\Log::INFO,
     'exceptions.rabbitMQ' => true,
