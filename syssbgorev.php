@@ -145,11 +145,13 @@ $app->get("/pkFillGorevTipleri_syssbgorev/", function () use ($app ) {
         'order' => $vOrder,
         'filterRules' => $filterRules,
     ));
-    $resTotalRowCount = $BLL->fillGorevTipleriRtc(array( 
+  /*  $resTotalRowCount = $BLL->fillGorevTipleriRtc(array( 
         'pk' => $pk,
         'filterRules' => $filterRules,
     ));
-    $counts=0;
+   * 
+   */
+  //  $counts=0;
     $flows = array(); 
     if (isset($resDataGrid[0]['id'])) {
         foreach ($resDataGrid as $flow) {
@@ -162,14 +164,15 @@ $app->get("/pkFillGorevTipleri_syssbgorev/", function () use ($app ) {
                 "attributes" => array("notroot" => true,),
             );
         }
-        $counts = $resTotalRowCount[0]['count'];
+      //  $counts = $resTotalRowCount[0]['count'];
     }
 
 
     $app->response()->header("Content-Type", "application/json"); 
     $resultArray = array();
-    $resultArray['total'] = $counts;
-    $resultArray['rows'] = $flows; 
+   // $resultArray['total'] = $counts;
+    //$resultArray['rows'] = $flows; 
+    $resultArray = $flows; 
     $app->response()->body(json_encode($resultArray));
 });
 
