@@ -209,7 +209,7 @@ class SysClusters extends \DAL\DalSlim {
             SELECT  
                     name AS name,
                     '" . $params['name'] . "' AS value ,
-                    name ='" . $params['name'] . "' AS control,
+                    cast(1 as bit) AS control,
                     CONCAT(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message
             FROM sys_clusters
             WHERE name = '" . $params['name'] . "' 

@@ -190,7 +190,7 @@ class SysCorporation extends \DAL\DalSlim {
             SELECT  
                a.name  AS name , 
                '" . $params['name'] . "' AS value ,  
-                lower(a.name) = trim( lower( '".$params['name']."' )) AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_corporation  a                          
             WHERE   

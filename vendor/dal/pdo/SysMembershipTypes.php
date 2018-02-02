@@ -219,7 +219,7 @@ class SysMembershipTypes extends \DAL\DalSlim {
             SELECT  
                 a.name ,
                 '" . $params['mem_type'] . "' AS value, 
-                LOWER(a.mem_type) = LOWER(TRIM('" . $params['mem_type'] . "')) AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.mem_type, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_membership_types  a                          
             WHERE 

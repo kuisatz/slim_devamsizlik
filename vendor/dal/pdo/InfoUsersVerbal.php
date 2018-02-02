@@ -171,7 +171,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
             SELECT  
                 a.firm_id AS name , 
                 a.firm_id AS value , 
-                a.firm_id = " . intval($params['firm_id']) . " AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.firm_id, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM info_users_verbal a             
             WHERE a.firm_id = " . intval($params['firm_id']) . "               

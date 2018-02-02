@@ -123,7 +123,7 @@ class SysAclPrivilege extends \DAL\DalSlim {
            SELECT  
                 name AS name , 
                 REPLACE(REPLACE('" . $params['name'] . "','*/',''),'/*','') AS value, 
-                name =REPLACE(REPLACE('" . $params['name'] . "','*/',''),'/*','') AS control,
+                cast(1 as bit) AS control,
                 concat(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acl_privilege
             WHERE LOWER(REPLACE(REPLACE(REPLACE(name,' ',''),'*/',''),'/*','')) = LOWER(REPLACE(REPLACE(REPLACE('" . $params['name'] . "',' ',''),'*/',''),'/*',''))

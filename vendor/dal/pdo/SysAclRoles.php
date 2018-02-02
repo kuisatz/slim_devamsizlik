@@ -314,7 +314,7 @@ class SysAclRoles extends \DAL\DalSlim {
             SELECT  
                 name as name, 
                 '" . $params['name'] . "' AS value, 
-                name ='" . $params['name'] . "' AS control,
+                cast(1 as bit) AS control,
                 concat(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acl_roles
             WHERE LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))"
@@ -353,7 +353,7 @@ class SysAclRoles extends \DAL\DalSlim {
             SELECT  
                 a.resource_id AS name,
                 resource_id AS value, 
-                resource_id = resource_id AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.resource_id, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acl_resource_roles a
             WHERE 

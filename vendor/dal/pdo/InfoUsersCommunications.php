@@ -310,7 +310,7 @@ class InfoUsersCommunications extends \DAL\DalSlim {
             SELECT   
                 communications_no AS communications_no , 
                 '" . $params['communications_no'] . "' AS value , 
-                communications_no ='" . $params['communications_no'] . "' AS control,
+                cast(1 as bit) AS control,
                 CONCAT(communications_no , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM info_users_communications                
             WHERE user_id = " . intval($params['user_id']) . " AND 

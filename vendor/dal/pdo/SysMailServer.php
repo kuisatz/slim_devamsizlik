@@ -212,7 +212,7 @@ class SysMailServer extends \DAL\DalSlim {
             SELECT  
                 a.host_address ,
                 '" . $params['host_address'] . "' AS value, 
-                LOWER(a.host_address) = LOWER(TRIM('" . $params['host_address'] . "')) AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.host_address, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_mail_server a                          
             WHERE 

@@ -146,7 +146,7 @@ class SysBorough extends \DAL\DalSlim {
             SELECT  
                 name as name , 
                 '" . $params['name'] . "' as value , 
-                name ='" . $params['name'] . "' as control,
+                cast(1 as bit) AS control,
                 concat(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM sys_borough                
             WHERE deleted =0 AND LOWER(name) = LOWER('" . $params['name'] . "')

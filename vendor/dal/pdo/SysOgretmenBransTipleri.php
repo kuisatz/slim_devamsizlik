@@ -169,7 +169,7 @@ class SysOgretmenBransTipleri extends \DAL\DalSlim {
             SELECT  
                 aciklama as name , 
                 '" . $params['aciklama'] . "' AS value , 
-                aciklama ='" . $params['aciklama'] . "' AS control,
+                cast(1 as bit) AS control,
                 concat(aciklama , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_OgretmenBransTipleri                
             WHERE LOWER(aciklama) = LOWER('" . $params['aciklama'] . "')"

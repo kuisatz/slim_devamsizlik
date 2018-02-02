@@ -271,7 +271,7 @@ class SysServicesGroups extends \DAL\DalSlim {
             SELECT  
                 name as name , 
                 '" . $params['name'] . "' as value , 
-                name ='" . $params['name'] . "' as control,
+                cast(1 as bit) AS control,
                 concat(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message                             
             FROM sys_services_groups                
             WHERE LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ',''))"

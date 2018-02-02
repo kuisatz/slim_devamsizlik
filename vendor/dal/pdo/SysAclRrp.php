@@ -128,7 +128,7 @@ class SysAclRrp extends \DAL\DalSlim {
            SELECT  
                 privilege_id as name , 
                 '" . $params['privilege_id'] . "' as value , 
-                privilege_id =" . intval($params['privilege_id']) . " as control,
+                cast(1 as bit) AS control,
                 concat(privilege_id , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message                             
             FROM sys_acl_rrp        
             WHERE 

@@ -217,7 +217,7 @@ class SysUniversities extends \DAL\DalSlim {
             SELECT  
                 a.name ,
                 '" . $params['name'] . "' AS value, 
-                LOWER(a.name) = LOWER(TRIM('" . $params['name'] . "')) AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.name, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_universities  a                          
             WHERE 

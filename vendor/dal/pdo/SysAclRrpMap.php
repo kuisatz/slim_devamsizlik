@@ -118,7 +118,7 @@ class SysAclRrpMap extends \DAL\DalSlim {
             }
             $sql = "             
             SELECT  CONCAT(value , ' map ') , value AS name ,
-            value = value AS control , 
+            cast(1 as bit) AS control,
             CONCAT(value , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM (
                 SELECT  

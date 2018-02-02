@@ -263,7 +263,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                 SELECT  
                    a.sys_socialmedia_id ,
                    " . $params['sys_socialmedia_id'] . " AS value, 
-                    sys_socialmedia_id = " . intval($params['sys_socialmedia_id']) . " AS control,
+                    cast(1 as bit) AS control,
                     CONCAT(a.sys_socialmedia_id, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message,
                     a.user_link
                 FROM info_users_socialmedia a

@@ -132,7 +132,7 @@ class SysOperationTypesRrp extends \DAL\DalSlim {
             SELECT  
                 rrp_restservice_id AS name, 
                 '" . $params['rrp_restservice_id'] . "' AS value, 
-                rrp_restservice_id ='" . $params['rrp_restservice_id'] . "' AS control,
+                cast(1 as bit) AS control,
                 concat(rrp_restservice_id , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_operation_types_rrp
             WHERE   rrp_restservice_id= " . intval($params['rrp_restservice_id']) . " AND

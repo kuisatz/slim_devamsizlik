@@ -231,7 +231,7 @@ class SysAssignDefinitionRoles extends \DAL\DalSlim {
             SELECT  
                 assign_definition_id AS name , 
                 ".intval( $params['assign_definition_id'])." AS value , 
-                assign_definition_id =".intval( $params['assign_definition_id'])." AS control,
+                cast(1 as bit) AS control,
                 concat( 'Bu Atama Tanımlaması Bu rol ile daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message 
             FROM sys_assign_definition_roles                
             WHERE 

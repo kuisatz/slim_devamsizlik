@@ -230,7 +230,7 @@ class SysCertifications extends \DAL\DalSlim {
             SELECT   
                 a.certificate AS certificate  , 
                 a.certificate  AS value , 
-                a.certificate  =" . $params['certificate'] . " AS control,                
+                cast(1 as bit) AS control,               
                 CONCAT(a.certificate,' daha önce referans edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM info_firm_references a
             WHERE a.certificate = '" . $params['certificate'] . "' AND 		

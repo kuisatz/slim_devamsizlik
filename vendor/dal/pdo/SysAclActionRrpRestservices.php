@@ -136,7 +136,7 @@ class SysAclActionRrpRestservices extends \DAL\DalSlim {
             SELECT  
                 restservices_id AS name, 
                 '" . $params['restservices_id'] . "' AS value, 
-                restservices_id ='" . $params['restservices_id'] . "' AS control,
+                cast(1 as bit) AS control,
                 concat(restservices_id , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_acl_action_rrp_restservices
             WHERE restservices_id = " . intval($params['restservices_id']) . " 

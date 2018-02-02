@@ -128,7 +128,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
             SELECT  
                 name AS name , 
                 '" . $params['name'] . "' AS value , 
-                name ='" . $params['name'] . "' AS control,
+                cast(1 as bit) AS control,
                 concat(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message                             
             FROM sys_notification_restservices                
             WHERE LOWER(REPLACE(name,' ','')) = LOWER(REPLACE('" . $params['name'] . "',' ','')) 

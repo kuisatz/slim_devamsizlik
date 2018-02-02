@@ -176,7 +176,7 @@ class SysSbGorev extends \DAL\DalSlim {
             SELECT  
                 kod as name , 
                 '" . $params['kod'] . "' AS value , 
-                kod ='" . $params['kod'] . "' AS control,
+                cast(1 as bit) AS control,
                 concat(kod , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_SbGorev                
             WHERE LOWER(kod) = LOWER('" . $params['kod'] . "')"

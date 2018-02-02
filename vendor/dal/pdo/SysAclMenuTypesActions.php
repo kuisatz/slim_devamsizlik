@@ -236,7 +236,7 @@ class SysAclMenuTypesActions extends \DAL\DalSlim {
             SELECT  
                 menu_types_id as name , 
                 " . $params['menu_types_id'] . " AS value , 
-                menu_types_id =" . $params['menu_types_id'] . " AS control,
+                cast(1 as bit) AS control,
                 concat(menu_types_id , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message                             
             FROM sys_acl_menu_types_actions                
             WHERE 

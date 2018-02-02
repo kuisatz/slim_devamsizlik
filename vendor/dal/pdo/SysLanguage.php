@@ -133,7 +133,7 @@ class SysLanguage extends \DAL\DalSlim {
             SELECT  
                 language_code AS name , 
                 '" . $params['language_code'] . "' AS value , 
-                language_code ='" . $params['language_code'] . "' as control,
+                cast(1 as bit) AS control,
                 concat(language_code , ' dil kodu daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) as message                             
             FROM sys_language
             WHERE language_code = '" . $params['language_code'] . "'

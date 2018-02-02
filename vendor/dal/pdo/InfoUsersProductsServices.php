@@ -162,7 +162,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
             SELECT  
                 a.unspsc_codes_id AS name , 
                 a.unspsc_codes_id AS value , 
-                LOWER(a.unspsc_codes_id) = LOWER('" . $params['unspsc_codes_id'] . "') AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.unspsc_codes_id, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM info_users_products_services a             
             WHERE a.firm_id = " . intval($params['firm_id']) . "

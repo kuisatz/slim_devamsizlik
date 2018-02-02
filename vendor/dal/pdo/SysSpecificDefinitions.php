@@ -149,7 +149,7 @@ class SysSpecificDefinitions extends \DAL\DalSlim {
             SELECT  
                 name as name , 
                 '" . $params['name'] . "' AS value , 
-                name ='" . $params['name'] . "' AS control,
+                cast(1 as bit) AS control,
                 concat(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_specific_definitions                
             WHERE LOWER(name) = LOWER('" . $params['name'] . "')"

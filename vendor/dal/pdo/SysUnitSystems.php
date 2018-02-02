@@ -199,7 +199,7 @@ class SysUnitSystems extends \DAL\DalSlim {
             SELECT  
                  a.system  AS name , 
                  '" . $params['system'] . "' AS value , 
-                 1 =1 AS control,
+                 cast(1 as bit) AS control,
                  CONCAT(a.system ,' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_unit_systems  a            
             WHERE a.system=  '" . $params['system'] . "'

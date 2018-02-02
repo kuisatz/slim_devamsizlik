@@ -171,7 +171,7 @@ class InfoDuyuru extends \DAL\DalSlim {
             SELECT  
                 a.baslik AS name , 
                 a.baslik AS value , 
-                a.baslik = " .  ($params['baslik']) . " AS control,
+                cast(1 as bit) AS control,
                 CONCAT(a.baslik, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM info_duyuru a             
             WHERE a.baslik = " .  ($params['baslik']) . "               

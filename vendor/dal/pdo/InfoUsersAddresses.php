@@ -343,7 +343,7 @@ class InfoUsersAddresses extends \DAL\DalSlim {
             SELECT   
                 a.address_type_id AS communications_no , 
                 sd8.description AS value , 
-                address_type_id =" . intval($params['address_type_id']) . " AS control,
+                cast(1 as bit) AS control,
                 CONCAT(sd8.description , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message                             
             FROM info_users_addresses a
 	    INNER JOIN sys_specific_definitions as sd8 on sd8.main_group =17 AND sd8.first_group = a.address_type_id AND sd8.deleted = 0 AND sd8.active = 0 AND sd8.language_code = a.language_code                

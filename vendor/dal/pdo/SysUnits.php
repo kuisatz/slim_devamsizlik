@@ -246,7 +246,7 @@ class SysUnits extends \DAL\DalSlim {
             SELECT  
                  a.unitcode AS name , 
                  '" . $params['unitcode'] . "' AS value , 
-                 1 =1 AS control,
+                cast(1 as bit) AS control,
                  CONCAT( a.unitcode, ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_units  a                      
             WHERE a.unitcode =  '" . $params['unitcode'] . "' AND                
