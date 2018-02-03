@@ -104,6 +104,7 @@ class DalManagerConfig {
                 'sysOgretmenBransTipleriPDO' => 'DAL\Factory\PDO\SysOgretmenBransTipleriFactory', 
                 'sysOgretmenTipleriPDO' => 'DAL\Factory\PDO\SysOgretmenTipleriFactory', 
                 'sysSbGorevPDO' => 'DAL\Factory\PDO\SysSbGorevFactory', 
+                'sysUcretDonemleriPDO' => 'DAL\Factory\PDO\SysUcretDonemleriFactory', 
             
                 
                  
