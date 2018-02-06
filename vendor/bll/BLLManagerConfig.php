@@ -107,6 +107,7 @@ class BLLManagerConfig{
                 'sysOgretmenTipleriBLL' => 'BLL\BLL\SysOgretmenTipleri', 
                 'sysSbGorevBLL' => 'BLL\BLL\SysSbGorev',
                 'sysUcretDonemleriBLL' => 'BLL\BLL\SysUcretDonemleri',
+                'infoNobetProgramiBLL' => 'BLL\BLL\InfoNobetProgrami',
                 
                  
                  

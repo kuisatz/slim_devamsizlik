@@ -463,7 +463,20 @@ and open the template in the editor. ѝ
                     }
                 });     
                 
-                
+                //pkFillOkulTurleri_sysokultur
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillNobetBilgileriDshBrd_infonobetprogrami' 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });     
                 
                 
                 
