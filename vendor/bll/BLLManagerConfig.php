@@ -108,7 +108,7 @@ class BLLManagerConfig{
                 'sysSbGorevBLL' => 'BLL\BLL\SysSbGorev',
                 'sysUcretDonemleriBLL' => 'BLL\BLL\SysUcretDonemleri',
                 'infoNobetProgramiBLL' => 'BLL\BLL\InfoNobetProgrami',
-                
+                'infoNobetDevamsizligiBLL' => 'BLL\BLL\InfoNobetDevamsizligi',
                  
                  
                  

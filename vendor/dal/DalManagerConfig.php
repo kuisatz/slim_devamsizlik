@@ -106,6 +106,7 @@ class DalManagerConfig {
                 'sysSbGorevPDO' => 'DAL\Factory\PDO\SysSbGorevFactory', 
                 'sysUcretDonemleriPDO' => 'DAL\Factory\PDO\SysUcretDonemleriFactory', 
                 'infoNobetProgramiPDO' => 'DAL\Factory\PDO\InfoNobetProgramiFactory', 
+                'infoNobetDevamsizligiPDO' => 'DAL\Factory\PDO\InfoNobetDevamsizligiFactory', 
             
                 
                  
