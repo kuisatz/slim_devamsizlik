@@ -120,16 +120,16 @@ class SysOkulTur extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $okulTurSno = 0;
-            if (isset($params['OkulTurSno']) && $params['OkulTurSno'] != "") {
-                $okulTurSno = $params['OkulTurSno'];
+            if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
+                $okulTurSno = $params['okulTurSno'];
             }
             $aciklama = '';
-            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
-                $aciklama = $params['Aciklama'];
+            if (isset($params['aciklama']) && $params['aciklama'] != "") {
+                $aciklama = $params['aciklama'];
             }
             $okulTurKullan = 0;
-            if (isset($params['OkulTurKullan']) && $params['OkulTurKullan'] != "") {
-                $okulTurKullan = $params['OkulTurKullan'];
+            if (isset($params['okulTurKullan']) && $params['okulTurKullan'] != "") {
+                $okulTurKullan = $params['okulTurKullan'];
             }
                 $sql = "
                 INSERT INTO sys_OkulTur(
@@ -180,11 +180,11 @@ class SysOkulTur extends \DAL\DalSlim {
             $sql = " 
             SELECT  
                 aciklama as name , 
-                '" . $params['Aciklama'] . "' AS value , 
+                '" . $params['aciklama'] . "' AS value , 
                 cast(1 as bit) AS control,
                 concat(aciklama , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_OkulTur                
-            WHERE LOWER(aciklama) = LOWER('" . $params['Aciklama'] . "')"
+            WHERE LOWER(aciklama) = LOWER('" . $params['aciklama'] . "')"
                     . $addSql . " 
                AND deleted =0   
                                ";
@@ -216,16 +216,16 @@ class SysOkulTur extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
             $okulTurSno = 0;
-            if (isset($params['OkulTurSno']) && $params['OkulTurSno'] != "") {
-                $okulTurSno = $params['OkulTurSno'];
+            if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
+                $okulTurSno = $params['okulTurSno'];
             }
             $aciklama = '';
-            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
-                $aciklama = $params['Aciklama'];
+            if (isset($params['aciklama']) && $params['aciklama'] != "") {
+                $aciklama = $params['aciklama'];
             }
             $okulTurKullan = 0;
-            if (isset($params['OkulTurKullan']) && $params['OkulTurKullan'] != "") {
-                $okulTurKullan = $params['OkulTurKullan'];
+            if (isset($params['okulTurKullan']) && $params['okulTurKullan'] != "") {
+                $okulTurKullan = $params['okulTurKullan'];
             }
                 $sql = "
                 UPDATE sys_OkulTur
@@ -453,15 +453,15 @@ class SysOkulTur extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'aciklama':
+                            case 'Aciklama':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurSno':
+                            case 'OkulTurSno':
                                 $sorguExpression = ' = ' . $std['value'] . '  ';
                                 $sorguStr.=" AND a.okulTurSno" . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurKullan':
+                            case 'OkulTurKullan':
                                 $sorguExpression = ' = ' . $std['value'] . '  ';
                                 $sorguStr.=" AND  a.okulTurKullan" . $sorguExpression . ' '; 
                                 break;
@@ -534,15 +534,15 @@ class SysOkulTur extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'aciklama':
+                            case 'Aciklama':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurSno':
+                            case 'OkulTurSno':
                                 $sorguExpression = ' = ' . $std['value'] . '  ';
                                 $sorguStr.=" AND a.okulTurSno" . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurKullan':
+                            case 'OkulTurKullan':
                                 $sorguExpression = ' = ' . $std['value'] . '  ';
                                 $sorguStr.=" AND  a.okulTurKullan" . $sorguExpression . ' '; 
                                 break;

@@ -120,12 +120,12 @@ class SysSbGorev extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $aciklama = '';
-            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
-                $aciklama = $params['Aciklama'];
+            if (isset($params['aciklama']) && $params['aciklama'] != "") {
+                $aciklama = $params['aciklama'];
             }
             $kod = '';
-            if (isset($params['Kod']) && $params['Kod'] != "") {
-                $kod = $params['Kod'];
+            if (isset($params['kod']) && $params['kod'] != "") {
+                $kod = $params['kod'];
             } 
                             
             $sql = "
@@ -211,12 +211,12 @@ class SysSbGorev extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $aciklama = 0;
-                if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
-                    $aciklama = $params['Aciklama'];
+                if (isset($params['aciklama']) && $params['aciklama'] != "") {
+                    $aciklama = $params['aciklama'];
                 }  
                 $kod = '';
-                if (isset($params['Kod']) && $params['Kod'] != "") {
-                    $kod = $params['Kod'];
+                if (isset($params['kod']) && $params['kod'] != "") {
+                    $kod = $params['kod'];
                 } 
                 $sql = "
                 UPDATE sys_SbGorev

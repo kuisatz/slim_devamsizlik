@@ -120,8 +120,8 @@ class SysOgretmenTipleri extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $aciklama = '';
-            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
-                $aciklama = $params['Aciklama'];
+            if (isset($params['aciklama']) && $params['aciklama'] != "") {
+                $aciklama = $params['aciklama'];
             }             
             $sql = "
             INSERT INTO sys_OgretmenTipleri( 
@@ -204,8 +204,8 @@ class SysOgretmenTipleri extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $aciklama = '';
-                if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
-                    $aciklama = $params['Aciklama'];
+                if (isset($params['aciklama']) && $params['aciklama'] != "") {
+                    $aciklama = $params['aciklama'];
                 }              
                 $sql = "
                 UPDATE sys_OgretmenTipleri
@@ -431,7 +431,7 @@ class SysOgretmenTipleri extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'aciklama':
+                            case 'Aciklama':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
                                 break; 
@@ -502,7 +502,7 @@ class SysOgretmenTipleri extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'aciklama':
+                            case 'Aciklama':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND a.aciklama" . $sorguExpression . ' '; 
                                 break; 

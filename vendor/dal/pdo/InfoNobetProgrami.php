@@ -120,26 +120,38 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
             $ogrId = 0;
-            if (isset($params['OgrId']) && $params['OgrId'] != "") {
-                $ogrId = $params['OgrId'];
+            if (isset($params['ogrId']) && $params['ogrId'] != "") {
+                $ogrId = $params['ogrId'];
             }
             $nobetYeri = '';
-            if (isset($params['NobetYeri']) && $params['NobetYeri'] != "") {
-                $nobetYeri = $params['NobetYeri'];
+            if (isset($params['nobetYeri']) && $params['nobetYeri'] != "") {
+                $nobetYeri = $params['nobetYeri'];
             }
             $addSQL =NULL;
             $addSQLValue =NULL;
             $bastar = NULL;
-            if (isset($params['Bastar']) && $params['Bastar'] != "") {
-                $bastar = $params['Bastar'];
+            if (isset($params['bastar']) && $params['bastar'] != "") {
+                $bastar = $params['bastar'];
                 $addSQL .=' bastar, ';
                 $addSQLValue .= "'".$bastar."',";
             }
+            $basSaat = NULL;
+            if (isset($params['basSaat']) && $params['basSaat'] != "") {
+                $basSaat = $params['basSaat'];
+                $addSQL .=' basSaat, ';
+                $addSQLValue .= "'".$basSaat."',";
+            }
             $bittar = NULL;
-            if (isset($params['Bittar']) && $params['Bittar'] != "") {
-                $bittar = $params['Bittar'];
+            if (isset($params['bittar']) && $params['bittar'] != "") {
+                $bittar = $params['bittar'];
                 $addSQL .=' bittar, ';
                 $addSQLValue .= "'".$bittar."',";
+            }
+            $bitSaat = NULL;
+            if (isset($params['bitSaat']) && $params['bitSaat'] != "") {
+                $bitSaat = $params['bitSaat'];
+                $addSQL .=' bitSaat, ';
+                $addSQLValue .= "'".$bitSaat."',";
             }
                 $sql = "
                 INSERT INTO info_nobetProgrami(
@@ -188,16 +200,22 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             if (isset($params['id'])) {
                 $addSql = " AND id != " . intval($params['id']) . " ";
             }
-            if (isset($params['OgrId']) && $params['OgrId'] != "") {
-                $addSql .=" AND ogrId = " . $params['OgrId'] . " "; 
-                if (isset($params['NobetYeri']) && $params['NobetYeri'] != "") {
-                    $addSql .=" AND nobetYeri = '" . $params['NobetYeri'] . "' ";
+            if (isset($params['ogrId']) && $params['ogrId'] != "") {
+                $addSql .=" AND ogrId = " . $params['ogrId'] . " "; 
+                if (isset($params['nobetYeri']) && $params['nobetYeri'] != "") {
+                    $addSql .=" AND nobetYeri = '" . $params['nobetYeri'] . "' ";
                 }
-                if (isset($params['Bastar']) && $params['Bastar'] != "") {
-                    $addSql .=" AND bastar = '" . $params['Bastar'] . "' ";
+                if (isset($params['bastar']) && $params['bastar'] != "") {
+                    $addSql .=" AND bastar = '" . $params['bastar'] . "' ";
                 }
-                if (isset($params['Bittar']) && $params['Bittar'] != "") {
-                    $addSql .=" AND bittar = '" . $params['Bittar'] . "' ";
+                if (isset($params['bittar']) && $params['bittar'] != "") {
+                    $addSql .=" AND bittar = '" . $params['bittar'] . "' ";
+                }
+                if (isset($params['basSaat']) && $params['basSaat'] != "") {
+                    $addSql .=" AND basSaat = '" . $params['basSaat'] . "' ";
+                }
+                if (isset($params['bitSaat']) && $params['bitSaat'] != "") {
+                    $addSql .=" AND bitSaat = '" . $params['bitSaat'] . "' ";
                 }
             } ELSE { $addSql .=" AND ogrId = -1 "; }
             $sql = " 
@@ -239,19 +257,25 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
             $ogrId = 0;
-            if (isset($params['OgrId']) && $params['OgrId'] != "") {
-                $ogrId = $params['OgrId'];
+            if (isset($params['ogrId']) && $params['ogrId'] != "") {
+                $ogrId = $params['ogrId'];
             }
             $nobetYeri = '';
-            if (isset($params['NobetYeri']) && $params['NobetYeri'] != "") {
-                $nobetYeri = $params['NobetYeri'];
+            if (isset($params['nobetYeri']) && $params['nobetYeri'] != "") {
+                $nobetYeri = $params['nobetYeri'];
             }
             $addSQL =NULL;   
-            if (isset($params['Bastar']) && $params['Bastar'] != "") { 
-                $addSQL .=" bittar = '".$params['Bastar']."',";
+            if (isset($params['bastar']) && $params['bastar'] != "") { 
+                $addSQL .=" bastar = '".$params['bastar']."',";
             }             
-            if (isset($params['Bittar']) && $params['Bittar'] != "") { 
-                $addSQL .=" bittar = '".$params['Bittar']."',";
+            if (isset($params['bittar']) && $params['bittar'] != "") { 
+                $addSQL .=" bittar = '".$params['bittar']."',";
+            }
+            if (isset($params['basSaat']) && $params['basSaat'] != "") {
+                    $addSql .=" AND basSaat = '" . $params['basSaat']."',";
+            }
+            if (isset($params['bitSaat']) && $params['bitSaat'] != "") {
+                $addSql .=" AND bitSaat = '" . $params['bitSaat']."',";
             }
                 $sql = "
                 UPDATE info_nobetProgrami
@@ -479,18 +503,30 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'adsoyad':
+                            case 'Adsoyad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
                                 break;
-                            case 'bastar':
+                            case 'NobetYeri':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Bastar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurKullan':
+                            case 'Bittar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.bitSaat as nvarchar(5)))" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
+                            case 'BasSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
+                                break;
+                            case 'BitSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
+                                break; 
                             default:
                                 break;
                         }
@@ -509,7 +545,9 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 concat(b.ad,' ',b.soyad) as adsoyad, 
                 a.nobetYeri, 
                 CONCAT(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', CAST(a.basSaat as nvarchar(5))) as bastar,
-                CONCAT(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', CAST(a.bitSaat as nvarchar(5))) as bittar, 
+                CAST(a.basSaat as nvarchar(5)) as basSaat, 
+                CONCAT(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', CAST(a.bitSaat as nvarchar(5))) as bittar,
+                CAST(a.bitSaat as nvarchar(5)) as bitSaat,
                 a.active,
                 a.deleted
             FROM info_nobetProgrami a
@@ -559,18 +597,30 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'adsoyad':
+                           case 'Adsoyad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
                                 break;
-                            case 'bastar':
+                            case 'NobetYeri':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Bastar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurKullan':
+                            case 'Bittar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.bitSaat as nvarchar(5)))" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
+                            case 'BasSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
+                                break;
+                            case 'BitSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
+                                break; 
                             default:
                                 break;
                         }
@@ -649,18 +699,30 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'adsoyad':
+                             case 'Adsoyad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
                                 break;
-                            case 'bastar':
+                            case 'NobetYeri':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Bastar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurKullan':
+                            case 'Bittar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.bitSaat as nvarchar(5)))" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
+                            case 'BasSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
+                                break;
+                            case 'BitSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
+                                break; 
                             default:
                                 break;
                         }
@@ -679,7 +741,9 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 concat(b.ad,' ',b.soyad) as adsoyad, 
                 a.nobetYeri, 
                 CONCAT(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', CAST(a.basSaat as nvarchar(5))) as bastar,
-                CONCAT(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', CAST(a.bitSaat as nvarchar(5))) as bittar
+                CAST(a.basSaat as nvarchar(5)) as basSaat, 
+                CONCAT(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', CAST(a.bitSaat as nvarchar(5))) as bittar,
+                CAST(a.bitSaat as nvarchar(5)) as bitSaat 
             FROM info_nobetProgrami a
             INNER JOIN info_ogretmenler b ON b.id = a.ogrId AND b.active =0 AND b.deleted =0 
             WHERE
@@ -727,18 +791,30 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'adsoyad':
+                            case 'Adsoyad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
                                 break;
-                            case 'bastar':
+                            case 'NobetYeri':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Bastar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
-                            case 'okulTurKullan':
+                            case 'Bittar':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.bitSaat as nvarchar(5)))" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
                                 break;
+                            case 'BasSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
+                                break;
+                            case 'BitSaat':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
+                                break; 
                             default:
                                 break;
                         }

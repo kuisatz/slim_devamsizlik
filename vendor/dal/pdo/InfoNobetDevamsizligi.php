@@ -912,7 +912,7 @@ class InfoNobetDevamsizligi extends \DAL\DalSlim {
                 SELECT
                 a.id, 
                 concat(b.ad,' ',b.soyad) as name,  
-                CONCAT(FORMAT( a.tarih, 'dd-MM-yyyy') ,' ', CAST(a.saat as nvarchar(5))) as tar,h, 
+                CONCAT(FORMAT( a.tarih, 'dd-MM-yyyy') ,' ', CAST(a.saat as nvarchar(5))) as tarih, 
                 a.active,
                 0 AS state_type 
             FROM info_nobetDevamsizligi a

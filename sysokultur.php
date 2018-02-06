@@ -156,12 +156,12 @@ $app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
     if (isset($resDataGrid[0]['id'])) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
-                "id" => intval($flow["id"]),
-                "okulTurSno" => intval($flow["okulTurSno"]), 
-                "aciklama" => html_entity_decode($flow["aciklama"]),
-                "okulTurKullan" => $flow["okulTurKullan"],
-                "active" => intval($flow["active"]),
-                "deleted" => intval($flow["deleted"]),
+                "Id" => intval($flow["id"]),
+                "OkulTurSno" => intval($flow["okulTurSno"]), 
+                "Aciklama" => html_entity_decode($flow["aciklama"]),
+                "OkulTurKullan" => $flow["okulTurKullan"],
+                "Active" => intval($flow["active"]),
+                "Deleted" => intval($flow["deleted"]),
                 "attributes" => array("notroot" => true,),
             );
         }
@@ -191,13 +191,13 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysokultur/", function () use ($app ) {
     }
     $Pk = $headerParams['X-Public'];      
     $vId = NULL;
-    if (isset($_GET['id'])) {
-        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['Id'])) {
+        $stripper->offsetSet('Id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['id']));
+                                                $_GET['Id']));
     } 
     $stripper->strip(); 
-    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }
+    if ($stripper->offsetExists('Id')) {$vId = $stripper->offsetGet('Id')->getFilterValue(); }
     $resData = $BLL->makeActiveOrPassive(array(                  
             'id' => $vId ,    
             'pk' => $Pk,        
@@ -220,33 +220,33 @@ $app->get("/pkInsert_sysokultur/", function () use ($app ) {
     $pk = $headerParams['X-Public'];
     
     $vokulTurSno = NULL;
-    if (isset($_GET['okulTurSno'])) {
-         $stripper->offsetSet('okulTurSno',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['OkulTurSno'])) {
+         $stripper->offsetSet('OkulTurSno',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['okulTurSno']));
+                                                $_GET['OkulTurSno']));
     }
     $vaciklama = NULL;
-    if (isset($_GET['aciklama'])) {
-         $stripper->offsetSet('aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Aciklama'])) {
+         $stripper->offsetSet('Aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['aciklama']));
+                                                $_GET['Aciklama']));
     }
     $vokulTurKullan = NULL;
-    if (isset($_GET['okulTurKullan'])) {
-         $stripper->offsetSet('okulTurKullan',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['OkulTurKullan'])) {
+         $stripper->offsetSet('OkulTurKullan',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['okulTurKullan']));
+                                                $_GET['OkulTurKullan']));
     }
    
     $stripper->strip();
-    if($stripper->offsetExists('okulTurSno')) $vokulTurSno = $stripper->offsetGet('okulTurSno')->getFilterValue();
-    if($stripper->offsetExists('aciklama')) $vaciklama = $stripper->offsetGet('aciklama')->getFilterValue();
-    if($stripper->offsetExists('okulTurKullan')) $vokulTurKullan = $stripper->offsetGet('okulTurKullan')->getFilterValue();
+    if($stripper->offsetExists('OkulTurSno')) $vokulTurSno = $stripper->offsetGet('OkulTurSno')->getFilterValue();
+    if($stripper->offsetExists('Aciklama')) $vaciklama = $stripper->offsetGet('Aciklama')->getFilterValue();
+    if($stripper->offsetExists('OkulTurKullan')) $vokulTurKullan = $stripper->offsetGet('OkulTurKullan')->getFilterValue();
       
     $resDataInsert = $BLL->insert(array(
-            'Aciklama' => $vaciklama,       
-            'OkulTurSno' => $vokulTurSno,          
-            'OkulTurKullan' => $vokulTurKullan,
+            'aciklama' => $vaciklama,       
+            'okulTurSno' => $vokulTurSno,          
+            'okulTurKullan' => $vokulTurKullan,
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

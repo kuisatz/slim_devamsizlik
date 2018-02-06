@@ -156,14 +156,14 @@ $app->get("/pkFillNobetBilgileri_infonobetprogrami/", function () use ($app ) {
     if (isset($resDataGrid[0]['id'])) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
-                "id" => intval($flow["id"]),
-                "ogrId" => intval($flow["ogrId"]), 
-                "adsoyad" => html_entity_decode($flow["adsoyad"]),
-                "nobetYeri" => html_entity_decode($flow["nobetYeri"]),
-                "bastar" => $flow["bastar"],
-                "bittar" => $flow["bittar"],
-                "active" => intval($flow["active"]),
-                "deleted" => intval($flow["deleted"]),
+                "Id" => intval($flow["id"]),
+                "OgrId" => intval($flow["ogrId"]), 
+                "Adsoyad" => html_entity_decode($flow["adsoyad"]),
+                "NobetYeri" => html_entity_decode($flow["nobetYeri"]),
+                "Bastar" => $flow["bastar"],
+                "Bittar" => $flow["bittar"],
+                "Active" => intval($flow["active"]),
+                "Deleted" => intval($flow["deleted"]),
                 "attributes" => array("notroot" => true,), 
             );
         }
@@ -254,12 +254,12 @@ $app->get("/pkFillNobetBilgileriDshBrd_infonobetprogrami/", function () use ($ap
     if (isset($resDataGrid[0]['id'])) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
-                "id" => intval($flow["id"]),
-                "ogrId" => intval($flow["ogrId"]), 
-                "adsoyad" => html_entity_decode($flow["adsoyad"]),
-                "nobetYeri" => html_entity_decode($flow["nobetYeri"]),
-                "bastar" => $flow["bastar"],
-                "bittar" => $flow["bittar"],
+                "Id" => intval($flow["id"]),
+                "OgrId" => intval($flow["ogrId"]), 
+                "Adsoyad" => html_entity_decode($flow["adsoyad"]),
+                "NobetYeri" => html_entity_decode($flow["nobetYeri"]),
+                "Bastar" => $flow["bastar"],
+                "Bittar" => $flow["bittar"],
                 "attributes" => array("notroot" => true,), 
             );
         }
@@ -317,41 +317,41 @@ $app->get("/pkInsert_infonobetprogrami/", function () use ($app ) {
     $pk = $headerParams['X-Public'];
     
     $vOgrId = NULL;
-    if (isset($_GET['ogrId'])) {
-         $stripper->offsetSet('ogrId',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['OgrId'])) {
+         $stripper->offsetSet('OgrId',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['ogrId']));
+                                                $_GET['OgrId']));
     }
     $vNobetYeri = NULL;
-    if (isset($_GET['nobetYeri'])) {
-         $stripper->offsetSet('nobetYeri',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['NobetYeri'])) {
+         $stripper->offsetSet('NobetYeri',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['nobetYeri']));
+                                                $_GET['NobetYeri']));
     }
     $vBastar = NULL;
-    if (isset($_GET['bastar'])) {
-         $stripper->offsetSet('bastar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Bastar'])) {
+         $stripper->offsetSet('Bastar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['bastar']));
+                                                $_GET['Bastar']));
     }
     $vBittar= NULL;
-    if (isset($_GET['bittar'])) {
-         $stripper->offsetSet('bittar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Bittar'])) {
+         $stripper->offsetSet('Bittar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['bittar']));
+                                                $_GET['Bittar']));
     }
    
     $stripper->strip();
-    if($stripper->offsetExists('ogrId')) $vOgrId = $stripper->offsetGet('ogrId')->getFilterValue();
-    if($stripper->offsetExists('nobetYeri')) $vNobetYeri = $stripper->offsetGet('nobetYeri')->getFilterValue();
-    if($stripper->offsetExists('bastar')) $vBastar = $stripper->offsetGet('bastar')->getFilterValue();
-    if($stripper->offsetExists('bittar')) $vBittar = $stripper->offsetGet('bittar')->getFilterValue();
+    if($stripper->offsetExists('OgrId')) $vOgrId = $stripper->offsetGet('OgrId')->getFilterValue();
+    if($stripper->offsetExists('NobetYeri')) $vNobetYeri = $stripper->offsetGet('NobetYeri')->getFilterValue();
+    if($stripper->offsetExists('Bastar')) $vBastar = $stripper->offsetGet('Bastar')->getFilterValue();
+    if($stripper->offsetExists('Bittar')) $vBittar = $stripper->offsetGet('Bittar')->getFilterValue();
       
     $resDataInsert = $BLL->insert(array(
             'nobetYeri' => $vNobetYeri,       
-            'OgrId' => $vOgrId,          
-            'Bastar' => $vBastar,
-            'Bittar' => $vBittar,
+            'ogrId' => $vOgrId,          
+            'bastar' => $vBastar,
+            'bittar' => $vBittar,
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -372,42 +372,42 @@ $app->get("/pkUpdate_infonobetprogrami/", function () use ($app ) {
     $pk = $headerParams['X-Public'];
     
     $vOgrId = NULL;
-    if (isset($_GET['ogrId'])) {
-         $stripper->offsetSet('ogrId',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['OgrId'])) {
+         $stripper->offsetSet('OgrId',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['ogrId']));
+                                                $_GET['OgrId']));
     }
     $vNobetYeri = NULL;
-    if (isset($_GET['nobetYeri'])) {
-         $stripper->offsetSet('nobetYeri',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['NobetYeri'])) {
+         $stripper->offsetSet('NobetYeri',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['nobetYeri']));
+                                                $_GET['NobetYeri']));
     }
     $vBastar = NULL;
-    if (isset($_GET['bastar'])) {
-         $stripper->offsetSet('bastar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Bastar'])) {
+         $stripper->offsetSet('Bastar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['bastar']));
+                                                $_GET['Bastar']));
     }
     $vBittar= NULL;
-    if (isset($_GET['bittar'])) {
-         $stripper->offsetSet('bittar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Bittar'])) {
+         $stripper->offsetSet('Bittar',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['bittar']));
+                                                $_GET['Bittar']));
     } 
     $vId = NULL;
-    if (isset($_GET['id'])) {
-         $stripper->offsetSet('id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['Id'])) {
+         $stripper->offsetSet('Id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['id']));
+                                                $_GET['Id']));
     }
    
     $stripper->strip();
-    if($stripper->offsetExists('ogrId')) $vOgrId = $stripper->offsetGet('ogrId')->getFilterValue();
-    if($stripper->offsetExists('nobetYeri')) $vNobetYeri = $stripper->offsetGet('nobetYeri')->getFilterValue();
-    if($stripper->offsetExists('bastar')) $vBastar = $stripper->offsetGet('bastar')->getFilterValue();
-    if($stripper->offsetExists('bittar')) $vBittar = $stripper->offsetGet('bittar')->getFilterValue();
-    if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();  
+    if($stripper->offsetExists('OgrId')) $vOgrId = $stripper->offsetGet('OgrId')->getFilterValue();
+    if($stripper->offsetExists('NobetYeri')) $vNobetYeri = $stripper->offsetGet('NobetYeri')->getFilterValue();
+    if($stripper->offsetExists('Bastar')) $vBastar = $stripper->offsetGet('Bastar')->getFilterValue();
+    if($stripper->offsetExists('Bittar')) $vBittar = $stripper->offsetGet('Bittar')->getFilterValue();
+    if($stripper->offsetExists('Id')) $vId = $stripper->offsetGet('Id')->getFilterValue();  
     $resDataInsert = $BLL->update(array(
             'id' => $vId,  
             'nobetYeri' => $vNobetYeri,       
@@ -433,13 +433,13 @@ $app->get("/pkDelete_infonobetprogrami/", function () use ($app ) {
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];  
     $vId = NULL;
-    if (isset($_GET['id'])) {
-        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['Id'])) {
+        $stripper->offsetSet('Id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['id']));
+                                                $_GET['Id']));
     } 
     $stripper->strip(); 
-    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }  
+    if ($stripper->offsetExists('Id')) {$vId = $stripper->offsetGet('Id')->getFilterValue(); }  
     $resDataDeleted = $BLL->Delete(array(                  
             'id' => $vId ,    
             'pk' => $Pk,        

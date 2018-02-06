@@ -156,11 +156,11 @@ $app->get("/pkFillGorevTipleri_syssbgorev/", function () use ($app ) {
     if (isset($resDataGrid[0]['id'])) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
-                "id" => intval($flow["id"]), 
-                "kod" => html_entity_decode($flow["kod"]), 
-                "aciklama" => html_entity_decode($flow["aciklama"]), 
-                "active" => intval($flow["active"]),
-                "deleted" => intval($flow["deleted"]),
+                "Id" => intval($flow["id"]), 
+                "Kod" => html_entity_decode($flow["kod"]), 
+                "Aciklama" => html_entity_decode($flow["aciklama"]), 
+                "Active" => intval($flow["active"]),
+                "Deleted" => intval($flow["deleted"]),
                 "attributes" => array("notroot" => true,),
             );
         }
@@ -190,13 +190,13 @@ $app->get("/pkUpdateMakeActiveOrPassive_syssbgorev/", function () use ($app ) {
     }
     $Pk = $headerParams['X-Public'];      
     $vId = NULL;
-    if (isset($_GET['id'])) {
-        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['Id'])) {
+        $stripper->offsetSet('Id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['id']));
+                                                $_GET['Id']));
     } 
     $stripper->strip(); 
-    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }
+    if ($stripper->offsetExists('Id')) {$vId = $stripper->offsetGet('Id')->getFilterValue(); }
     $resData = $BLL->makeActiveOrPassive(array(                  
             'id' => $vId ,    
             'pk' => $Pk,        
@@ -219,21 +219,21 @@ $app->get("/pkInsert_syssbgorev/", function () use ($app ) {
     $pk = $headerParams['X-Public'];
      
     $vaciklama = NULL;
-    if (isset($_GET['aciklama'])) {
-         $stripper->offsetSet('aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Aciklama'])) {
+         $stripper->offsetSet('Aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['aciklama']));
+                                                $_GET['Aciklama']));
     } 
     $vkod = NULL;
-    if (isset($_GET['kod'])) {
-         $stripper->offsetSet('kod',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Kod'])) {
+         $stripper->offsetSet('Kod',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['kod']));
+                                                $_GET['Kod']));
     } 
    
     $stripper->strip(); 
-    if($stripper->offsetExists('aciklama')) $vaciklama = $stripper->offsetGet('aciklama')->getFilterValue();
-    if($stripper->offsetExists('kod')) $vkod = $stripper->offsetGet('kod')->getFilterValue();
+    if($stripper->offsetExists('Aciklama')) $vaciklama = $stripper->offsetGet('Aciklama')->getFilterValue();
+    if($stripper->offsetExists('Kod')) $vkod = $stripper->offsetGet('Kod')->getFilterValue();
    
     $resDataInsert = $BLL->insert(array(
             'Aciklama' => $vaciklama,   
@@ -256,28 +256,28 @@ $app->get("/pkUpdate_syssbgorev/", function () use ($app ) {
     if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdate_syssbgorev" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
     $vId = NULL;
-    if (isset($_GET['id'])) {
-         $stripper->offsetSet('id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['Id'])) {
+         $stripper->offsetSet('Id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['id']));
+                                                $_GET['Id']));
     } 
      $vaciklama = NULL;
-    if (isset($_GET['aciklama'])) {
-         $stripper->offsetSet('aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Aciklama'])) {
+         $stripper->offsetSet('Aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['aciklama']));
+                                                $_GET['Aciklama']));
     } 
     $vkod = NULL;
-    if (isset($_GET['kod'])) {
-         $stripper->offsetSet('kod',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    if (isset($_GET['Kod'])) {
+         $stripper->offsetSet('Kod',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['kod']));
+                                                $_GET['Kod']));
     } 
    
     $stripper->strip(); 
-    if($stripper->offsetExists('aciklama')) $vaciklama = $stripper->offsetGet('aciklama')->getFilterValue();
-    if($stripper->offsetExists('kod')) $vkod = $stripper->offsetGet('kod')->getFilterValue();
-    if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue(); 
+    if($stripper->offsetExists('Aciklama')) $vaciklama = $stripper->offsetGet('Aciklama')->getFilterValue();
+    if($stripper->offsetExists('Kod')) $vkod = $stripper->offsetGet('Kod')->getFilterValue();
+    if($stripper->offsetExists('Id')) $vId = $stripper->offsetGet('Id')->getFilterValue(); 
     
     $resDataInsert = $BLL->update(array(
             'id' => $vId,  
@@ -300,13 +300,13 @@ $app->get("/pkDelete_syssbgorev/", function () use ($app ) {
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];  
     $vId = NULL;
-    if (isset($_GET['id'])) {
-        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['Id'])) {
+        $stripper->offsetSet('Id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['id']));
+                                                $_GET['Id']));
     } 
     $stripper->strip(); 
-    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }  
+    if ($stripper->offsetExists('Id')) {$vId = $stripper->offsetGet('Id')->getFilterValue(); }  
     $resDataDeleted = $BLL->Delete(array(                  
             'id' => $vId ,    
             'pk' => $Pk,        
