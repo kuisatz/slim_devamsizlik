@@ -628,7 +628,7 @@ class SysDevamsizlikTipleri extends \DAL\DalSlim {
                 WHERE                     
                     a.active = 0 AND                    
                     a.deleted = 0 
-                ORDER BY a.aciklama  
+                ORDER BY a.devamsizlikTipi  
              ";
             $statement = $pdo->prepare($sql);
           //  echo debugPDO($sql, $params);
