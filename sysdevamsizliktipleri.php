@@ -46,13 +46,13 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/FillOkulTurleriCmb_sysokultur/", function () use ($app ) {
-    $BLL = $app->getBLLManager()->get('sysOkulTurBLL'); 
+$app->get("/FillDevamsizlikTipleriCmb_sysdevamsizliktipleri/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL'); 
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type']));
     } 
-    $resCombobox = $BLL->fillOkulTurleriCmb();
+    $resCombobox = $BLL->fillDevamsizlikTipleriCmb();
 
     $menus = array();
     $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
@@ -85,14 +85,14 @@ $app->get("/FillOkulTurleriCmb_sysokultur/", function () use ($app ) {
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
+$app->get("/pkFillDevamsizlikTipleri_sysdevamsizliktipleri/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
-    $BLL = $app->getBLLManager()->get('sysOkulTurBLL');
+    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');
 
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillOkulTurleri_sysokultur" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillDevamsizlikTipleri_sysdevamsizliktipleri" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
     $vPage = NULL;
     if (isset($_GET['page'])) {
@@ -157,9 +157,8 @@ $app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
                 "Id" => intval($flow["id"]),
-                "OkulTurSno" => intval($flow["okulTurSno"]), 
-                "Aciklama" => html_entity_decode($flow["aciklama"]),
-                "OkulTurKullan" => $flow["okulTurKullan"],
+                "UcrettenDus" => intval($flow["ucrettenDus"]), 
+                "DevamsizlikTipi" => html_entity_decode($flow["devamsizlikTipi"]), 
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
                 "attributes" => array("notroot" => true,),
@@ -181,13 +180,13 @@ $app->get("/pkFillOkulTurleri_sysokultur/", function () use ($app ) {
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkUpdateMakeActiveOrPassive_sysokultur/", function () use ($app ) {
+$app->get("/pkUpdateMakeActiveOrPassive_sysdevamsizliktipleri/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
-    $BLL = $app->getBLLManager()->get('sysOkulTurBLL');
+    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public'])) {
-        throw new Exception('rest api "pkUpdateMakeActiveOrPassive_sysokultur" end point, X-Public variable not found');
+        throw new Exception('rest api "pkUpdateMakeActiveOrPassive_sysdevamsizliktipleri" end point, X-Public variable not found');
     }
     $Pk = $headerParams['X-Public'];      
     $vId = NULL;
@@ -211,42 +210,34 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysokultur/", function () use ($app ) {
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkInsert_sysokultur/", function () use ($app ) {
+$app->get("/pkInsert_sysdevamsizliktipleri/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysOkulTurBLL');  
+    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsert_sysokultur" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsert_sysdevamsizliktipleri" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
     
-    $vokulTurSno = NULL;
-    if (isset($_GET['OkulTurSno'])) {
-         $stripper->offsetSet('OkulTurSno',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vucrettenDus = NULL;
+    if (isset($_GET['UcrettenDus'])) {
+         $stripper->offsetSet('UcrettenDus',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['OkulTurSno']));
+                                                $_GET['UcrettenDus']));
     }
-    $vaciklama = NULL;
-    if (isset($_GET['Aciklama'])) {
-         $stripper->offsetSet('Aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $vdevamsizlikTipi = NULL;
+    if (isset($_GET['DevamsizlikTipi'])) {
+         $stripper->offsetSet('DevamsizlikTipi',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['Aciklama']));
-    }
-    $vokulTurKullan = NULL;
-    if (isset($_GET['OkulTurKullan'])) {
-         $stripper->offsetSet('OkulTurKullan',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['OkulTurKullan']));
-    }
+                                                $_GET['DevamsizlikTipi']));
+    } 
    
     $stripper->strip();
-    if($stripper->offsetExists('OkulTurSno')) $vokulTurSno = $stripper->offsetGet('OkulTurSno')->getFilterValue();
-    if($stripper->offsetExists('Aciklama')) $vaciklama = $stripper->offsetGet('Aciklama')->getFilterValue();
-    if($stripper->offsetExists('OkulTurKullan')) $vokulTurKullan = $stripper->offsetGet('OkulTurKullan')->getFilterValue();
-      
+    if($stripper->offsetExists('UcrettenDus')) $vucrettenDus = $stripper->offsetGet('UcrettenDus')->getFilterValue();
+    if($stripper->offsetExists('DevamsizlikTipi')) $vdevamsizlikTipi = $stripper->offsetGet('DevamsizlikTipi')->getFilterValue();
+       
     $resDataInsert = $BLL->insert(array(
-            'aciklama' => $vaciklama,       
-            'okulTurSno' => $vokulTurSno,          
-            'okulTurKullan' => $vokulTurKullan,
+            'aciklama' => $vdevamsizlikTipi,       
+            'ucrettenDus' => $vucrettenDus, 
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -258,32 +249,26 @@ $app->get("/pkInsert_sysokultur/", function () use ($app ) {
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkUpdate_sysokultur/", function () use ($app ) {
+$app->get("/pkUpdate_sysdevamsizliktipleri/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysOkulTurBLL');  
+    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdate_sysokultur" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdate_sysdevamsizliktipleri" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
     
-    $vokulTurSno = NULL;
-    if (isset($_GET['okulTurSno'])) {
-         $stripper->offsetSet('okulTurSno',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    $vucrettenDus = NULL;
+    if (isset($_GET['UcrettenDus'])) {
+         $stripper->offsetSet('UcrettenDus',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['okulTurSno']));
+                                                $_GET['UcrettenDus']));
     }
-    $vaciklama = NULL;
-    if (isset($_GET['aciklama'])) {
-         $stripper->offsetSet('aciklama',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $vdevamsizlikTipi = NULL;
+    if (isset($_GET['DevamsizlikTipi'])) {
+         $stripper->offsetSet('DevamsizlikTipi',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['aciklama']));
-    }
-    $vokulTurKullan = NULL;
-    if (isset($_GET['okulTurKullan'])) {
-         $stripper->offsetSet('okulTurKullan',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['okulTurKullan']));
-    }
+                                                $_GET['DevamsizlikTipi']));
+    } 
     $vId = NULL;
     if (isset($_GET['id'])) {
          $stripper->offsetSet('id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -292,15 +277,13 @@ $app->get("/pkUpdate_sysokultur/", function () use ($app ) {
     }
    
     $stripper->strip();
-    if($stripper->offsetExists('okulTurSno')) $vokulTurSno = $stripper->offsetGet('okulTurSno')->getFilterValue();
-    if($stripper->offsetExists('aciklama')) $vaciklama = $stripper->offsetGet('aciklama')->getFilterValue();
-    if($stripper->offsetExists('okulTurKullan')) $vokulTurKullan = $stripper->offsetGet('okulTurKullan')->getFilterValue();
+    if($stripper->offsetExists('UcrettenDus')) $vucrettenDus = $stripper->offsetGet('UcrettenDus')->getFilterValue();
+    if($stripper->offsetExists('DevamsizlikTipi')) $vdevamsizlikTipi = $stripper->offsetGet('DevamsizlikTipi')->getFilterValue();
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();  
     $resDataInsert = $BLL->update(array(
             'id' => $vId,  
-            'Aciklama' => $vaciklama,       
-            'OkulTurSno' => $vokulTurSno,          
-            'OkulTurKullan' => $vokulTurKullan,
+            'ucrettenDus' => $vucrettenDus,       
+            'devamsizlikTipi' => $vdevamsizlikTipi,  
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -313,10 +296,10 @@ $app->get("/pkUpdate_sysokultur/", function () use ($app ) {
 * @since 31-01-2018
  */
  
-$app->get("/pkDelete_sysokultur/", function () use ($app ) {
+$app->get("/pkDelete_sysdevamsizliktipleri/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
-    $BLL = $app->getBLLManager()->get('sysOkulTurBLL');   
+    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');   
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];  
     $vId = NULL;

@@ -109,6 +109,7 @@ class BLLManagerConfig{
                 'sysUcretDonemleriBLL' => 'BLL\BLL\SysUcretDonemleri',
                 'infoNobetProgramiBLL' => 'BLL\BLL\InfoNobetProgrami',
                 'infoNobetDevamsizligiBLL' => 'BLL\BLL\InfoNobetDevamsizligi',
+                'sysDevamsizlikTipleriBLL' => 'BLL\BLL\SysDevamsizlikTipleri',
                  
                  
                  

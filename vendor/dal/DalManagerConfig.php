@@ -107,7 +107,7 @@ class DalManagerConfig {
                 'sysUcretDonemleriPDO' => 'DAL\Factory\PDO\SysUcretDonemleriFactory', 
                 'infoNobetProgramiPDO' => 'DAL\Factory\PDO\InfoNobetProgramiFactory', 
                 'infoNobetDevamsizligiPDO' => 'DAL\Factory\PDO\InfoNobetDevamsizligiFactory', 
-            
+                'sysDevamsizlikTipleriPDO' => 'DAL\Factory\PDO\SysDevamsizlikTipleriFactory', 
                 
                  
             ],
