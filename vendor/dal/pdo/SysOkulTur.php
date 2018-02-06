@@ -33,11 +33,15 @@ class SysOkulTur extends \DAL\DalSlim {
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $id = 0;
+                if (isset($params['id']) && $params['id'] != "") {
+                    $id = $params['id'];
+                }
                 $statement = $pdo->prepare(" 
                 UPDATE sys_OkulTur
                 SET deleted= 1, active = 1,
                 op_user_id = " . intval($opUserIdValue) . "
-                WHERE id = ".intval($params['id']) 
+                WHERE id = ".intval($id) 
                         );
                 //Execute our DELETE statement.
                 $update = $statement->execute();
@@ -215,6 +219,10 @@ class SysOkulTur extends \DAL\DalSlim {
             $pdo->beginTransaction();     
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+            $id = 0;
+            if (isset($params['id']) && $params['id'] != "") {
+                $id = $params['id'];
+            }
             $okulTurSno = 0;
             if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
                 $okulTurSno = $params['okulTurSno'];
@@ -233,7 +241,7 @@ class SysOkulTur extends \DAL\DalSlim {
                     okulTurSno = ".$okulTurSno.",
                     aciklama = '".$aciklama."',
                     okulTurKullan = '".$okulTurKullan."'                
-                WHERE id = " . intval($params['id']);
+                WHERE id = " . intval($id);
                 $statement = $pdo->prepare($sql); 
                 $update = $statement->execute();
                 $affectedRows = $statement->rowCount();

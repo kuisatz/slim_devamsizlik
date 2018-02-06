@@ -33,11 +33,15 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $id = 0;
+                if (isset($params['id']) && $params['id'] != "") {
+                    $id = $params['id'];
+                }
                 $statement = $pdo->prepare(" 
                 UPDATE info_nobetProgrami
                 SET deleted= 1, active = 1,
                 op_user_id = " . intval($opUserIdValue) . "
-                WHERE id = ".intval($params['id']) 
+                WHERE id = ".intval($id) 
                         );
                 //Execute our DELETE statement.
                 $update = $statement->execute();
@@ -256,6 +260,10 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             $pdo->beginTransaction();     
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+            $id = 0;
+            if (isset($params['id']) && $params['id'] != "") {
+                $id = $params['id'];
+            }
             $ogrId = 0;
             if (isset($params['ogrId']) && $params['ogrId'] != "") {
                 $ogrId = $params['ogrId'];
@@ -283,7 +291,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                     ogrId = ".$ogrId.",
                     ". $addSql . " 
                     nobetYeri = '".$nobetYeri."'  
-                WHERE id = " . intval($params['id']);
+                WHERE id = " . intval($id);
                 $statement = $pdo->prepare($sql); 
                 $update = $statement->execute();
                 $affectedRows = $statement->rowCount();
@@ -845,8 +853,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    
+                            
     /**
      * @author Okan CIRAN
      * @ info_nobetProgrami tablosundan parametre olarak  gelen id kaydın aktifliğini

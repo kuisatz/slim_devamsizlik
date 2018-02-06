@@ -33,11 +33,15 @@ class SysUcretDonemleri extends \DAL\DalSlim {
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
                 $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
+                $id = 0;
+                if (isset($params['id']) && $params['id'] != "") {
+                    $id = $params['id'];
+                }
                 $statement = $pdo->prepare(" 
                 UPDATE sys_UcretDonemleri
                 SET deleted= 1, active = 1,
                 op_user_id = " . intval($opUserIdValue) . "
-                WHERE id = ".intval($params['id']) 
+                WHERE id = ".intval($id) 
                         );
                 //Execute our DELETE statement.
                 $update = $statement->execute();
@@ -219,6 +223,10 @@ class SysUcretDonemleri extends \DAL\DalSlim {
             $pdo->beginTransaction();     
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+            $id = 0;
+            if (isset($params['id']) && $params['id'] != "") {
+                $id = $params['id'];
+            }
             $ucretDonemi = '';
             if (isset($params['UcretDonemi']) && $params['UcretDonemi'] != "") {
                 $ucretDonemi = $params['UcretDonemi'];
