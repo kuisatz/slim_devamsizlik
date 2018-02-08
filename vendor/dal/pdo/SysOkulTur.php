@@ -117,24 +117,24 @@ class SysOkulTur extends \DAL\DalSlim {
      * @return array
      * @throws \PDOException
      */
-    public function insert($params = array()) {        
+    public function insert($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
-            $kontrol = $this->haveRecords($params); 
-            if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
-            $okulTurSno = 0;
-            if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
-                $okulTurSno = $params['okulTurSno'];
-            }
-            $aciklama = '';
-            if (isset($params['aciklama']) && $params['aciklama'] != "") {
-                $aciklama = $params['aciklama'];
-            }
-            $okulTurKullan = 0;
-            if (isset($params['okulTurKullan']) && $params['okulTurKullan'] != "") {
-                $okulTurKullan = $params['okulTurKullan'];
-            }
+            $kontrol = $this->haveRecords($params);
+            if (\Utill\Dal\Helper::haveRecord($kontrol)) {
+                $okulTurSno = 0;
+                if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
+                    $okulTurSno = $params['okulTurSno'];
+                }
+                $aciklama = '';
+                if (isset($params['aciklama']) && $params['aciklama'] != "") {
+                    $aciklama = $params['aciklama'];
+                }
+                $okulTurKullan = 0;
+                if (isset($params['okulTurKullan']) && $params['okulTurKullan'] != "") {
+                    $okulTurKullan = $params['okulTurKullan'];
+                }
                 $sql = "
                 INSERT INTO sys_OkulTur(
                         okulTurSno,
@@ -142,12 +142,12 @@ class SysOkulTur extends \DAL\DalSlim {
                         okulTurKullan
                         )
                 VALUES (
-                        ".$okulTurSno.",
-                        '".$aciklama."',  
-                        ".$okulTurKullan."                        
+                        " . $okulTurSno . ",
+                        '" . $aciklama . "',  
+                        " . $okulTurKullan . "                        
                          )   ";
-                $statement = $pdo->prepare($sql);              
-               // echo debugPDO($sql, $params);
+                $statement = $pdo->prepare($sql);
+                // echo debugPDO($sql, $params);
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId();
                 $errorInfo = $statement->errorInfo();
@@ -155,10 +155,10 @@ class SysOkulTur extends \DAL\DalSlim {
                     throw new \PDOException($errorInfo[0]);
                 $pdo->commit();
                 return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
-            } else {  
-                $errorInfo = '23505'; 
-                 $pdo->rollback();
-                $result= $kontrol;  
+            } else {
+                $errorInfo = '23505';
+                $pdo->rollback();
+                $result = $kontrol;
                 return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '');
             }
         } catch (\PDOException $e /* Exception $e */) {
