@@ -567,7 +567,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 " . $sorguStr . "
             ORDER BY    " . $sort . " "
             . "" . $order . "  
-    /*         OFFSET ".$offset." ROWS FETCH NEXT ".$limit." ROWS ONLY;      */ 
+              OFFSET ".$offset." ROWS FETCH NEXT ".$limit." ROWS ONLY;       
             " ;
             
             $statement = $pdo->prepare($sql); 
@@ -761,7 +761,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 " . $sorguStr . "
             ORDER BY    " . $sort . " "
             . "" . $order . "  
-    /*         OFFSET ".$offset." ROWS FETCH NEXT ".$limit." ROWS ONLY;      */ 
+            OFFSET ".$offset." ROWS FETCH NEXT ".$limit." ROWS ONLY;      
             " ;
             
             $statement = $pdo->prepare($sql); 
