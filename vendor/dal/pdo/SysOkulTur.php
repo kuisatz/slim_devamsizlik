@@ -184,11 +184,11 @@ class SysOkulTur extends \DAL\DalSlim {
             $sql = " 
             SELECT  
                 aciklama as name , 
-                '" . $params['Aciklama'] . "' AS value , 
+                '" . $params['aciklama'] . "' AS value , 
                 cast(1 as bit) AS control,
                 concat(aciklama , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_OkulTur                
-            WHERE LOWER(aciklama) = LOWER('" . $params['Aciklama'] . "')"
+            WHERE LOWER(aciklama) = LOWER('" . $params['aciklama'] . "')"
                     . $addSql . " 
                AND deleted =0   
                                ";
