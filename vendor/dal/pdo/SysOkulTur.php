@@ -122,7 +122,7 @@ class SysOkulTur extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $kontrol = $this->haveRecords($params);
-            if (\Utill\Dal\Helper::haveRecord($kontrol)) {
+            if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
                 $okulTurSno = 0;
                 if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
                     $okulTurSno = $params['okulTurSno'];
