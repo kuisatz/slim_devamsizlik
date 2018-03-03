@@ -434,6 +434,10 @@ class BlLoginLogout extends \DAL\DalSlim {
             if (isset($resultDevamsizlik[0]['id']) && $resultDevamsizlik[0]['id'] != "") {
                 $userid = $resultDevamsizlik[0]['id'];
             }
+            $role_id = NULL;
+            if (isset($resultDevamsizlik[0]['role_id']) && $resultDevamsizlik[0]['role_id'] != "") {
+                $role_id = $resultDevamsizlik[0]['role_id'];
+            }
             $oid = NULL;
             if (isset($resultDevamsizlik[0]['oid']) && $resultDevamsizlik[0]['oid'] != "") {
                 $oid = $resultDevamsizlik[0]['oid'];
@@ -460,7 +464,8 @@ class BlLoginLogout extends \DAL\DalSlim {
                     1 AS success ,
                     REPLACE(TRIM(SUBSTRING(crypt('" . $privateKeyValue . "',gen_salt('xdes')),6,20)),'/','*') as public_key,
                     '".$resultDevamsizlik[0]['adsoyad']."' as adsoyad,
-                    '".$sessionID."' as sessionID 
+                    '".$sessionID."' as sessionID,
+                    '".$role_id."' as role_id    
                 FROM pascontrol
                 WHERE xpasword = '" . $password . "'  ;  
 
