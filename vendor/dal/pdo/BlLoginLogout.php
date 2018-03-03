@@ -411,7 +411,7 @@ class BlLoginLogout extends \DAL\DalSlim {
                     a.sf_private_key,
                     a.sf_private_key_value,
                     a.sf_private_key_value_temp,
-                    a.role_id,
+                    a.role_id ,
                     a.language_id,
                     concat(b.name,' ',b.surname) as adsoyad
                 FROM BILSANET_DEVAMSIZLIK.dbo.info_users a
