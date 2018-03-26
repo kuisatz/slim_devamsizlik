@@ -308,7 +308,7 @@ class InfoUsers extends \DAL\DalSlim {
                 if (\Utill\Dal\Helper::haveRecord($opUserId)) { 
                     $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
                     $opUserRoleIdValue = $opUserId ['resultSet'][0]['role_id'];  
-                    $roleId = 5 ; 
+                    $roleId = 2 ; 
                  //   $password ='!!!!++.Qwerty.++!!!!'; 
                     $languageIdValue = 647;   
                     $preferredlanguageIdValue = 647;
