@@ -236,8 +236,8 @@ $app->get("/pkInsert_syssbgorev/", function () use ($app ) {
     if($stripper->offsetExists('Kod')) $vkod = $stripper->offsetGet('Kod')->getFilterValue();
    
     $resDataInsert = $BLL->insert(array(
-            'Aciklama' => $vaciklama,   
-            'Kod' => $vkod,   
+            'aciklama' => $vaciklama,   
+            'kod' => $vkod,   
             'pk' => $pk)); 
     $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($resDataInsert)); 
