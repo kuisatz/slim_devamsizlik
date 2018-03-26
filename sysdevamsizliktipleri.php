@@ -224,19 +224,27 @@ $app->get("/pkInsert_sysdevamsizliktipleri/", function () use ($app ) {
                                                 $app,
                                                 $_GET['UcrettenDus']));
     }
-    $vdevamsizlikTipi = NULL;
-    if (isset($_GET['DevamsizlikTipi'])) {
-         $stripper->offsetSet('DevamsizlikTipi',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $vname = NULL;
+    if (isset($_GET['Name'])) {
+         $stripper->offsetSet('Name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['DevamsizlikTipi']));
+                                                $_GET['Name']));
+    } 
+     $vAbbrevation = NULL;
+    if (isset($_GET['Abbrevation'])) {
+         $stripper->offsetSet('Abbrevation',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['Abbrevation']));
     } 
    
     $stripper->strip();
     if($stripper->offsetExists('UcrettenDus')) $vucrettenDus = $stripper->offsetGet('UcrettenDus')->getFilterValue();
-    if($stripper->offsetExists('DevamsizlikTipi')) $vdevamsizlikTipi = $stripper->offsetGet('DevamsizlikTipi')->getFilterValue();
+    if($stripper->offsetExists('Name')) $vname = $stripper->offsetGet('Name')->getFilterValue();
+    if($stripper->offsetExists('Abbrevation')) $vAbbrevation = $stripper->offsetGet('Abbrevation')->getFilterValue();
        
     $resDataInsert = $BLL->insert(array(
-            'aciklama' => $vdevamsizlikTipi,       
+            'name' => $vname,    
+            'abbrevation' => $vAbbrevation,    
             'ucrettenDus' => $vucrettenDus, 
             'pk' => $pk));
         
@@ -263,11 +271,17 @@ $app->get("/pkUpdate_sysdevamsizliktipleri/", function () use ($app ) {
                                                 $app,
                                                 $_GET['UcrettenDus']));
     }
-    $vdevamsizlikTipi = NULL;
-    if (isset($_GET['DevamsizlikTipi'])) {
-         $stripper->offsetSet('DevamsizlikTipi',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+    $vname = NULL;
+    if (isset($_GET['Name'])) {
+         $stripper->offsetSet('Name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
-                                                $_GET['DevamsizlikTipi']));
+                                                $_GET['Name']));
+    } 
+     $vAbbrevation = NULL;
+    if (isset($_GET['Abbrevation'])) {
+         $stripper->offsetSet('Abbrevation',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
+                                                $app,
+                                                $_GET['Abbrevation']));
     } 
     $vId = NULL;
     if (isset($_GET['id'])) {
@@ -278,12 +292,14 @@ $app->get("/pkUpdate_sysdevamsizliktipleri/", function () use ($app ) {
    
     $stripper->strip();
     if($stripper->offsetExists('UcrettenDus')) $vucrettenDus = $stripper->offsetGet('UcrettenDus')->getFilterValue();
-    if($stripper->offsetExists('DevamsizlikTipi')) $vdevamsizlikTipi = $stripper->offsetGet('DevamsizlikTipi')->getFilterValue();
-    if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();  
+    if($stripper->offsetExists('Name')) $vname = $stripper->offsetGet('Name')->getFilterValue();
+    if($stripper->offsetExists('Abbrevation')) $vAbbrevation = $stripper->offsetGet('Abbrevation')->getFilterValue();
+     
     $resDataInsert = $BLL->update(array(
             'id' => $vId,  
-            'ucrettenDus' => $vucrettenDus,       
-            'devamsizlikTipi' => $vdevamsizlikTipi,  
+            'name' => $vname,    
+            'abbrevation' => $vAbbrevation,    
+            'ucrettenDus' => $vucrettenDus,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 

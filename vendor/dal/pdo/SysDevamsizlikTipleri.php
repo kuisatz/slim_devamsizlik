@@ -127,19 +127,26 @@ class SysDevamsizlikTipleri extends \DAL\DalSlim {
             if (isset($params['ucrettenDus']) && $params['ucrettenDus'] != "") {
                 $ucrettenDus = $params['ucrettenDus'];
             }
-            $devamsizlikTipi = '';
-            if (isset($params['devamsizlikTipi']) && $params['devamsizlikTipi'] != "") {
-                $devamsizlikTipi = $params['devamsizlikTipi'];
+            $name = '';
+            if (isset($params['name']) && $params['name'] != "") {
+                $name = $params['name'];
             } 
+            $abbrevation = '';
+            if (isset($params['abbrevation']) && $params['abbrevation'] != "") {
+                $abbrevation = $params['abbrevation'];
+            } 
+            
                             
                 $sql = "
                 INSERT INTO sys_DevamsizlikTipleri(
                         ucrettenDus,
-                        devamsizlikTipi 
+                        name, 
+                        abbrevation
                         )
                 VALUES (
                         ".$ucrettenDus.",
-                        '".$devamsizlikTipi."' 
+                        '".$name."' ,
+                        '".$abbrevation."' 
                          )   ";
                 $statement = $pdo->prepare($sql);              
                // echo debugPDO($sql, $params);
@@ -178,12 +185,12 @@ class SysDevamsizlikTipleri extends \DAL\DalSlim {
             }
             $sql = " 
             SELECT  
-                devamsizlikTipi as name , 
-                '" . $params['devamsizlikTipi'] . "' AS value , 
+                name as name , 
+                '" . $params['name'] . "' AS value , 
                 cast(1 as bit) AS control,
                 concat(devamsizlikTipi , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_DevamsizlikTipleri                
-            WHERE LOWER(devamsizlikTipi) = LOWER('" . $params['devamsizlikTipi'] . "')"
+            WHERE LOWER(name) = LOWER('" . $params['name'] . "')"
                     . $addSql . " 
                AND deleted =0   
                                ";
@@ -222,15 +229,20 @@ class SysDevamsizlikTipleri extends \DAL\DalSlim {
             if (isset($params['ucrettenDus']) && $params['ucrettenDus'] != "") {
                 $ucrettenDus = $params['ucrettenDus'];
             }
-            $devamsizlikTipi = '';
-            if (isset($params['devamsizlikTipi']) && $params['devamsizlikTipi'] != "") {
-                $devamsizlikTipi = $params['devamsizlikTipi'];
+            $name = '';
+            if (isset($params['name']) && $params['name'] != "") {
+                $name = $params['name'];
+            } 
+            $abbrevation = '';
+            if (isset($params['abbrevation']) && $params['abbrevation'] != "") {
+                $abbrevation = $params['abbrevation'];
             } 
                 $sql = "
                 UPDATE sys_DevamsizlikTipleri
                 SET   
                     ucrettenDus = ".$ucrettenDus.",
-                    devamsizlikTipi = '".$devamsizlikTipi."' 
+                    name = '".$name."' ,
+                    abbrevation = '".$abbrevation."' 
                 WHERE id = " . intval($id);
                 $statement = $pdo->prepare($sql); 
                 $update = $statement->execute();

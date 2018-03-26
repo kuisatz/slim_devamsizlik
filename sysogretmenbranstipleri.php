@@ -229,7 +229,7 @@ $app->get("/pkInsert_sysogretmenbranstipleri/", function () use ($app ) {
     if($stripper->offsetExists('Aciklama')) $vaciklama = $stripper->offsetGet('Aciklama')->getFilterValue();
    
     $resDataInsert = $BLL->insert(array(
-            'Aciklama' => $vaciklama,   
+            'aciklama' => $vaciklama,   
             'pk' => $pk)); 
     $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($resDataInsert)); 

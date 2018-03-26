@@ -280,15 +280,15 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 $addSQL .=" bittar = '".$params['bittar']."',";
             }
             if (isset($params['basSaat']) && $params['basSaat'] != "") {
-                    $addSql .=" AND basSaat = '" . $params['basSaat']."',";
+                $addSql .=" AND basSaat = '" . $params['basSaat']."',";
             }
             if (isset($params['bitSaat']) && $params['bitSaat'] != "") {
                 $addSql .=" AND bitSaat = '" . $params['bitSaat']."',";
             }
                 $sql = "
                 UPDATE info_nobetProgrami
-                SET   
-                    ogrId = ".$ogrId.",
+                SET    
+                    ogrId = ".$ogrId.",   
                     ". $addSql . " 
                     nobetYeri = '".$nobetYeri."'  
                 WHERE id = " . intval($id);

@@ -281,8 +281,8 @@ $app->get("/pkUpdate_syssbgorev/", function () use ($app ) {
     
     $resDataInsert = $BLL->update(array(
             'id' => $vId,  
-            'Kod' => $vkod,   
-            'Aciklama' => $vaciklama,   
+            'kod' => $vkod,   
+            'aciklama' => $vaciklama,   
             'pk' => $pk)); 
     $app->response()->header("Content-Type", "application/json"); 
     $app->response()->body(json_encode($resDataInsert)); 
