@@ -175,7 +175,7 @@ class SysKurumGruplari extends \DAL\DalSlim {
                 name as name , 
                 '" . $params['name'] . "' AS value , 
                 cast(1 as bit) AS control,
-                concat(devamsizlikTipi , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+                concat(name , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
             FROM sys_KurumGruplari                
             WHERE LOWER(name) = LOWER('" . $params['name'] . "')"
                     . $addSql . " 
