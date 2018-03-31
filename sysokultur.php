@@ -298,7 +298,7 @@ $app->get("/pkUpdate_sysokultur/", function () use ($app ) {
     if($stripper->offsetExists('id')) $vId = $stripper->offsetGet('id')->getFilterValue();  
     $resDataInsert = $BLL->update(array(
             'id' => $vId,  
-            'Aciklama' => $vaciklama,       
+            'aciklama' => $vaciklama,       
             'OkulTurSno' => $vokulTurSno,          
             'OkulTurKullan' => $vokulTurKullan,
             'pk' => $pk));
