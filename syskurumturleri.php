@@ -46,7 +46,7 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/FillKurumlarCmb_sysKurumTurleri/", function () use ($app ) {
+$app->get("/FillKurumTurleriCmb_sysKurumTurleri/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();   
     $BLL = $app->getBLLManager()->get('sysKurumTurleriBLL'); 
@@ -65,7 +65,7 @@ $app->get("/FillKurumlarCmb_sysKurumTurleri/", function () use ($app ) {
         $vkurumGrupID = $stripper->offsetGet('KurumGrupID')->getFilterValue();
     }
      
-    $resCombobox = $BLL->FillKurumlarCmb(array( 
+    $resCombobox = $BLL->FillKurumTurleriCmb(array( 
             'kurumGrupID' => $vkurumGrupID, 
     ));
 
@@ -100,14 +100,14 @@ $app->get("/FillKurumlarCmb_sysKurumTurleri/", function () use ($app ) {
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkFillKurumlar_sysKurumTurleri/", function () use ($app ) {
+$app->get("/pkFillKurumTipleri_sysKurumTurleri/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysKurumTurleriBLL');
 
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillKurumlar_sysKurumTurleri" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillKurumTipleri_sysKurumTurleri" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
     $vPage = NULL;
     if (isset($_GET['page'])) {
@@ -152,7 +152,7 @@ $app->get("/pkFillKurumlar_sysKurumTurleri/", function () use ($app ) {
         $filterRules = $stripper->offsetGet('filterRules')->getFilterValue();
     }
     
-    $resDataGrid = $BLL->fillKurumlar(array( 
+    $resDataGrid = $BLL->pkFillKurumTipleri(array( 
         'pk' => $pk,
         'page' => $vPage,
         'rows' => $vRows,
