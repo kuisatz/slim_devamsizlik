@@ -461,7 +461,7 @@ class SysBorough extends \DAL\DalSlim {
                     '' as name_eng
                 FROM Ilceler a                
                 WHERE   
-                  a.city_id = :IlID 
+                  a.IlID = :IlID 
                 ORDER BY a.name                
                                  ";
             $statement = $pdo->prepare($sql);
