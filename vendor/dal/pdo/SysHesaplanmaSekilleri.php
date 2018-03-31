@@ -135,8 +135,7 @@ class SysHesaplanmaSekilleri extends \DAL\DalSlim {
                 $sql = "
                 INSERT INTO sys_HesaplanmaSekilleri(
                         kod,
-                        aciklama, 
-                        abbrevation
+                        aciklama 
                         )
                 VALUES (
                         '".$kod."',
