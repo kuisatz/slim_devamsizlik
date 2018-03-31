@@ -609,8 +609,8 @@ class InfoKurumlar extends \DAL\DalSlim {
                 ,a.deleted
             FROM info_Kurumlar a 
             inner join sys_KurumTurleri b on b.id =a.kurumTurId and b.active =0 and b.deleted =0 
-            inner join Iller il on il.id = a.ilId
-            inner join Ilceler ilc on ilc.IlceID = a.ilceId
+            LEFT join Iller il on il.IlID = a.ilId
+            LEFT join Ilceler ilc on ilc.IlceID = a.ilceId
             WHERE
                 a.deleted =0   
                 " . $sorguStr . "
