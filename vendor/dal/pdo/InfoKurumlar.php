@@ -173,11 +173,9 @@ class InfoKurumlar extends \DAL\DalSlim {
                 INSERT INTO info_Kurumlar(
                         ,kurumTurId
                         ,name
-                        ,nameAbb
-                        ,logo
+                        ,nameAbb 
                         ,ilId
-                        ,ilceId
-                        ,mahalleId
+                        ,ilceId 
                         ,adres1
                         ,adres2
                         ,postcode
@@ -188,8 +186,7 @@ class InfoKurumlar extends \DAL\DalSlim {
                         '".$name."',   
                         '".$nameAbb."',   
                         ".$ilId.",
-                        ".$ilceId.",
-                        ".$mahalleId.",
+                        ".$ilceId.", 
                         '".$adres1."',
                         '".$adres2."', 
                         '".$postcode."',
@@ -232,7 +229,7 @@ class InfoKurumlar extends \DAL\DalSlim {
             }             
             $sql = " 
             SELECT  
-                aciklama as name , 
+                name as name , 
                 '1' AS value , 
                 cast(1 as bit) AS control,
                 concat('', ' Kurum daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
@@ -323,8 +320,7 @@ class InfoKurumlar extends \DAL\DalSlim {
                     name = '".$name."',   
                     nameAbb = '".$nameAbb."',   
                     ilId = ".$ilId.",
-                    ilceId = ".$ilceId.",
-                    mahalleId = ".$mahalleId.",
+                    ilceId = ".$ilceId.", 
                     adres1 = '".$adres1."',
                     adres2 = '".$adres2."', 
                     postcode = '".$postcode."',
