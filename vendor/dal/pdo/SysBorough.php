@@ -28,7 +28,7 @@ class SysBorough extends \DAL\DalSlim {
      */
     public function delete($params = array()) {
          try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $userId = $this->getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($userId)) {
@@ -67,7 +67,7 @@ class SysBorough extends \DAL\DalSlim {
      */
     public function getAll($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $statement = $pdo->prepare("              
                  SELECT  
                     id, 
@@ -137,7 +137,7 @@ class SysBorough extends \DAL\DalSlim {
      */
     public function haveRecords($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $addSql = "";
             if (isset($params['id'])) {
                 $addSql = " AND id != " . intval($params['id']) . " ";
@@ -176,7 +176,7 @@ class SysBorough extends \DAL\DalSlim {
      */
     public function insert($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();      
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
@@ -231,7 +231,7 @@ class SysBorough extends \DAL\DalSlim {
      */
     public function update($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();  
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
@@ -318,7 +318,7 @@ class SysBorough extends \DAL\DalSlim {
         }        
 
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $sql = "
                 SELECT  
                     id, 
@@ -403,7 +403,7 @@ class SysBorough extends \DAL\DalSlim {
      */
     public function fillGridRowTotalCount($params = array()) {
         try {  
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $whereSQL = " WHERE a.language_code = ".$params['language_code']." AND a.country_id = ".intval($params['country_id'])." AND a.city_id = ".intval($params['city_id']);
             $whereSQL1 = " WHERE a1.language_code = '".$params['language_code']."' AND a1.country_id = ".intval($params['country_id'])." AND a1.city_id = ".intval($params['city_id'])." AND a1.deleted = 0 AND a1.active =0 ";
             $whereSQL2 = " WHERE a2.language_code = '".$params['language_code']."' AND a2.country_id = ".intval($params['country_id'])." AND a2.city_id = ".intval($params['city_id'])." AND a2.deleted = 1 AND a2.active = 1 ";
@@ -453,25 +453,20 @@ class SysBorough extends \DAL\DalSlim {
      */
      public function fillComboBox($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory'); 
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
             $sql = "
                SELECT 
-                    a.id AS id,                                         
-                    COALESCE(NULLIF(a.name, ''), a.name_eng) AS name ,
-                    a.name_eng
-                FROM sys_borough a                
-                WHERE a.language_id= 647
-                AND a.country_id = 91
-                AND a.city_id = :city_id
-                AND a.active = 0 
-                AND a.deleted = 0 
+                    a.IlceID AS id,                                         
+                    IlceAdi AS name ,
+                    '' as name_eng
+                FROM Ilceler a                
+                WHERE   
+                  a.city_id = :IlID 
                 ORDER BY a.name                
                                  ";
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
-          
-          
-            $statement->bindValue(':city_id', $params['city_id'], \PDO::PARAM_INT);
+           //echo debugPDO($sql, $params); 
+            $statement->bindValue(':IlID', $params['IlID'], \PDO::PARAM_INT);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -493,7 +488,7 @@ class SysBorough extends \DAL\DalSlim {
      */
     public function insertLanguageTemplate($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $statement = $pdo->prepare("                 
                 INSERT INTO sys_borough(

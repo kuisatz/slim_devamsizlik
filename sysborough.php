@@ -60,17 +60,17 @@ $app->get("/fillComboBox_sysborough/", function () use ($app ) {
     }
     
      $vCityId = NULL;
-    if (isset($_GET['city_id'])) {
-        $stripper->offsetSet('city_id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['IlID'])) {
+        $stripper->offsetSet('IlID', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['city_id']));
+                                                $_GET['IlID']));
     } 
     $stripper->strip(); 
-    if ($stripper->offsetExists('city_id')) {$vCityId = $stripper->offsetGet('city_id')->getFilterValue(); }
+    if ($stripper->offsetExists('IlID')) {$vCityId = $stripper->offsetGet('IlID')->getFilterValue(); }
     
  
     $resCombobox = $BLL->fillComboBox (array(   
-                                             'city_id'=>$vCityId   
+                                             'IlID'=>$vCityId   
                                                 ));  
  
   

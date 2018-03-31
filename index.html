@@ -1376,7 +1376,21 @@ and open the template in the editor. ѝ
                     }
                 });   
                 
-                
+                      
+                     //fillComboBox_sysborough
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'fillComboBox_sysborough', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
                 
                 
                 

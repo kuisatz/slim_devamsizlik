@@ -28,7 +28,7 @@ class SysCity extends \DAL\DalSlim {
      */
     public function delete($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $userId = $this->getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($userId)) {
@@ -67,7 +67,7 @@ class SysCity extends \DAL\DalSlim {
      */
     public function getAll($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $languageId = NULL;
             $languageIdValue = 647;
             if ((isset($params['language_code']) && $params['language_code'] != "")) {
@@ -123,7 +123,7 @@ class SysCity extends \DAL\DalSlim {
      */
     public function insert($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction(); 
             $languageId = NULL;
             $languageIdValue = 647;
@@ -188,7 +188,7 @@ class SysCity extends \DAL\DalSlim {
      */
     public function update($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();    
             $languageId = NULL;
             $languageIdValue = 647;
@@ -282,7 +282,7 @@ class SysCity extends \DAL\DalSlim {
         } 
        
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $sql = "
               SELECT 
                     a.id, 
@@ -353,7 +353,7 @@ class SysCity extends \DAL\DalSlim {
                 $languageIdValue = $languageId ['resultSet'][0]['id'];
             }
         } 
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $whereSQL = " WHERE a.language_id = ". intval($languageIdValue)." AND a.country_id = ".intval($params['country_id']);
             $whereSQL1 = " WHERE a1.language_id = ". intval($languageIdValue)." AND a1.country_id = ".intval($params['country_id'])." AND a1.deleted = 0 ";
             $whereSQL2 = " WHERE a2.language_id = ". intval($languageIdValue)." AND a2.country_id = ".intval($params['country_id'])." AND a2.deleted = 1 ";
@@ -407,7 +407,7 @@ class SysCity extends \DAL\DalSlim {
      */
     public function fillComboBox($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             
             $sql = "
             SELECT 
@@ -440,7 +440,7 @@ class SysCity extends \DAL\DalSlim {
      */
     public function insertLanguageTemplate($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $pdo->beginTransaction();
             $statement = $pdo->prepare(" 
                 INSERT INTO sys_city(
