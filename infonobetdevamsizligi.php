@@ -63,7 +63,7 @@ $app->get("/FillNobetDevamsizligiNowCmb_infonobetdevamsizligi/", function () use
                 "text" =>  html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                "attributes" => "", 
             );
         }
     } else if ($componentType == 'ddslick') {       
@@ -166,7 +166,7 @@ $app->get("/pkFillNobetDevamsizligi_infonobetdevamsizligi/", function () use ($a
                 "Saat" => $flow["saat"],
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
-                "attributes" => array("notroot" => true,), 
+                "attributes" => "", 
                  
             );
         }
@@ -263,7 +263,7 @@ $app->get("/pkFillNobetDevamsizligiDshBrd_infonobetdevamsizligi/", function () u
                 "DevamsizlikKisa" => html_entity_decode($flow["devamsizlikKisa"]), 
                 "Tarih" => $flow["tarih"],
                 "Saat" => $flow["saat"], 
-                "attributes" => array("notroot" => true,), 
+                "attributes" =>  "",  
             );
         }
       //  $counts = $resTotalRowCount[0]['count'];
