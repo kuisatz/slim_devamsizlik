@@ -115,7 +115,10 @@ class BLLManagerConfig{
                 'sysKurumGruplariBLL' => 'BLL\BLL\SysKurumGruplari',
                 'sysDusmeOncelikleriBLL' => 'BLL\BLL\SysDusmeOncelikleri',
                 'sysHesaplanmaSekilleriBLL' => 'BLL\BLL\SysHesaplanmaSekilleri',
-                  
+                'sysKbsGorevTipleriBLL' => 'BLL\BLL\SysKbsGorevTipleri', 
+                 
+                 
+                 
                  
              ),
              'factories' => [

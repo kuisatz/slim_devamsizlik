@@ -1556,6 +1556,7 @@ and open the template in the editor. ѝ
                         pk: 'd9ZM8FQMFCc.Dzo',  
                         Aciklama : ' Deneme',
                         Kod : 'DNM', 
+                        Id : 5987,
                          
                     },
                     method: 'GET',
@@ -1621,7 +1622,120 @@ and open the template in the editor. ѝ
                 });   
                   //**---- sysHesaplanmaSekilleriBLL -------------------   
                   
-           
+    /////////////////////////////////////SysKbsGorevTipleri 
+                      
+                             
+                //pkDelete_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkDelete_syskbsGorevTipleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                }); 
+                            
+                                    
+                //pkInsert_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_syskbsGorevTipleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Aciklama : ' Deneme kursu yapılacak',
+                        Adi : 'Deneme Kursu ', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                       
+                           
+                  //pkUpdate_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_syskbsGorevTipleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Aciklama : ' Deneme kursu yapılacak',
+                        Adi : 'Deneme Kursu ', 
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                                 
+                                   
+                //pkUpdateMakeActiveOrPassive_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_syskbsGorevTipleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                                  
+                  //FillKbsGorevTipleriCmb_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillKbsGorevTipleriCmb_syskbsGorevTipleri',  
+                   
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                 //pkFillKbsGorevTipleri_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillKbsGorevTipleri_syskbsGorevTipleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                  //**---- sysHesaplanmaSekilleriBLL -------------------   
                 
                 
                 

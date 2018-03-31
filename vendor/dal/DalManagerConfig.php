@@ -113,7 +113,7 @@ class DalManagerConfig {
                 'sysKurumGruplariPDO' => 'DAL\Factory\PDO\SysKurumGruplariFactory', 
                 'sysDusmeOncelikleriPDO' => 'DAL\Factory\PDO\SysDusmeOncelikleriFactory', 
                 'sysHesaplanmaSekilleriPDO' => 'DAL\Factory\PDO\SysHesaplanmaSekilleriFactory', 
-                
+                'sysKbsGorevTipleriPDO' => 'DAL\Factory\PDO\SysKbsGorevTipleriFactory', 
                 
                  
             ],
