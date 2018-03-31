@@ -171,7 +171,7 @@ class InfoKurumlar extends \DAL\DalSlim {
                             
                 $sql = "
                 INSERT INTO info_Kurumlar(
-                        ,kurumTurId
+                         kurumTurId
                         ,name
                         ,nameAbb 
                         ,ilId
