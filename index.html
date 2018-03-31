@@ -1421,7 +1421,7 @@ and open the template in the editor. ѝ
                     data: {
                         url: 'pkInsert_sysdusmeOncelikleri',  
                         pk: 'd9ZM8FQMFCc.Dzo',  
-                        dersinTipi : ' Deneme türü',
+                        DersinTipi : ' Deneme türü',
                         Oncelik : 1, 
                     },
                     method: 'GET',
@@ -1439,7 +1439,7 @@ and open the template in the editor. ѝ
                     data: {
                         url: 'pkUpdate_sysdusmeOncelikleri',  
                         pk: 'd9ZM8FQMFCc.Dzo',  
-                        dersinTipi : ' Deneme türü',
+                        DersinTipi : ' Deneme türü',
                         Oncelik : 1, 
                         Id : 5987,
                          
@@ -1507,7 +1507,120 @@ and open the template in the editor. ѝ
                 });   
                   //**---- sysdusmeOncelikleri -------------------   
                   
-                
+                 /////////////////////////////////////sysHesaplanmaSekilleriBLL 
+                      
+                             
+                //pkDelete_syshesaplanmaSekilleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkDelete_syshesaplanmaSekilleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                }); 
+                            
+                                    
+                //pkInsert_syshesaplanmaSekilleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_syshesaplanmaSekilleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Aciklama : ' Deneme',
+                        Kod : 'DNM', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                       
+                           
+                  //pkUpdate_syshesaplanmaSekilleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_syshesaplanmaSekilleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Aciklama : ' Deneme',
+                        Kod : 'DNM', 
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                                 
+                                   
+                //pkUpdateMakeActiveOrPassive_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_sysdusmeOncelikleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                                  
+                  //FillHesaplanmaSekilleriCmb_syshesaplanmaSekilleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillHesaplanmaSekilleriCmb_syshesaplanmaSekilleri',  
+                   
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                 //pkFillHesaplanmaSekilleri_syshesaplanmaSekilleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillHesaplanmaSekilleri_syshesaplanmaSekilleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                  //**---- sysHesaplanmaSekilleriBLL -------------------   
+                  
            
                 
                 

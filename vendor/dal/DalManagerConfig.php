@@ -112,6 +112,7 @@ class DalManagerConfig {
                 'sysKurumTurleriPDO' => 'DAL\Factory\PDO\SysKurumTurleriFactory', 
                 'sysKurumGruplariPDO' => 'DAL\Factory\PDO\SysKurumGruplariFactory', 
                 'sysDusmeOncelikleriPDO' => 'DAL\Factory\PDO\SysDusmeOncelikleriFactory', 
+                'sysHesaplanmaSekilleriPDO' => 'DAL\Factory\PDO\SysHesaplanmaSekilleriFactory', 
                 
                 
                  
