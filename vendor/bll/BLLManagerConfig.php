@@ -110,9 +110,9 @@ class BLLManagerConfig{
                 'infoNobetProgramiBLL' => 'BLL\BLL\InfoNobetProgrami',
                 'infoNobetDevamsizligiBLL' => 'BLL\BLL\InfoNobetDevamsizligi',
                 'sysDevamsizlikTipleriBLL' => 'BLL\BLL\SysDevamsizlikTipleri',
-                 
-                 
-                 
+                'infoKurumlarBLL' => 'BLL\BLL\InfoKurumlar', 
+                'sysKurumTurleriBLL' => 'BLL\BLL\SysKurumTurleri',
+                'sysKurumGruplariBLL' => 'BLL\BLL\SysKurumGruplari',
              ),
              'factories' => [
                  //'reportConfigurationPDO' => 'BLL\BLL\ReportConfiguration',

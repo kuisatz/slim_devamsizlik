@@ -108,6 +108,9 @@ class DalManagerConfig {
                 'infoNobetProgramiPDO' => 'DAL\Factory\PDO\InfoNobetProgramiFactory', 
                 'infoNobetDevamsizligiPDO' => 'DAL\Factory\PDO\InfoNobetDevamsizligiFactory', 
                 'sysDevamsizlikTipleriPDO' => 'DAL\Factory\PDO\SysDevamsizlikTipleriFactory', 
+                'infoKurumlarPDO' => 'DAL\Factory\PDO\InfoKurumlarFactory', 
+                'sysKurumTurleriPDO' => 'DAL\Factory\PDO\SysKurumTurleriFactory', 
+                'sysKurumGruplariPDO' => 'DAL\Factory\PDO\SysKurumGruplariFactory', 
                 
                  
             ],

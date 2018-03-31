@@ -1011,6 +1011,362 @@ and open the template in the editor. ѝ
                     }
                 });   
                 
+                //FillKurumlarCmb_infokurumlar
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillKurumlarCmb_infokurumlar',  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                
+                //pkFillKurumlar_infokurumlar
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillKurumlar_infokurumlar',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                
+                    //pkUpdateMakeActiveOrPassive_infokurumlar
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_infokurumlar', 
+                        pk: 'd9ZM8FQMFCc.Dzo ', 
+                        Id : 10211, 
+                  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });  
+                 
+                //pkInsert_infokurumlar
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_infokurumlar',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        KurumTurId : 1, 
+                        Name : ' xyz kurumu ',
+                        NameAbb : 'xyz ',
+                        IlId : 6,
+                        IlceId : 598,
+                        Adres1 : ' deneme mah. 17 son no 8',
+                        Adres2 : 'etlik',  
+                        Postcode : '06010',  
+                        Mebkodu : '4564564564',  
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                //pkUpdate_infokurumlar
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_infokurumlar',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        KurumTurId : 1, 
+                        Name : ' xyz kurumu asd',
+                        NameAbb : 'xyz ',
+                        IlId : 6,
+                        IlceId : 500,
+                        Adres1 : ' deneme mah. 17 son no 18',
+                        Adres2 : 'etlik',  
+                        Postcode : '06111',  
+                        Mebkodu : '456411111',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                
+                  //pkDelete_infokurumlar
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkDelete_infokurumlar',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                }); 
+    //** SysKurumGruplari ----------------------
+                            
+                //pkDelete_sysKurumGruplari
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkDelete_sysKurumGruplari',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                }); 
+                            
+                                    
+                //pkInsert_sysKurumGruplari
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_sysKurumGruplari',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        name : ' Deneme Grubu'
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                       
+                           
+                  //pkUpdate_sysKurumGruplari
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_sysKurumGruplari',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        name : ' Deneme Grubu xxcx' ,
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                                 
+                                   
+                //pkUpdateMakeActiveOrPassive_sysKurumGruplari
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_sysKurumGruplari',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                                  
+                  //FillKurumGruplariCmb_sysKurumGruplari
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillKurumGruplariCmb_sysKurumGruplari',  
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                 //pkFillKurumGruplari_sysKurumGruplari
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillKurumGruplari_sysKurumGruplari',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                  //** SysKurumGruplari ----------------------
+                 
+                 //** SysKurumTurleri ----------------------
+                             
+                //pkDelete_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkDelete_sysKurumTurleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                }); 
+                            
+                                    
+                //pkInsert_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_sysKurumTurleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        name : ' Deneme türü',
+                        KurumGrupID : 1, 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                       
+                           
+                  //pkUpdate_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_sysKurumTurleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        name : ' Deneme türü xxcx' ,
+                        KurumGrupID : 1, 
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                                 
+                                   
+                //pkUpdateMakeActiveOrPassive_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_sysKurumTurleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                                  
+                  //FillKurumlarCmb_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillKurumlarCmb_sysKurumTurleri',  
+                       // KurumGrupID : 1,
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                 //pkFillKurumlar_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillKurumlar_sysKurumTurleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                  //**---- SysKurumTurleri -------------------   
+                  
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 

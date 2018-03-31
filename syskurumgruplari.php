@@ -46,13 +46,13 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/FillDevamsizlikTipleriCmb_sysdevamsizliktipleri/", function () use ($app ) {
-    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL'); 
+$app->get("/FillKurumGruplariCmb_sysKurumGruplari/", function () use ($app ) {
+    $BLL = $app->getBLLManager()->get('sysKurumGruplariBLL'); 
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type']));
     } 
-    $resCombobox = $BLL->fillDevamsizlikTipleriCmb();
+    $resCombobox = $BLL->FillKurumGruplariCmb();
 
     $menus = array();
     $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); 
@@ -85,14 +85,14 @@ $app->get("/FillDevamsizlikTipleriCmb_sysdevamsizliktipleri/", function () use (
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkFillDevamsizlikTipleri_sysdevamsizliktipleri/", function () use ($app ) {
+$app->get("/pkFillKurumGruplari_sysKurumGruplari/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
-    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');
+    $BLL = $app->getBLLManager()->get('sysKurumGruplariBLL');
 
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public']))
-        throw new Exception('rest api "pkFillDevamsizlikTipleri_sysdevamsizliktipleri" end point, X-Public variable not found');
+        throw new Exception('rest api "pkFillKurumGruplari_sysKurumGruplari" end point, X-Public variable not found');
     $pk = $headerParams['X-Public'];
     $vPage = NULL;
     if (isset($_GET['page'])) {
@@ -137,7 +137,7 @@ $app->get("/pkFillDevamsizlikTipleri_sysdevamsizliktipleri/", function () use ($
         $filterRules = $stripper->offsetGet('filterRules')->getFilterValue();
     }
     
-    $resDataGrid = $BLL->fillDevamsizlikTipleri(array( 
+    $resDataGrid = $BLL->fillKurumGruplari(array( 
         'pk' => $pk,
         'page' => $vPage,
         'rows' => $vRows,
@@ -156,17 +156,15 @@ $app->get("/pkFillDevamsizlikTipleri_sysdevamsizliktipleri/", function () use ($
     if (isset($resDataGrid[0]['id'])) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
-                "Id" => intval($flow["id"]),
-                "UcrettenDus" => intval($flow["ucrettenDus"]), 
-                "DevamsizlikTipi" => html_entity_decode($flow["devamsizlikTipi"]), 
+                "Id" => intval($flow["id"]), 
+                "Name" => html_entity_decode($flow["name"]), 
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
                 "attributes" => array("notroot" => true,),
             );
         }
       //  $counts = $resTotalRowCount[0]['count'];
-    }
-
+    } 
 
     $app->response()->header("Content-Type", "application/json"); 
     $resultArray = array();
@@ -180,13 +178,13 @@ $app->get("/pkFillDevamsizlikTipleri_sysdevamsizliktipleri/", function () use ($
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkUpdateMakeActiveOrPassive_sysdevamsizliktipleri/", function () use ($app ) {
+$app->get("/pkUpdateMakeActiveOrPassive_sysKurumGruplari/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
-    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');
+    $BLL = $app->getBLLManager()->get('sysKurumGruplariBLL');
     $headerParams = $app->request()->headers();
     if (!isset($headerParams['X-Public'])) {
-        throw new Exception('rest api "pkUpdateMakeActiveOrPassive_sysdevamsizliktipleri" end point, X-Public variable not found');
+        throw new Exception('rest api "pkUpdateMakeActiveOrPassive_sysKurumGruplari" end point, X-Public variable not found');
     }
     $Pk = $headerParams['X-Public'];      
     $vId = NULL;
@@ -210,42 +208,26 @@ $app->get("/pkUpdateMakeActiveOrPassive_sysdevamsizliktipleri/", function () use
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkInsert_sysdevamsizliktipleri/", function () use ($app ) {
+$app->get("/pkInsert_sysKurumGruplari/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');  
+    $BLL = $app->getBLLManager()->get('sysKurumGruplariBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsert_sysdevamsizliktipleri" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkInsert_sysKurumGruplari" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
-    
-    $vucrettenDus = NULL;
-    if (isset($_GET['UcrettenDus'])) {
-         $stripper->offsetSet('UcrettenDus',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['UcrettenDus']));
-    }
+     
     $vname = NULL;
     if (isset($_GET['Name'])) {
          $stripper->offsetSet('Name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['Name']));
     } 
-     $vAbbrevation = NULL;
-    if (isset($_GET['Abbrevation'])) {
-         $stripper->offsetSet('Abbrevation',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['Abbrevation']));
-    } 
-   
+     
     $stripper->strip();
-    if($stripper->offsetExists('UcrettenDus')) $vucrettenDus = $stripper->offsetGet('UcrettenDus')->getFilterValue();
     if($stripper->offsetExists('Name')) $vname = $stripper->offsetGet('Name')->getFilterValue();
-    if($stripper->offsetExists('Abbrevation')) $vAbbrevation = $stripper->offsetGet('Abbrevation')->getFilterValue();
-       
+        
     $resDataInsert = $BLL->insert(array(
-            'name' => $vname,    
-            'abbrevation' => $vAbbrevation,    
-            'ucrettenDus' => $vucrettenDus, 
+            'name' => $vname,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -257,32 +239,20 @@ $app->get("/pkInsert_sysdevamsizliktipleri/", function () use ($app ) {
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkUpdate_sysdevamsizliktipleri/", function () use ($app ) {
+$app->get("/pkUpdate_sysKurumGruplari/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
-    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');  
+    $BLL = $app->getBLLManager()->get('sysKurumGruplariBLL');  
     $headerParams = $app->request()->headers();
-    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdate_sysdevamsizliktipleri" end point, X-Public variable not found');    
+    if(!isset($headerParams['X-Public'])) throw new Exception ('rest api "pkUpdate_sysKurumGruplari" end point, X-Public variable not found');    
     $pk = $headerParams['X-Public'];
-    
-    $vucrettenDus = NULL;
-    if (isset($_GET['UcrettenDus'])) {
-         $stripper->offsetSet('UcrettenDus',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
-                                                $app,
-                                                $_GET['UcrettenDus']));
-    }
+   
     $vname = NULL;
     if (isset($_GET['Name'])) {
          $stripper->offsetSet('Name',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
                                                 $app,
                                                 $_GET['Name']));
-    } 
-     $vAbbrevation = NULL;
-    if (isset($_GET['Abbrevation'])) {
-         $stripper->offsetSet('Abbrevation',$stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2,
-                                                $app,
-                                                $_GET['Abbrevation']));
-    } 
+    }  
     $vId = NULL;
     if (isset($_GET['Id'])) {
          $stripper->offsetSet('Id',$stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
@@ -292,15 +262,11 @@ $app->get("/pkUpdate_sysdevamsizliktipleri/", function () use ($app ) {
    
     $stripper->strip();
     if ($stripper->offsetExists('Id')) {$vId = $stripper->offsetGet('Id')->getFilterValue(); }
-    if($stripper->offsetExists('UcrettenDus')) $vucrettenDus = $stripper->offsetGet('UcrettenDus')->getFilterValue();
     if($stripper->offsetExists('Name')) $vname = $stripper->offsetGet('Name')->getFilterValue();
-    if($stripper->offsetExists('Abbrevation')) $vAbbrevation = $stripper->offsetGet('Abbrevation')->getFilterValue();
-     
+      
     $resDataInsert = $BLL->update(array(
             'id' => $vId,  
-            'name' => $vname,    
-            'abbrevation' => $vAbbrevation,    
-            'ucrettenDus' => $vucrettenDus,   
+            'name' => $vname,   
             'pk' => $pk));
         
     $app->response()->header("Content-Type", "application/json"); 
@@ -313,10 +279,10 @@ $app->get("/pkUpdate_sysdevamsizliktipleri/", function () use ($app ) {
 * @since 31-01-2018
  */
  
-$app->get("/pkDelete_sysdevamsizliktipleri/", function () use ($app ) {
+$app->get("/pkDelete_sysKurumGruplari/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
-    $BLL = $app->getBLLManager()->get('sysDevamsizlikTipleriBLL');   
+    $BLL = $app->getBLLManager()->get('sysKurumGruplariBLL');   
     $headerParams = $app->request()->headers();
     $Pk = $headerParams['X-Public'];  
     $vId = NULL;
