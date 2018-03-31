@@ -140,10 +140,9 @@ $app->get("/pkFillLanguageDdList_syslanguage/", function () use ($app ) {
             "selected" => false,
             "description" => $flow["name_eng"],
             "imageSrc"=>"",              
-            "attributes" => array( 
-                                    "active" => $flow["active"], 
+            "attributes" =>   $flow["active"], 
                    
-                ),
+                
         );
     }
     $app->response()->header("Content-Type", "application/json");

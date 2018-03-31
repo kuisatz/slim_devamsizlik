@@ -63,7 +63,7 @@ $app->get("/FillKurumlarCmb_infokurumlar/", function () use ($app ) {
                 "text" =>  html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                "attributes" => ""
             );
         }
     } else if ($componentType == 'ddslick') {       
@@ -171,7 +171,7 @@ $app->get("/pkFillKurumlar_infokurumlar/", function () use ($app ) {
                 "IlceId" => $flow["ilceId"],
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
-                "attributes" => array("notroot" => true,), 
+                 "attributes" => ""
                  
             );
         }

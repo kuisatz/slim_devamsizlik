@@ -63,7 +63,7 @@ $app->get("/FillNobetBilgileriNowCmb_infonobetprogrami/", function () use ($app 
                 "text" =>  html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                "attributes" =>  "",  
             );
         }
     } else if ($componentType == 'ddslick') {       
@@ -164,7 +164,7 @@ $app->get("/pkFillNobetBilgileri_infonobetprogrami/", function () use ($app ) {
                 "Bittar" => $flow["bittar"],
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
-                "attributes" => array("notroot" => true,), 
+               "attributes" =>  "",  
             );
         }
       //  $counts = $resTotalRowCount[0]['count'];
@@ -260,7 +260,7 @@ $app->get("/pkFillNobetBilgileriDshBrd_infonobetprogrami/", function () use ($ap
                 "NobetYeri" => html_entity_decode($flow["nobetYeri"]),
                 "Bastar" => $flow["bastar"],
                 "Bittar" => $flow["bittar"],
-                "attributes" => array("notroot" => true,), 
+                 "attributes" =>  "",  
             );
         }
       //  $counts = $resTotalRowCount[0]['count'];

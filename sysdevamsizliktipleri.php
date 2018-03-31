@@ -63,7 +63,7 @@ $app->get("/FillDevamsizlikTipleriCmb_sysdevamsizliktipleri/", function () use (
                 "text" =>  html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                "attributes" =>   $menu["active"] ,
             );
         }
     } else if ($componentType == 'ddslick') {       
@@ -161,7 +161,7 @@ $app->get("/pkFillDevamsizlikTipleri_sysdevamsizliktipleri/", function () use ($
                 "DevamsizlikTipi" => html_entity_decode($flow["devamsizlikTipi"]), 
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
-                "attributes" => array("notroot" => true,),
+                  "attributes" =>  "",  
             );
         }
       //  $counts = $resTotalRowCount[0]['count'];

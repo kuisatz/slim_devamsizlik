@@ -78,7 +78,7 @@ $app->get("/FillKurumTurleriCmb_sysKurumTurleri/", function () use ($app ) {
                 "text" =>  html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                "attributes" =>  $menu["active"] ,
             );
         }
     } else if ($componentType == 'ddslick') {       
@@ -177,7 +177,7 @@ $app->get("/pkFillKurumTipleri_sysKurumTurleri/", function () use ($app ) {
                 "Kurumgrupname" => html_entity_decode($flow["kurumgrupname"]), 
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
-                "attributes" => array("notroot" => true,),
+                  "attributes" =>  "",  
                  
             );
         }

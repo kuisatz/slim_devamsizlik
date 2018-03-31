@@ -104,7 +104,7 @@ $app->get("/pkFillGrid_infoUsers/", function () use ($app ) {
             "consultant_id" => $flow["consultant_id"],
             "cons_name" => $flow["cons_name"],
             "cons_surname" => $flow["cons_surname"],            
-            "attributes" => array("notroot" => true, "active" => $flow["active"]),
+             "attributes" =>  "",  
         );
     }
     $app->response()->header("Content-Type", "application/json");
@@ -1101,7 +1101,7 @@ $app->get("/pkFillUsersListNpk_infoUsers/", function () use ($app ) {
             "language_id" => $flow["language_id"],
             "language_name" => html_entity_decode($flow["language_name"]),    
             "network_key" => $flow["network_key"],  
-            "attributes" => array("notroot" => true, ),
+             "attributes" =>  "",  
         );
         }
        $counts = $resTotalRowCount[0]['count'];
@@ -1169,7 +1169,7 @@ $app->get("/pkFillUsersInformationNpk_infoUsers/", function () use ($app ) {
             "title" => html_entity_decode($flow["title"]),  
             "title_eng" => html_entity_decode($flow["title_eng"]),  
             "userb" => html_entity_decode($flow["userb"]), 
-            "attributes" => array("notroot" => true, ), 
+             "attributes" =>  "",  
         );
         }
      }
@@ -1526,7 +1526,7 @@ $app->get("/fillUsersProfileInformationGuest_infoUsers/", function () use ($app 
             "state_active" => html_entity_decode($flow["state_active"]),   
             "profile_public" => $flow["profile_public"],            
             "state_profile_public" => html_entity_decode($flow["state_profile_public"]),            
-            "attributes" => array( "active" => $flow["active"],  ), 
+            "attributes" =>  "",  
         );
         }
      }
@@ -1596,7 +1596,7 @@ $app->get("/pkFillUsersProfileInformation_infoUsers/", function () use ($app ) {
             "state_active" => html_entity_decode($flow["state_active"]),   
             "profile_public" => $flow["profile_public"],            
             "state_profile_public" => html_entity_decode($flow["state_profile_public"]),            
-            "attributes" => array( ), 
+              "attributes" =>  "",  
         );
         }
      }
@@ -1643,7 +1643,7 @@ $app->get("/pkGetUserShortInformation_infoUsers/", function () use ($app ) {
             "cons_allow" =>  $flow["cons_allow"] ,  
             
             
-            "attributes" => array( ), 
+             "attributes" =>  "",  
         );
         }
      }
@@ -1744,7 +1744,7 @@ $app->get("/pkFillTempUserLists_infoUsers/", function () use ($app ) {
                  "meslek" => html_entity_decode($menu["meslek"]),
                  "education_type" => html_entity_decode($menu["education_type"]),
                 "education_type_id" => $menu["education_type_id"],
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                "attributes" =>  "",  
                      
                 
             );
@@ -1846,7 +1846,7 @@ $app->get("/fillTempUserListsx_infoUsers/", function () use ($app ) {
                  "meslek" => html_entity_decode($menu["meslek"]),
                  "education_type" => html_entity_decode($menu["education_type"]),
                 "education_type_id" => $menu["education_type_id"],
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                 "attributes" =>  "",  
                      
                 
             );

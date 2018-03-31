@@ -63,7 +63,7 @@ $app->get("/FillOgretmenTipleriCmb_sysogretmentipleri/", function () use ($app )
                 "text" =>  html_entity_decode($menu["name"]),
                 "state" => $menu["state_type"], //   'closed',
                 "checked" => false,
-                "attributes" => array("notroot" => true, "active" => $menu["active"]),
+                "attributes" =>   $menu["active"] ,
             );
         }
     } else if ($componentType == 'ddslick') {       
@@ -160,7 +160,7 @@ $app->get("/pkFillOgretmenTipleri_sysogretmentipleri/", function () use ($app ) 
                 "Aciklama" => html_entity_decode($flow["aciklama"]), 
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),
-                "attributes" => array("notroot" => true,),
+                  "attributes" =>  "",  
             );
         }
     //   $counts = $resTotalRowCount[0]['count'];
