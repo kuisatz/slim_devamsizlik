@@ -137,7 +137,7 @@ $app->get("/pkFillKbsGorevTipleri_syskbsGorevTipleri/", function () use ($app ) 
         $filterRules = $stripper->offsetGet('filterRules')->getFilterValue();
     }
     
-    $resDataGrid = $BLL->pkFillKbsGorevTipleri(array( 
+    $resDataGrid = $BLL->FillKbsGorevTipleri(array( 
         'pk' => $pk,
         'page' => $vPage,
         'rows' => $vRows,
