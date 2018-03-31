@@ -554,24 +554,23 @@ class SysOgretmenBransTipleri extends \DAL\DalSlim {
     public function makeActiveOrPassive($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
+           if (isset($params['id']) && $params['id'] != "") { 
             $pdo->beginTransaction();
             $opUserId = InfoUsers::getUserId(array('pk' => $params['pk']));
             if (\Utill\Dal\Helper::haveRecord($opUserId)) {
-                $opUserIdValue = $opUserId ['resultSet'][0]['user_id'];
-                if (isset($params['id']) && $params['id'] != "") {
-
+                $opUserIdValue = $opUserId ['resultSet'][0]['user_id']; 
                     $sql = "                 
-                UPDATE sys_OgretmenBransTipleri
-                SET active = (  SELECT   
-                                CASE active
-                                    WHEN 0 THEN 1
-                                    ELSE 0
-                                END activex
-                                FROM sys_OgretmenBransTipleri
-                                WHERE id = " . intval($params['id']) . "
-                ),
-                op_user_id = " . intval($opUserIdValue) . "
-                WHERE id = " . intval($params['id']);
+                        UPDATE sys_OgretmenBransTipleri
+                        SET active = (  SELECT   
+                                        CASE active
+                                            WHEN 0 THEN 1
+                                            ELSE 0
+                                        END activex
+                                        FROM sys_OgretmenBransTipleri
+                                        WHERE id = " . intval($params['id']) . "
+                        ),
+                        op_user_id = " . intval($opUserIdValue) . "
+                        WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
                     //  echo debugPDO($sql, $params);
                     $update = $statement->execute();
@@ -579,15 +578,16 @@ class SysOgretmenBransTipleri extends \DAL\DalSlim {
                     $errorInfo = $statement->errorInfo();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
-                }
-                $pdo->commit();
-                return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
+                    $pdo->commit();
+                    return array("found" => true, "errorInfo" => $errorInfo, "affectedRowsCount" => $afterRows);
+                            
             } else {
                 $errorInfo = '23502';   // 23502  not_null_violation
                 $errorInfoColumn = 'pk';
                 $pdo->rollback();
                 return array("found" => false, "errorInfo" => $errorInfo, "resultSet" => '', "errorInfoColumn" => $errorInfoColumn);
             }
+           }
         } catch (\PDOException $e /* Exception $e */) {
             $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());

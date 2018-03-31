@@ -156,7 +156,7 @@ $app->get("/pkFillOgretmenBransTipleri_sysogretmenbranstipleri/", function () us
     if (isset($resDataGrid[0]['id'])) {
         foreach ($resDataGrid as $flow) {
             $flows[] = array(
-                "Id" => intval($flow["Id"]), 
+                "Id" => intval($flow["id"]), 
                 "Aciklama" => html_entity_decode($flow["aciklama"]), 
                 "Active" => intval($flow["active"]),
                 "Deleted" => intval($flow["deleted"]),

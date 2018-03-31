@@ -224,16 +224,16 @@ class SysOkulTur extends \DAL\DalSlim {
                 $id = $params['id'];
             }
             $okulTurSno = 0;
-            if (isset($params['okulTurSno']) && $params['okulTurSno'] != "") {
-                $okulTurSno = $params['okulTurSno'];
+            if (isset($params['OkulTurSno']) && $params['OkulTurSno'] != "") {
+                $okulTurSno = $params['OkulTurSno'];
             }
             $aciklama = '';
-            if (isset($params['aciklama']) && $params['aciklama'] != "") {
-                $aciklama = $params['aciklama'];
+            if (isset($params['Aciklama']) && $params['Aciklama'] != "") {
+                $aciklama = $params['Aciklama'];
             }
             $okulTurKullan = 0;
-            if (isset($params['okulTurKullan']) && $params['okulTurKullan'] != "") {
-                $okulTurKullan = $params['okulTurKullan'];
+            if (isset($params['OkulTurKullan']) && $params['OkulTurKullan'] != "") {
+                $okulTurKullan = $params['OkulTurKullan'];
             }
                 $sql = "
                 UPDATE sys_OkulTur
