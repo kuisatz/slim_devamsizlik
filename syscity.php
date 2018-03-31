@@ -93,7 +93,7 @@ $app->get("/fillComboBox_syscity/", function () use ($app ) {
                 "value" =>intval($menu["id"]),
                 "selected" => false,
                 "description" => html_entity_decode( $menu["name_eng"]),
-                "attributes" => array("boroughlist" => $menu["boroughlist"], "active" => $menu["active"],)
+                "attributes" =>  "",
               //  "imageSrc" => ""
             );
         }

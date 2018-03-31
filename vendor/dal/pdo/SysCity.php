@@ -410,19 +410,13 @@ class SysCity extends \DAL\DalSlim {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactory');
             
             $sql = "
-              SELECT 
-		a.city_id AS id,
-                COALESCE(NULLIF( COALESCE(NULLIF(a.name, ''), a.name_eng),''), a.name) AS name,
-                a.name_eng,
-                CASE (SELECT COUNT(z.id) FROM sys_borough z WHERE z.country_id = a.country_id) 
-			WHEN 0 THEN false
-			ELSE true END AS boroughlist,
-                a.active
-                FROM sys_city a
-                WHERE a.active = 0 AND a.deleted = 0 and 
-                a.language_id = 647 AND
-                  a.country_id = 91                   
-                ORDER BY a.priority ASC, name               
+            SELECT 
+		a.IlID AS id,
+                IlAdi AS name, 
+                '' as name_eng, 
+                0 as active
+            FROM Iller a 
+            ORDER BY IlAdi               
                                  ";
             $statement = $pdo->prepare($sql);
          //   echo debugPDO($sql, $params);  
