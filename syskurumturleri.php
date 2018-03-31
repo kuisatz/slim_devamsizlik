@@ -152,7 +152,7 @@ $app->get("/pkFillKurumTipleri_sysKurumTurleri/", function () use ($app ) {
         $filterRules = $stripper->offsetGet('filterRules')->getFilterValue();
     }
     
-    $resDataGrid = $BLL->pkFillKurumTipleri(array( 
+    $resDataGrid = $BLL->FillKurumTipleri(array( 
         'pk' => $pk,
         'page' => $vPage,
         'rows' => $vRows,
