@@ -1392,8 +1392,123 @@ and open the template in the editor. ѝ
                         console.warn('error text status-->' + textStatus);
                     }
                 });   
+  /////////////////////////////////////sysdusmeOncelikleri 
+                      
+                             
+                //pkDelete_sysdusmeOncelikleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkDelete_sysdusmeOncelikleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                }); 
+                            
+                                    
+                //pkInsert_sysdusmeOncelikleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_sysdusmeOncelikleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        dersinTipi : ' Deneme türü',
+                        Oncelik : 1, 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                       
+                           
+                  //pkUpdate_sysdusmeOncelikleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_sysdusmeOncelikleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        dersinTipi : ' Deneme türü',
+                        Oncelik : 1, 
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                                 
+                                   
+                //pkUpdateMakeActiveOrPassive_sysKurumTurleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_sysdusmeOncelikleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                                  
+                  //FillDusmeOncelikleriCmb_sysdusmeOncelikleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillDusmeOncelikleriCmb_sysdusmeOncelikleri',  
+                       // KurumGrupID : 1,
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                 //pkFillDusmeOncelikleri_sysdusmeOncelikleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillDusmeOncelikleri_sysdusmeOncelikleri',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                  //**---- sysdusmeOncelikleri -------------------   
+                  
                 
-                
+           
                 
                 
                 

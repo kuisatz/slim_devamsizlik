@@ -113,6 +113,11 @@ class BLLManagerConfig{
                 'infoKurumlarBLL' => 'BLL\BLL\InfoKurumlar', 
                 'sysKurumTurleriBLL' => 'BLL\BLL\SysKurumTurleri',
                 'sysKurumGruplariBLL' => 'BLL\BLL\SysKurumGruplari',
+                'sysDusmeOncelikleriBLL' => 'BLL\BLL\SysDusmeOncelikleri',
+                 
+                 
+                 
+                 
              ),
              'factories' => [
                  //'reportConfigurationPDO' => 'BLL\BLL\ReportConfiguration',
