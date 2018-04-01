@@ -331,7 +331,7 @@ $app->get("/pkInsert_infoOgretmenler/", function () use ($app ) {
  *  * Okan CIRAN
 * @since 31-01-2018
  */
-$app->get("/pkUpdate_infonobetprogrami/", function () use ($app ) {
+$app->get("/pkUpdate_infoOgretmenler/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory(); 
     $BLL = $app->getBLLManager()->get('infoOgretmenlerBLL');  
@@ -430,7 +430,7 @@ $app->get("/pkUpdate_infonobetprogrami/", function () use ($app ) {
 * @since 31-01-2018
  */
  
-$app->get("/pkDelete_infonobetprogrami/", function () use ($app ) {
+$app->get("/pkDelete_infoOgretmenler/", function () use ($app ) {
     $stripper = $app->getServiceManager()->get('filterChainerCustom');
     $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();    
     $BLL = $app->getBLLManager()->get('infoOgretmenlerBLL');   
