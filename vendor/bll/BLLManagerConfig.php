@@ -117,7 +117,7 @@ class BLLManagerConfig{
                 'sysHesaplanmaSekilleriBLL' => 'BLL\BLL\SysHesaplanmaSekilleri',
                 'sysKbsGorevTipleriBLL' => 'BLL\BLL\SysKbsGorevTipleri', 
                  
-                 
+                'infoOgretmenlerBLL' => 'BLL\BLL\InfoOgretmenler', 
                  
                  
              ),

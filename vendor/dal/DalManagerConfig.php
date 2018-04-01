@@ -115,6 +115,8 @@ class DalManagerConfig {
                 'sysHesaplanmaSekilleriPDO' => 'DAL\Factory\PDO\SysHesaplanmaSekilleriFactory', 
                 'sysKbsGorevTipleriPDO' => 'DAL\Factory\PDO\SysKbsGorevTipleriFactory', 
                 
+                'infoOgretmenlerPDO' => 'DAL\Factory\PDO\InfoOgretmenlerFactory', 
+                
                  
             ],
         ),

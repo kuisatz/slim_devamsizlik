@@ -1737,7 +1737,135 @@ and open the template in the editor. ѝ
                 });   
                   //**---- sysHesaplanmaSekilleriBLL -------------------   
                 
-                
+    
+        //**---- InfoOgretmenler -------------------   
+                  
+                //pkDelete_infoOgretmenler
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkDelete_infoOgretmenler',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                }); 
+                            
+                                    
+                //pkInsert_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkInsert_infoOgretmenler',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        OkulId : 1,
+                        Ad : 'Ahmet', 
+                        Soyad : 'Metmet', 
+                        Tc : '12121212121',
+                        SbGorevId : 3,
+                        SbBransId : 4,
+                        OgretmenTipId : 2,
+                        Dogumtarihi : '02/22/2018',
+                          
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                       
+                           
+                  //pkUpdate_infoOgretmenler
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdate_infoOgretmenler',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        OkulId : 1,
+                        Ad : 'Ahmet', 
+                        Soyad : 'Metmet', 
+                        Tc : '12121212121',
+                        SbGorevId : 3,
+                        SbBransId : 4,
+                        OgretmenTipId : 2,
+                        Dogumtarihi : '02/22/2018',
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });                                 
+                                   
+                //pkUpdateMakeActiveOrPassive_infoOgretmenler
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkUpdateMakeActiveOrPassive_infoOgretmenler',  
+                        pk: 'd9ZM8FQMFCc.Dzo',  
+                        Id : 5987,
+                         
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                                  
+                  //FillKbsGorevTipleriCmb_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'FillOkulOgretmenleriCmb_infoOgretmenler',  
+                        OkulId : 1,
+                   
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });
+                 //pkFillKbsGorevTipleri_syskbsGorevTipleri
+                $.ajax({
+                    //  url : '../Slim_Proxy_sorubankasi/SlimProxyBoot.php',   
+                    url: '../Slim_Proxy_devamsizlik/SlimProxyBoot.php',
+                    data: {
+                        url: 'pkFillOgretmenler_infoOgretmenler',  
+                        pk: 'd9ZM8FQMFCc.Dzo', 
+                        OkulId : 1,
+                        page: '',
+                        rows: '',
+                        sort: '',
+                        order: '',  
+                        filterRules: '', 
+                    },
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.warn('error text status-->' + textStatus);
+                    }
+                });   
+                  //**---- sysHesaplanmaSekilleriBLL -------------------   
                 
                 
 ///////////   sonn 

@@ -16,11 +16,11 @@ namespace DAL\PDO;
  * @
  * @author Okan CIRAN
  */
-class InfoNobetProgrami extends \DAL\DalSlim {
+class InfoOgretmenler extends \DAL\DalSlim {
 
     /**
      * @author Okan CIRAN
-     * @ info_nobetProgrami tablosundan parametre olarak  gelen id kaydını siler. !!
+     * @ info_ogretmenler tablosundan parametre olarak  gelen id kaydını siler. !!
      * @version v 1.0  07.01.2016
      * @param array $params
      * @return array
@@ -38,7 +38,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                     $id = $params['id'];
                 }
                 $statement = $pdo->prepare(" 
-                UPDATE info_nobetProgrami
+                UPDATE info_ogretmenler
                 SET deleted= 1, active = 1,
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = ".intval($id) 
@@ -65,7 +65,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
  
     /**     
      * @author Okan CIRAN
-     * @ info_nobetProgrami tablosundaki tüm kayıtları getirir.  !!
+     * @ info_ogretmenler tablosundaki tüm kayıtları getirir.  !!
      * @version v 1.0  25.01.2016    
      * @return array
      * @throws \PDOException
@@ -90,9 +90,9 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 sd.description AS state_deleted,  
                 sd1.description AS state_active,  
                 u.username
-            FROM info_nobetProgrami a  
-            INNER JOIN info_nobetProgrami sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
-            INNER JOIN info_nobetProgrami sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
+            FROM info_ogretmenler a  
+            INNER JOIN info_ogretmenler sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
+            INNER JOIN info_ogretmenler sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
             INNER JOIN sys_language l ON l.language_main_code = a.language_code AND l.deleted = 0 AND l.active = 0 
             INNER JOIN info_users u ON u.id = a.user_id 
             WHERE a.deleted =0 AND a.language_code = :language_code            
@@ -112,7 +112,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
 
     /**    
      * @author Okan CIRAN
-     * @ info_nobetProgrami tablosuna yeni bir kayıt oluşturur.  !!
+     * @ info_ogretmenler tablosuna yeni bir kayıt oluşturur.  !!
      * @version v 1.0  25.01.2016
      * @return array
      * @throws \PDOException
@@ -123,50 +123,65 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             $pdo->beginTransaction();
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) { 
-            $ogrId = 0;
-            if (isset($params['ogrId']) && $params['ogrId'] != "") {
-                $ogrId = $params['ogrId'];
+            $ad = '';
+            if (isset($params['ad']) && $params['ad'] != "") {
+                $soyad = $params['ad'];
             }
-            $nobetYeri = '';
-            if (isset($params['nobetYeri']) && $params['nobetYeri'] != "") {
-                $nobetYeri = $params['nobetYeri'];
+            $soyad = '';
+            if (isset($params['soyad']) && $params['soyad'] != "") {
+                $soyad = $params['soyad'];
             }
+            $tc = '';
+            if (isset($params['tc']) && $params['tc'] != "") {
+                $tc = $params['tc'];
+            }
+            $sbGorevId =0;
+            if (isset($params['sbGorevId']) && $params['sbGorevId'] != "") {
+                $sbGorevId = $params['sbGorevId'];
+            }
+            $sbBransId =0;
+            if (isset($params['sbBransId']) && $params['sbBransId'] != "") {
+                $sbBransId = $params['sbBransId'];
+            }
+            $ogretmenTipId =0;
+            if (isset($params['ogretmenTipId']) && $params['ogretmenTipId'] != "") {
+                $ogretmenTipId = $params['ogretmenTipId'];
+            }
+             $okulId =0;
+            if (isset($params['okulId']) && $params['okulId'] != "") {
+                $okulId = $params['okulId'];
+            }
+            
+                            
             $addSQL =NULL;
             $addSQLValue =NULL;
-            $bastar = NULL;
-            if (isset($params['bastar']) && $params['bastar'] != "") {
-                $bastar = $params['bastar'];
-                $addSQL .=' bastar, ';
-                $addSQLValue .= "'".$bastar."',";
+            $dogumtarihi = NULL;
+            if (isset($params['dogumtarihi']) && $params['dogumtarihi'] != "") {
+                $dogumtarihi = $params['dogumtarihi'];
+                $addSQL .=' dogumtarihi, ';
+                $addSQLValue .= "'".$dogumtarihi."',";
             }
-            $basSaat = NULL;
-            if (isset($params['basSaat']) && $params['basSaat'] != "") {
-                $basSaat = $params['basSaat'];
-                $addSQL .=' basSaat, ';
-                $addSQLValue .= "'".$basSaat."',";
-            }
-            $bittar = NULL;
-            if (isset($params['bittar']) && $params['bittar'] != "") {
-                $bittar = $params['bittar'];
-                $addSQL .=' bittar, ';
-                $addSQLValue .= "'".$bittar."',";
-            }
-            $bitSaat = NULL;
-            if (isset($params['bitSaat']) && $params['bitSaat'] != "") {
-                $bitSaat = $params['bitSaat'];
-                $addSQL .=' bitSaat, ';
-                $addSQLValue .= "'".$bitSaat."',";
-            }
+                            
                 $sql = "
-                INSERT INTO info_nobetProgrami(
-                        ogrId,
+                INSERT INTO info_ogretmenler(
+                        ad,
+                        soyad,
+                        tc,
+                        sbGorevId,
+                        sbBransId,
+                        ogretmenTipId, 
                         ".$addSQL." 
-                        nobetYeri 
+                        okulId 
                         )
                 VALUES (
-                        ".$ogrId.",
+                        '".$ad."'  
+                        '".$soyad."'  
+                        '".$tc."'  
+                        ".$sbGorevId.",
+                        ".$sbBransId.",
+                        ".$ogretmenTipId.",
                         ".$addSQLValue." 
-                        '".$nobetYeri."'  
+                        ".$okulId."  
                                             
                          )   ";
                 $statement = $pdo->prepare($sql);              
@@ -192,7 +207,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
 
     /**    
      * @author Okan CIRAN
-     * @ info_nobetProgrami tablosunda name sutununda daha önce oluşturulmuş mu? 
+     * @ info_ogretmenler tablosunda name sutununda daha önce oluşturulmuş mu? 
      * @version v 1.0 15.01.2016
      * @return array
      * @throws \PDOException
@@ -204,31 +219,19 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             if (isset($params['id'])) {
                 $addSql = " AND id != " . intval($params['id']) . " ";
             }
-            if (isset($params['ogrId']) && $params['ogrId'] != "") {
-                $addSql .=" AND ogrId = " . $params['ogrId'] . " "; 
-                if (isset($params['nobetYeri']) && $params['nobetYeri'] != "") {
-                    $addSql .=" AND nobetYeri = '" . $params['nobetYeri'] . "' ";
-                }
-                if (isset($params['bastar']) && $params['bastar'] != "") {
-                    $addSql .=" AND bastar = '" . $params['bastar'] . "' ";
-                }
-                if (isset($params['bittar']) && $params['bittar'] != "") {
-                    $addSql .=" AND bittar = '" . $params['bittar'] . "' ";
-                }
-                if (isset($params['basSaat']) && $params['basSaat'] != "") {
-                    $addSql .=" AND basSaat = '" . $params['basSaat'] . "' ";
-                }
-                if (isset($params['bitSaat']) && $params['bitSaat'] != "") {
-                    $addSql .=" AND bitSaat = '" . $params['bitSaat'] . "' ";
-                }
-            } ELSE { $addSql .=" AND ogrId = -1 "; }
+            if (isset($params['okulId']) && $params['okulId'] != "") {
+                $addSql .=" AND okulId = " . $params['okulId'] . " "; 
+                if (isset($params['tc']) && $params['tc'] != "") {
+                    $addSql .=" AND tc = '" . $params['tc'] . "' ";
+                }          
+            }  
             $sql = " 
             SELECT  
-                aciklama as name , 
+                tc as name , 
                 '1' AS value , 
                 cast(1 as bit) AS control,
-                concat(NobetYeri , ' daha önce kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
-            FROM info_nobetProgrami                
+                concat(tc , ' daha önce okula kayıt edilmiş. Lütfen Kontrol Ediniz !!!' ) AS message
+            FROM info_ogretmenler                
             WHERE 1=1  
                 ". $addSql . " 
                 AND deleted =0   
@@ -248,7 +251,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
 
     /**   
      * @author Okan CIRAN
-     * info_nobetProgrami tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
+     * info_ogretmenler tablosuna parametre olarak gelen id deki kaydın bilgilerini günceller   !!
      * @version v 1.0  25.01.2016
      * @param type $params
      * @return array
@@ -264,33 +267,48 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             if (isset($params['id']) && $params['id'] != "") {
                 $id = $params['id'];
             }
-            $ogrId = 0;
-            if (isset($params['ogrId']) && $params['ogrId'] != "") {
-                $ogrId = $params['ogrId'];
+            $ad = '';
+            if (isset($params['ad']) && $params['ad'] != "") {
+                $soyad = $params['ad'];
             }
-            $nobetYeri = '';
-            if (isset($params['nobetYeri']) && $params['nobetYeri'] != "") {
-                $nobetYeri = $params['nobetYeri'];
+            $soyad = '';
+            if (isset($params['soyad']) && $params['soyad'] != "") {
+                $soyad = $params['soyad'];
             }
-            $addSQL =NULL;   
-            if (isset($params['bastar']) && $params['bastar'] != "") { 
-                $addSQL .=" bastar = '".$params['bastar']."',";
-            }             
-            if (isset($params['bittar']) && $params['bittar'] != "") { 
-                $addSQL .=" bittar = '".$params['bittar']."',";
+            $tc = '';
+            if (isset($params['tc']) && $params['tc'] != "") {
+                $tc = $params['tc'];
             }
-            if (isset($params['basSaat']) && $params['basSaat'] != "") {
-                $addSql .=" AND basSaat = '" . $params['basSaat']."',";
+            $sbGorevId =0;
+            if (isset($params['sbGorevId']) && $params['sbGorevId'] != "") {
+                $sbGorevId = $params['sbGorevId'];
             }
-            if (isset($params['bitSaat']) && $params['bitSaat'] != "") {
-                $addSql .=" AND bitSaat = '" . $params['bitSaat']."',";
+            $sbBransId =0;
+            if (isset($params['sbBransId']) && $params['sbBransId'] != "") {
+                $sbBransId = $params['sbBransId'];
+            }
+            $ogretmenTipId =0;
+            if (isset($params['ogretmenTipId']) && $params['ogretmenTipId'] != "") {
+                $ogretmenTipId = $params['ogretmenTipId'];
+            }
+            $okulId =0;
+            if (isset($params['okulId']) && $params['okulId'] != "") {
+                $okulId = $params['okulId'];
+            }
+            if (isset($params['dogumtarihi']) && $params['dogumtarihi'] != "") { 
+                $addSql .=" dogumtarihi = '" . $params['dogumtarihi'] . "' ,"; 
             }
                 $sql = "
-                UPDATE info_nobetProgrami
-                SET    
-                    ogrId = ".$ogrId.",   
+                UPDATE info_ogretmenler
+                SET   
+                    ad = '".$ad."'  
+                    soyad = '".$soyad."'  
+                    tc = '".$tc."'  
+                    sbGorevId = ".$sbGorevId.",
+                    sbBransId = ".$sbBransId.",
+                    ogretmenTipId = ".$ogretmenTipId.",
                     ". $addSql . " 
-                    nobetYeri = '".$nobetYeri."'  
+                    okulId = ".$okulId."  
                 WHERE id = " . intval($id);
                 $statement = $pdo->prepare($sql); 
                 $update = $statement->execute();
@@ -315,7 +333,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
  
     /**  
      * @author Okan CIRAN
-     * @ Gridi doldurmak için info_nobetProgrami tablosundan kayıtları döndürür !!
+     * @ Gridi doldurmak için info_ogretmenler tablosundan kayıtları döndürür !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
@@ -386,9 +404,9 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                             sd.description AS state_deleted,  
                             sd1.description AS state_active,  
                             u.username
-                        FROM info_nobetProgrami a  
-                        INNER JOIN info_nobetProgrami sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
-                        INNER JOIN info_nobetProgrami sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
+                        FROM info_ogretmenler a  
+                        INNER JOIN info_ogretmenler sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = a.language_code AND sd.deleted = 0 AND sd.active = 0 
+                        INNER JOIN info_ogretmenler sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = a.language_code AND sd1.deleted = 0 AND sd1.active = 0
                         INNER JOIN sys_language l ON l.language_main_code = a.language_code AND l.deleted = 0 AND l.active = 0 
                         INNER JOIN info_users u ON u.id = a.user_id 
                         WHERE a.deleted =0 AND language_code = '" . $params['language_code'] . "' ) AS asd               
@@ -419,7 +437,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
 
     /** 
      * @author Okan CIRAN
-     * @ Gridi doldurmak için info_nobetProgrami tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
+     * @ Gridi doldurmak için info_ogretmenler tablosundan çekilen kayıtlarının kaç tane olduğunu döndürür   !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
@@ -434,19 +452,19 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             $sql = "
                 SELECT 
                     COUNT(a.id) AS COUNT ,
-                    (SELECT COUNT(a1.id) FROM info_nobetProgrami a1  
-                    INNER JOIN info_nobetProgrami sd1x ON sd1x.main_group = 15 AND sd1x.first_group= a1.deleted AND sd1x.language_code = 'tr' AND sd1x.deleted = 0 AND sd1x.active = 0
-                    INNER JOIN info_nobetProgrami sd11 ON sd11.main_group = 16 AND sd11.first_group= a1.active AND sd11.language_code = 'tr' AND sd11.deleted = 0 AND sd11.active = 0                             
+                    (SELECT COUNT(a1.id) FROM info_ogretmenler a1  
+                    INNER JOIN info_ogretmenler sd1x ON sd1x.main_group = 15 AND sd1x.first_group= a1.deleted AND sd1x.language_code = 'tr' AND sd1x.deleted = 0 AND sd1x.active = 0
+                    INNER JOIN info_ogretmenler sd11 ON sd11.main_group = 16 AND sd11.first_group= a1.active AND sd11.language_code = 'tr' AND sd11.deleted = 0 AND sd11.active = 0                             
                     INNER JOIN info_users u1 ON u1.id = a1.user_id 
                      " . $whereSQL1 . " ) AS undeleted_count, 
-                    (SELECT COUNT(a2.id) FROM info_nobetProgrami a2
-                    INNER JOIN info_nobetProgrami sd2 ON sd2.main_group = 15 AND sd2.first_group= a2.deleted AND sd2.language_code = 'tr' AND sd2.deleted = 0 AND sd2.active = 0
-                    INNER JOIN info_nobetProgrami sd12 ON sd12.main_group = 16 AND sd12.first_group= a2.active AND sd12.language_code = 'tr' AND sd12.deleted = 0 AND sd12.active = 0                             
+                    (SELECT COUNT(a2.id) FROM info_ogretmenler a2
+                    INNER JOIN info_ogretmenler sd2 ON sd2.main_group = 15 AND sd2.first_group= a2.deleted AND sd2.language_code = 'tr' AND sd2.deleted = 0 AND sd2.active = 0
+                    INNER JOIN info_ogretmenler sd12 ON sd12.main_group = 16 AND sd12.first_group= a2.active AND sd12.language_code = 'tr' AND sd12.deleted = 0 AND sd12.active = 0                             
                     INNER JOIN info_users u2 ON u2.id = a2.user_id 			
                       " . $whereSQL2 . " ) AS deleted_count                        
-                FROM info_nobetProgrami a
-                INNER JOIN info_nobetProgrami sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = 'tr' AND sd.deleted = 0 AND sd.active = 0
-                INNER JOIN info_nobetProgrami sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = 'tr' AND sd1.deleted = 0 AND sd1.active = 0                             
+                FROM info_ogretmenler a
+                INNER JOIN info_ogretmenler sd ON sd.main_group = 15 AND sd.first_group= a.deleted AND sd.language_code = 'tr' AND sd.deleted = 0 AND sd.active = 0
+                INNER JOIN info_ogretmenler sd1 ON sd1.main_group = 16 AND sd1.first_group= a.active AND sd1.language_code = 'tr' AND sd1.deleted = 0 AND sd1.active = 0                             
                 INNER JOIN info_users u ON u.id = a.user_id 
                 " . $whereSQL . "
                     ";
@@ -467,13 +485,13 @@ class InfoNobetProgrami extends \DAL\DalSlim {
     /** 
      * @author Okan CIRAN
      * su  an kullanılmıyor
-     * @ combobox doldurmak için info_nobetProgrami tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
+     * @ combobox doldurmak için info_ogretmenler tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
      * @throws \PDOException
      */ 
-    public function fillNobetBilgileri($params = array()) {
+    public function fillOgretmenler($params = array()) {
         if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
             $offset = ((intval($params['page']) - 1) * intval($params['rows']));
             $limit = intval($params['rows']);
@@ -490,7 +508,7 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             if (count($sortArr) === 1)
                 $sort = trim($params['sort']);
         } else {
-            $sort = "concat(b.ad,' ',b.soyad) ";            
+            $sort = "concat(a.ad,' ',a.soyad) ";            
         }
 
         if (isset($params['order']) && $params['order'] != "") {
@@ -511,30 +529,43 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                            case 'Adsoyad':
+                            case 'Ad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND ad " . $sorguExpression . ' '; 
                                 break;
-                            case 'NobetYeri':
+                            case 'Soyad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND soyad " . $sorguExpression . ' '; 
+                                break;
+                            case 'tc':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND tc" . $sorguExpression . ' '; 
                                 break; 
-                            case 'Bastar':
+                            case 'Dogumtarihi':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
+                                $sorguStr.=" AND FORMAT(dogumtarihi, 'dd-MM-yyyy')" . $sorguExpression . ' '; 
                                 break;
-                            case 'Bittar':
+                            case 'Gorevadi':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
-                                break;
-                            case 'BasSaat':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
-                                break;
-                            case 'BitSaat':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
+                                $sorguStr.=" AND gorevadi" . $sorguExpression . ' '; 
                                 break; 
+                             case 'BransAdi':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND bransAdi" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Ogretmentipi':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND ogretmentipi" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Okuladi':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND okuladi " . $sorguExpression . ' '; 
+                                break; 
+                            case 'yonetimKadrosumuText':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND yonetimKadrosumuText " . $sorguExpression . ' '; 
+                                break; 
+                            
                             default:
                                 break;
                         }
@@ -543,27 +574,45 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             }  
             $sorguStr = rtrim($sorguStr, "AND ");
             
+            $okulId =0;
+            if (isset($params['okulId']) && $params['okulId'] != "") {
+                $okulId = $params['okulId'];
+            } 
  
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
             $sql = "
-            SELECT
-                a.id,
-                a.ogrId,
-                concat(b.ad,' ',b.soyad) as adsoyad, 
-                a.nobetYeri, 
-                CONCAT(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', CAST(a.basSaat as nvarchar(5))) as bastar,
-                CAST(a.basSaat as nvarchar(5)) as basSaat, 
-                CONCAT(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', CAST(a.bitSaat as nvarchar(5))) as bittar,
-                CAST(a.bitSaat as nvarchar(5)) as bitSaat,
-                a.active,
-                a.deleted
-            FROM info_nobetProgrami a
-            INNER JOIN info_ogretmenler b ON b.id = a.ogrId AND b.active =0 AND b.deleted =0 
-            WHERE
-                a.deleted =0 AND /* a.active=0 AND */ 
-                getdate() BETWEEN a.bastar AND a.bittar 
-            /*     '2017-10-17' BETWEEN a.bastar AND a.bittar */ 
+            SELECT * FROM ( 
+                SELECT  
+                    a.id
+                    ,a.ad
+                    ,a.soyad
+                    ,a.sbGorevId
+                    ,c.kod as gorevadi
+                    ,a.sbBransId
+                    ,d.bransAdi
+                    ,a.ogretmenTipId
+                    ,e.aciklama as ogretmentipi
+                    ,e.yonetimKadrosumu
+                    ,case e.yonetimKadrosumu 
+                        when 0 then 'Hayır'
+                        when 1 then 'Evet'
+                    else 'Bilinmiyor' end as yonetimKadrosumuText
+                    ,a.tc
+                    ,a.dogumtarihi 
+                    ,a.active 
+                    ,a.okulId
+                    ,b.name as okuladi
+                FROM BILSANET_DEVAMSIZLIK.dbo.info_ogretmenler a
+                INNER JOIN BILSANET_DEVAMSIZLIK.dbo.info_Okullar b ON b.id = a.okulId AND b.deleted =0 AND b.active=0
+                LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_SbGorev c ON c.id = a.sbGorevId AND c.deleted =0 AND c.active=0
+                LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_ders_SbBrans d ON d.id = a.sbBransId AND d.deleted =0 AND d.active=0
+                LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_OgretmenTipleri e ON e.id = a.ogretmenTipId  AND e.deleted =0 AND e.active=0
+                WHERE a.okulId = ".$okulId." AND
+                    a.deleted =0 AND /* a.active=0 AND */  
+            ) as dsdasd
+            where 
+                1=1 
                 " . $sorguStr . "
             ORDER BY    " . $sort . " "
             . "" . $order . "  
@@ -587,13 +636,13 @@ class InfoNobetProgrami extends \DAL\DalSlim {
     /** 
      * @author Okan CIRAN
      * su  an kullanılmıyor
-     * @ combobox doldurmak için info_nobetProgrami tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
+     * @ combobox doldurmak için info_ogretmenler tablosundan parent ı 0 olan kayıtları (Ana grup) döndürür !!
      * @version v 1.0  25.01.2016
      * @param array | null $params
      * @return array
      * @throws \PDOException
      */
-    public function fillNobetBilgileriRtc() {
+    public function fillOgretmenlerRtc() {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
             $sorguStr = null;
@@ -605,29 +654,41 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 foreach ($jsonFilter as $std) {
                     if ($std['value'] != null) {
                         switch (trim($std['field'])) {
-                           case 'Adsoyad':
+                           case 'Ad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND ad " . $sorguExpression . ' '; 
                                 break;
-                            case 'NobetYeri':
+                            case 'Soyad':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
+                                $sorguStr.=" AND soyad " . $sorguExpression . ' '; 
+                                break;
+                            case 'tc':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND tc" . $sorguExpression . ' '; 
                                 break; 
-                            case 'Bastar':
+                            case 'Dogumtarihi':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
+                                $sorguStr.=" AND FORMAT(dogumtarihi, 'dd-MM-yyyy')" . $sorguExpression . ' '; 
                                 break;
-                            case 'Bittar':
+                            case 'Gorevadi':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
-                                break;
-                            case 'BasSaat':
+                                $sorguStr.=" AND gorevadi" . $sorguExpression . ' '; 
+                                break; 
+                             case 'BransAdi':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
-                                break;
-                            case 'BitSaat':
+                                $sorguStr.=" AND bransAdi" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Ogretmentipi':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
+                                $sorguStr.=" AND ogretmentipi" . $sorguExpression . ' '; 
+                                break; 
+                            case 'Okuladi':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND okuladi " . $sorguExpression . ' '; 
+                                break; 
+                            case 'yonetimKadrosumuText':
+                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
+                                $sorguStr.=" AND yonetimKadrosumuText " . $sorguExpression . ' '; 
                                 break; 
                             default:
                                 break;
@@ -636,15 +697,45 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 }
             }                
             $sorguStr = rtrim($sorguStr, "AND ");
+            
+            $okulId =0;
+            if (isset($params['okulId']) && $params['okulId'] != "") {
+                $okulId = $params['okulId'];
+            } 
             $sql = "
             SELECT
-                count(a.id) as count 
-            FROM info_nobetProgrami a
-            INNER JOIN info_ogretmenler b ON b.id = a.ogrId AND b.active =0 AND b.deleted =0 
-            WHERE
-                a.deleted =0 AND /* a.active=0 AND */ 
-               /*	getdate() BETWEEN a.bastar AND a.bittar */ 
-                '2017-10-17' BETWEEN a.bastar AND a.bittar
+                count(id) as count 
+            FROM ( 
+                SELECT  
+                    a.id
+                    ,a.ad
+                    ,a.soyad
+                    ,a.sbGorevId
+                    ,c.kod as gorevadi
+                    ,a.sbBransId
+                    ,d.bransAdi
+                    ,a.ogretmenTipId
+                    ,e.aciklama as ogretmentipi
+                    ,e.yonetimKadrosumu
+                    ,case e.yonetimKadrosumu 
+                        when 0 then 'Hayır'
+                        when 1 then 'Evet'
+                    else 'Bilinmiyor' end as yonetimKadrosumuText
+                    ,a.tc
+                    ,a.dogumtarihi 
+                    ,a.active 
+                    ,a.okulId
+                    ,b.name as okuladi
+                FROM BILSANET_DEVAMSIZLIK.dbo.info_ogretmenler a
+                INNER JOIN BILSANET_DEVAMSIZLIK.dbo.info_Okullar b ON b.id = a.okulId AND b.deleted =0 AND b.active=0
+                LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_SbGorev c ON c.id = a.sbGorevId AND c.deleted =0 AND c.active=0
+                LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_ders_SbBrans d ON d.id = a.sbBransId AND d.deleted =0 AND d.active=0
+                LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_OgretmenTipleri e ON e.id = a.ogretmenTipId  AND e.deleted =0 AND e.active=0
+                WHERE a.okulId = ".$okulId." AND
+                    a.deleted =0 AND /* a.active=0 AND */  
+            ) as dsdasd
+                where 
+                1=1 
                 " . $sorguStr . "
                 ";
             $statement = $pdo->prepare($sql);
@@ -659,204 +750,10 @@ class InfoNobetProgrami extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    /** 
-     * @author Okan CIRAN
-     * su  an kullanılmıyor
-     * @ combobox doldurmak için info_nobetProgrami tablosundan kayıtları döndürür !!
-     * @version v 1.0  25.01.2016
-     * @param array | null $params
-     * @return array
-     * @throws \PDOException
-     */ 
-    public function fillNobetBilgileriDshBrd($params = array()) {
-        if (isset($params['page']) && $params['page'] != "" && isset($params['rows']) && $params['rows'] != "") {
-            $offset = ((intval($params['page']) - 1) * intval($params['rows']));
-            $limit = intval($params['rows']);
-        } else {
-            $limit = 10;
-            $offset = 0;
-        }
-
-        $sortArr = array();
-        $orderArr = array();
-        if (isset($params['sort']) && $params['sort'] != "") {
-            $sort = trim($params['sort']);
-            $sortArr = explode(",", $sort);
-            if (count($sortArr) === 1)
-                $sort = trim($params['sort']);
-        } else {
-            $sort = "concat(b.ad,' ',b.soyad) ";            
-        }
-
-        if (isset($params['order']) && $params['order'] != "") {
-            $order = trim($params['order']);
-            $orderArr = explode(",", $order);
-            //print_r($orderArr);
-            if (count($orderArr) === 1)
-                $order = trim($params['order']);
-        } else {        
-            $order = "ASC";
-        }
-        $sorguStr = null;
-            if ((isset($params['filterRules']) && $params['filterRules'] != "")) {
-                $filterRules = trim($params['filterRules']);
-                $jsonFilter = json_decode($filterRules, true);
-
-                $sorguExpression = null;
-                foreach ($jsonFilter as $std) {
-                    if ($std['value'] != null) {
-                        switch (trim($std['field'])) {
-                             case 'Adsoyad':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
-                                break;
-                            case 'NobetYeri':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
-                                break; 
-                            case 'Bastar':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
-                                break;
-                            case 'Bittar':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
-                                break;
-                            case 'BasSaat':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
-                                break;
-                            case 'BitSaat':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
-                                break; 
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }  
-            $sorguStr = rtrim($sorguStr, "AND ");
-            
- 
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');
-            $sql = "
-            SELECT
-                a.id,
-                a.ogrId,
-                concat(b.ad,' ',b.soyad) as adsoyad, 
-                a.nobetYeri, 
-                CONCAT(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', CAST(a.basSaat as nvarchar(5))) as bastar,
-                CAST(a.basSaat as nvarchar(5)) as basSaat, 
-                CONCAT(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', CAST(a.bitSaat as nvarchar(5))) as bittar,
-                CAST(a.bitSaat as nvarchar(5)) as bitSaat 
-            FROM info_nobetProgrami a
-            INNER JOIN info_ogretmenler b ON b.id = a.ogrId AND b.active =0 AND b.deleted =0 
-            WHERE
-                a.deleted =0 AND a.active=0 AND
-               /*	getdate() BETWEEN a.bastar AND a.bittar */ 
-                '2017-10-17' BETWEEN a.bastar AND a.bittar
-                " . $sorguStr . "
-            ORDER BY    " . $sort . " "
-            . "" . $order . "  
-            OFFSET ".$offset." ROWS FETCH NEXT ".$limit." ROWS ONLY;      
-            " ;
-            
-            $statement = $pdo->prepare($sql); 
-            //   echo debugPDO($sql, $parameters);     
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {
-            //$debugSQLParams = $statement->debugDumpParams();
-            return array("found" => false, "errorInfo" => $e->getMessage()/* , 'debug' => $debugSQLParams */);
-        }
-    }
-
-    /** 
-     * @author Okan CIRAN
-     * su  an kullanılmıyor
-     * @ grid doldurmak için info_nobetProgrami tablosundan  kayıtlarının sayısını döndürür !!
-     * @version v 1.0  25.01.2016
-     * @param array | null $params
-     * @return array
-     * @throws \PDOException
-     */
-    public function fillNobetBilgileriDshBrdRtc() {
-        try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
-            $sorguStr = null;
-            if ((isset($params['filterRules']) && $params['filterRules'] != "")) {
-                $filterRules = trim($params['filterRules']);
-                $jsonFilter = json_decode($filterRules, true);
-
-                 $sorguExpression = null;
-                foreach ($jsonFilter as $std) {
-                    if ($std['value'] != null) {
-                        switch (trim($std['field'])) {
-                            case 'Adsoyad':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(b.ad,' ',b.soyad)" . $sorguExpression . ' '; 
-                                break;
-                            case 'NobetYeri':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND a.nobetYeri" . $sorguExpression . ' '; 
-                                break; 
-                            case 'Bastar':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
-                                break;
-                            case 'Bittar':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND concat(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', cast(a.basSaat as nvarchar(5))) " . $sorguExpression . ' '; 
-                                break;
-                            case 'BasSaat':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5))" . $sorguExpression . ' '; 
-                                break;
-                            case 'BitSaat':
-                                $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
-                                $sorguStr.=" AND CAST(a.bitSaat as nvarchar(5)) " . $sorguExpression . ' '; 
-                                break; 
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }                
-            $sorguStr = rtrim($sorguStr, "AND ");
-            $sql = "
-            SELECT
-                count(a.id) as count 
-            FROM info_nobetProgrami a
-            INNER JOIN info_ogretmenler b ON b.id = a.ogrId AND b.active =0 AND b.deleted =0 
-            WHERE
-                a.deleted =0 AND a.active=0 AND
-               /*	getdate() BETWEEN a.bastar AND a.bittar */ 
-                '2017-10-17' BETWEEN a.bastar AND a.bittar
-                " . $sorguStr . "
-                ";
-            $statement = $pdo->prepare($sql);
-          //  echo debugPDO($sql, $params);
-            $statement->execute();
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
-            $errorInfo = $statement->errorInfo();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {        
-            return array("found" => false, "errorInfo" => $e->getMessage());
-        }
-    }
-                            
+                     
     /**
      * @author Okan CIRAN
-     * @ info_nobetProgrami tablosundan parametre olarak  gelen id kaydın aktifliğini
+     * @ info_ogretmenler tablosundan parametre olarak  gelen id kaydın aktifliğini
      *  0(aktif) ise 1 , 1 (pasif) ise 0  yapar. !!
      * @version v 1.0  13.06.2016
      * @param type $params
@@ -873,13 +770,13 @@ class InfoNobetProgrami extends \DAL\DalSlim {
                 if (isset($params['id']) && $params['id'] != "") {
 
                     $sql = "                 
-                UPDATE info_nobetProgrami
+                UPDATE info_ogretmenler
                 SET active = (  SELECT   
                                 CASE active
                                     WHEN 0 THEN 1
                                     ELSE 0
                                 END activex
-                                FROM info_nobetProgrami
+                                FROM info_ogretmenler
                                 WHERE id = " . intval($params['id']) . "
                 ),
                 op_user_id = " . intval($opUserIdValue) . "
@@ -908,32 +805,30 @@ class InfoNobetProgrami extends \DAL\DalSlim {
 
     /** 
      * @author Okan CIRAN
-     * @ nobetçi ögretmenler dropdown ya da tree ye doldurmak için info_nobetProgrami tablosundan kayıtları döndürür !!
+     * @ ogretmenler dropdown ya da tree ye doldurmak için info_ogretmenler tablosundan kayıtları döndürür !!
      * @version v 1.0  18.07.2017
      * @param array | null $params
      * @return array
      * @throws \PDOException 
      */
-    public function fillNobetBilgileriNowCmb($params = array()) {
+    public function fillOkulOgretmenleriCmb($params = array()) {
         try {
-            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory');   
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectDevamsizlikFactory'); 
+            $okulId =0;
+            if (isset($params['okulId']) && $params['okulId'] != "") {
+                $okulId = $params['okulId'];
+            } 
             $sql = "            
-                SELECT
-                    a.id,
-                  /*  a.ogrId,*/
-                    concat(b.ad,' ',b.soyad) as name,
+                SELECT                    
+                    a.id, 	
+                    concat(a.adi ,' ', a.soyad)  AS name,  
                     a.active, 
-                    0 AS state_type 
-                   /* a.nobetYeri,
-                    CONCAT(FORMAT( a.bastar, 'dd-MM-yyyy') ,' ', CAST(a.basSaat as nvarchar(5))) as bastar,
-                    CONCAT(FORMAT( a.bittar, 'dd-MM-yyyy') ,' ', CAST(a.bitSaat as nvarchar(5))) as bittar */ 
-                FROM info_nobetProgrami a
-                INNER JOIN info_ogretmenler b ON b.id = a.ogrId AND b.active =0 AND b.deleted =0 
-                WHERE
-                    a.deleted =0 AND a.active=0 AND
-                   /*	getdate() BETWEEN a.bastar AND a.bittar */ 
-                    '2017-10-17' BETWEEN a.bastar AND a.bittar 
-                ORDER BY concat(b.ad,' ',b.soyad) 
+                    0 AS state_type  
+                FROM info_ogretmenler a     
+                WHERE                     
+                    a.active = 0 AND                    
+                    a.deleted = 0 
+                ORDER BY  concat(a.adi ,' ', a.soyad)
              ";
             $statement = $pdo->prepare($sql);
           //  echo debugPDO($sql, $params);
