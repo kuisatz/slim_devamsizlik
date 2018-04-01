@@ -174,9 +174,9 @@ class InfoOgretmenler extends \DAL\DalSlim {
                         okulId 
                         )
                 VALUES (
-                        '".$ad."'  
-                        '".$soyad."'  
-                        '".$tc."'  
+                        '".$ad."',
+                        '".$soyad."',
+                        '".$tc."',
                         ".$sbGorevId.",
                         ".$sbBransId.",
                         ".$ogretmenTipId.",
@@ -302,9 +302,9 @@ class InfoOgretmenler extends \DAL\DalSlim {
                 $sql = "
                 UPDATE info_ogretmenler
                 SET   
-                    ad = '".$ad."'  
-                    soyad = '".$soyad."'  
-                    tc = '".$tc."'  
+                    ad = '".$ad."',
+                    soyad = '".$soyad."',
+                    tc = '".$tc."',
                     sbGorevId = ".$sbGorevId.",
                     sbBransId = ".$sbBransId.",
                     ogretmenTipId = ".$ogretmenTipId.",
