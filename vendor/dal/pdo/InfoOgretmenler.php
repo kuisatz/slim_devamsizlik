@@ -508,7 +508,7 @@ class InfoOgretmenler extends \DAL\DalSlim {
             if (count($sortArr) === 1)
                 $sort = trim($params['sort']);
         } else {
-            $sort = "concat(a.ad,' ',a.soyad) ";            
+            $sort = "concat(ad,' ',soyad) ";            
         }
 
         if (isset($params['order']) && $params['order'] != "") {
@@ -561,7 +561,7 @@ class InfoOgretmenler extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND okuladi " . $sorguExpression . ' '; 
                                 break; 
-                            case 'yonetimKadrosumuText':
+                            case 'YonetimKadrosumuText':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND yonetimKadrosumuText " . $sorguExpression . ' '; 
                                 break; 
@@ -609,7 +609,7 @@ class InfoOgretmenler extends \DAL\DalSlim {
                 LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_ders_SbBrans d ON d.id = a.sbBransId AND d.deleted =0 AND d.active=0
                 LEFT JOIN BILSANET_DEVAMSIZLIK.dbo.sys_OgretmenTipleri e ON e.id = a.ogretmenTipId  AND e.deleted =0 AND e.active=0
                 WHERE a.okulId = ".$okulId." AND
-                    a.deleted =0 AND /* a.active=0 AND */  
+                    a.deleted =0 /*  AND a.active=0 AND */  
             ) as dsdasd
             where 
                 1=1 
@@ -686,7 +686,7 @@ class InfoOgretmenler extends \DAL\DalSlim {
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND okuladi " . $sorguExpression . ' '; 
                                 break; 
-                            case 'yonetimKadrosumuText':
+                            case 'YonetimKadrosumuText':
                                 $sorguExpression = ' ILIKE \'%' . $std['value'] . '%\' ';
                                 $sorguStr.=" AND yonetimKadrosumuText " . $sorguExpression . ' '; 
                                 break; 

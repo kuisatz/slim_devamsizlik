@@ -47,6 +47,8 @@ $app->add(new \Slim\Middleware\MiddlewareMQManager());
 * @since 31-01-2018
  */
 $app->get("/FillOkulOgretmenleriCmb_infoOgretmenler/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('infoOgretmenlerBLL'); 
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
