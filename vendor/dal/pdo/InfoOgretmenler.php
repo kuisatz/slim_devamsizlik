@@ -263,6 +263,7 @@ class InfoOgretmenler extends \DAL\DalSlim {
             $pdo->beginTransaction();     
             $kontrol = $this->haveRecords($params); 
             if (!\Utill\Dal\Helper::haveRecord($kontrol)) {
+            $addSql = NULL;
             $id = 0;
             if (isset($params['id']) && $params['id'] != "") {
                 $id = $params['id'];
@@ -826,14 +827,14 @@ class InfoOgretmenler extends \DAL\DalSlim {
             $sql = "            
                 SELECT                    
                     a.id, 	
-                    concat(a.adi ,' ', a.soyad)  AS name,  
+                    concat(a.ad ,' ', a.soyad)  AS name,  
                     a.active, 
                     0 AS state_type  
                 FROM info_ogretmenler a     
                 WHERE                     
                     a.active = 0 AND                    
                     a.deleted = 0 
-                ORDER BY  concat(a.adi ,' ', a.soyad)
+                ORDER BY  concat(a.ad ,' ', a.soyad)
              ";
             $statement = $pdo->prepare($sql);
           //  echo debugPDO($sql, $params);
