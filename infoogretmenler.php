@@ -223,13 +223,13 @@ $app->get("/pkUpdateMakeActiveOrPassive_infoOgretmenler/", function () use ($app
     }
     $Pk = $headerParams['X-Public'];      
     $vId = NULL;
-    if (isset($_GET['id'])) {
-        $stripper->offsetSet('id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
+    if (isset($_GET['Id'])) {
+        $stripper->offsetSet('Id', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED,
                                                 $app,
-                                                $_GET['id']));
+                                                $_GET['Id']));
     } 
     $stripper->strip(); 
-    if ($stripper->offsetExists('id')) {$vId = $stripper->offsetGet('id')->getFilterValue(); }
+    if ($stripper->offsetExists('Id')) {$vId = $stripper->offsetGet('Id')->getFilterValue(); }
     $resData = $BLL->makeActiveOrPassive(array(                  
             'id' => $vId ,    
             'pk' => $Pk,        
